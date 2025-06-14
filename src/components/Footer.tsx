@@ -1,5 +1,4 @@
-
-import { Heart } from "lucide-react";
+import { Heart, facebook, instagram, linkedin, twitter, youtube } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -17,6 +16,54 @@ export const Footer = () => {
               The exclusive dating platform for verified global professionals seeking 
               authentic, health-conscious connections for marriage and long-term commitment.
             </p>
+            {/* Social Media Icons */}
+            <div className="flex items-center space-x-4 mt-6">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="hover:text-blue-400 transition-colors"
+              >
+                {facebook({ className: "w-6 h-6" })}
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="hover:text-pink-400 transition-colors"
+              >
+                {instagram({ className: "w-6 h-6" })}
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="hover:text-blue-300 transition-colors"
+              >
+                {linkedin({ className: "w-6 h-6" })}
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+                className="hover:text-sky-400 transition-colors"
+              >
+                {twitter({ className: "w-6 h-6" })}
+              </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="hover:text-red-500 transition-colors"
+              >
+                {youtube({ className: "w-6 h-6" })}
+              </a>
+            </div>
           </div>
           
           <div>
