@@ -9,6 +9,7 @@ import GentlemenProfilePage from "./pages/GentlemenProfile";
 import LadiesProfilePage from "./pages/LadiesProfile";
 import ProfileSearch from "./pages/ProfileSearch";
 import TestimonialsPage from "./pages/TestimonialsPage";
+import DonateCompensation from "./pages/DonateCompensation";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/ladies-profile" element={<LadiesProfilePage />} />
           <Route path="/profile-search" element={<ProfileSearch />} />
           <Route path="/testimonials" element={<TestimonialsPage />} />
+          <Route path="/donate-compensation" element={<DonateCompensation />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

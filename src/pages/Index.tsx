@@ -32,6 +32,11 @@ const Index = () => {
           <Link to="/profile-search">
             <Button className="bg-blue-900 text-white hover:bg-blue-800">Search Profiles</Button>
           </Link>
+          <Link to="/donate-compensation">
+            <Button className="bg-green-700 text-white hover:bg-green-800">
+              Donate &amp; Get Compensated
+            </Button>
+          </Link>
         </div>
       </div>
       <Footer />
