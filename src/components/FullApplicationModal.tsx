@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { FullApplicationModalHeader } from "./FullApplicationModalHeader";
@@ -78,7 +77,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
         <FullApplicationModalHeader onClose={handleModalClose} />
         <div
           ref={scrollContentRef}
-          className="overflow-y-auto max-h-[calc(80vh-64px)] px-6 pb-28 pt-2"
+          className="overflow-y-auto max-h-[calc(80vh-64px)] px-6 pt-2"
           tabIndex={-1}
         >
           {showSubmitSuccess ? (
@@ -103,15 +102,13 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
                 agreed={agreed}
                 setAgreed={setAgreed}
               />
+              <FullApplicationModalSubmitBar
+                agreed={agreed}
+                handleSubmit={handleSubmit}
+              />
             </form>
           )}
         </div>
-        {!showSubmitSuccess && (
-          <FullApplicationModalSubmitBar
-            agreed={agreed}
-            handleSubmit={handleSubmit}
-          />
-        )}
       </DialogContent>
     </Dialog>
   );
