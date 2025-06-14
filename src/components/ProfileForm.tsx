@@ -20,6 +20,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ gender, onSave }) => {
   });
   const [photos, setPhotos] = useState<(string | ArrayBuffer | null)[]>([]);
   const fileInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [agreedToDisclaimer, setAgreedToDisclaimer] = useState(false);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -42,6 +43,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ gender, onSave }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!agreedToDisclaimer) return;
     onSave({ ...form, photos });
   };
 
@@ -156,7 +158,28 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ gender, onSave }) => {
           ))}
         </div>
       </div>
-      <Button type="submit" className="w-full text-lg bg-blue-900 hover:bg-blue-800">
+
+      {/* Disclaimer agreement */}
+      <div className="p-4 bg-slate-50 rounded border border-slate-200">
+        <label className="flex items-start gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            className="mt-1"
+            checked={agreedToDisclaimer}
+            onChange={(e) => setAgreedToDisclaimer(e.target.checked)}
+            required
+          />
+          <span className="text-xs text-gray-700">
+            <strong>Legal Disclaimer Agreement:</strong> I acknowledge and agree that Elite Match and its Owners are not responsible for anything that happens between individuals that meet and date from this site. Elite Match bears no responsibility for interactions, relationships, or consequences thereof. If issues arise, I understand I must go to my local authorities to make a police report and take proper legal recourse against the parties involved in my dating or relationship activities. By registering, I accept full responsibility and release Elite Match and its Owners from all liability. <span className="text-red-700 font-semibold">*</span>
+          </span>
+        </label>
+      </div>
+
+      <Button
+        type="submit"
+        className="w-full text-lg bg-blue-900 hover:bg-blue-800"
+        disabled={!agreedToDisclaimer}
+      >
         Save Profile
       </Button>
     </form>
