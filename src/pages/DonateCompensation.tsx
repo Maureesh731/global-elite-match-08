@@ -1,40 +1,8 @@
+
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { BackToHomeButton } from "@/components/BackToHomeButton";
-
-const donations = [
-  {
-    title: "Donate Blood",
-    summary: "Save lives by donating blood to local hospitals or blood banks.",
-    how: [
-      "Find a local blood drive or hospital accepting donations.",
-      "Ensure you meet eligibility (age, health, recent travel).",
-      "Bring a government ID and eat beforehand.",
-    ],
-    compensation: "Some locations may offer gift cards or small compensation (usually $20–$60 per donation)."
-  },
-  {
-    title: "Donate Sperm",
-    summary: "Help families grow by donating sperm at an approved clinic.",
-    how: [
-      "Apply to a sperm bank online or in person.",
-      "Pass health screenings (age, medical, infectious diseases).",
-      "Make regular donations as required by the clinic.",
-    ],
-    compensation: "You can earn $50–$150 per accepted donation from sperm banks."
-  },
-  {
-    title: "Donate Eggs",
-    summary: "Egg donation can make parenthood possible for others.",
-    how: [
-      "Apply with a licensed fertility clinic.",
-      "Go through medical and psychological evaluation.",
-      "Complete hormone treatments and a minor procedure for egg retrieval.",
-    ],
-    compensation: "Egg donors usually receive $5,000–$15,000 per cycle, depending on the clinic and region."
-  },
-];
 
 export default function DonateCompensation() {
   return (
@@ -43,32 +11,60 @@ export default function DonateCompensation() {
       <main className="flex-1 py-12">
         <div className="container mx-auto max-w-3xl px-4">
           <BackToHomeButton />
-          <h1 className="text-4xl font-bold mb-8 text-center text-slate-900">Donate & Get Compensated</h1>
+          <h1 className="text-4xl font-bold mb-8 text-center text-slate-900">
+            Donate, Bid, and Get Compensated
+          </h1>
           <p className="mb-8 text-center text-lg text-slate-700">
-            Discover how you can help others and get compensated for your generosity! Below are three common ways to make a difference—and receive compensation—by donating blood, sperm, or eggs.
+            Elite Match connects generous donors and recipients for blood, sperm, and egg donations. 
+            Members can offer their donation services and receive bids. All payments are handled directly between members; Elite Match simply facilitates the auction and takes a 10% fee.{" "}
+            All physical donations must be performed at a registered 3rd-party clinic or service.
           </p>
-          <div className="space-y-8">
-            {donations.map((d) => (
-              <Card key={d.title}>
-                <CardHeader>
-                  <CardTitle>{d.title}</CardTitle>
-                  <CardDescription>{d.summary}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <span className="font-semibold text-slate-800">How it works:</span>
-                  <ul className="list-disc ml-6 mb-3 text-slate-700">
-                    {d.how.map((step, i) => (
-                      <li key={i}>{step}</li>
-                    ))}
-                  </ul>
-                  <span className="font-semibold text-slate-800">Compensation:</span>
-                  <p className="text-slate-600">{d.compensation}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <Card>
+            <CardHeader>
+              <CardTitle>How Does the Donation Auction Work?</CardTitle>
+              <CardDescription>
+                An open, member-driven auction for donation opportunities.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ul className="list-disc ml-7 text-slate-700 space-y-2">
+                <li>
+                  Members who wish to donate blood, sperm, or eggs can <span className="font-semibold">create an auction listing</span> describing their offer and setting a starting price.
+                </li>
+                <li>
+                  Interested members <span className="font-semibold">place bids</span> on listings. The highest bid at auction close wins.
+                </li>
+                <li>
+                  <span className="font-semibold">Winning bidders pay the auctioned amount directly to the donor member.</span>
+                </li>
+                <li>
+                  <span className="font-semibold">Elite Match charges a 10% auction fee</span> from each successful sale.
+                </li>
+                <li>
+                  All actual donation services (blood, sperm, egg) are arranged and completed by <span className="font-semibold">3rd-party accredited clinics or agencies</span>. Elite Match <span className="text-red-700 font-semibold">does not handle the medical process</span>.
+                </li>
+              </ul>
+              <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded mt-2 text-slate-800 text-sm">
+                <span className="font-semibold">Example:</span> Jane lists an egg donation with a starting bid of $5000. The auction ends at $8500. The buyer pays Jane $8500 directly. Elite Match invoices Jane for a 10% fee ($850). Then, Jane and the buyer arrange an egg donation at an approved clinic.
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle>Important Disclaimers</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc ml-7 text-slate-700 space-y-2">
+                <li>Elite Match is <span className="font-semibold">not a medical provider</span> and does not perform or facilitate actual donations.</li>
+                <li>Donors and recipients are solely responsible for arranging appointments at 3rd-party clinics.</li>
+                <li>Elite Match’s role is to enable member-to-member auction and take a standard 10% fee per sale.</li>
+                <li>It is the responsibility of both parties to verify all legal, medical, and eligibility requirements with the relevant donation clinic/agency prior to proceeding.</li>
+              </ul>
+            </CardContent>
+          </Card>
           <p className="mt-12 text-xs text-slate-500 text-center">
-            * Information for educational purposes only. Always consult a medical professional and accredited clinic for eligibility and up-to-date compensation.
+            * All information is for educational purposes. Always consult a medical professional and use accredited donation services.
           </p>
         </div>
       </main>
