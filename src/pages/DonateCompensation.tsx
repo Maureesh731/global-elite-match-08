@@ -1,7 +1,7 @@
-
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { BackToHomeButton } from "@/components/BackToHomeButton";
 
 const donations = [
   {
@@ -42,6 +42,7 @@ export default function DonateCompensation() {
       <Header />
       <main className="flex-1 py-12">
         <div className="container mx-auto max-w-3xl px-4">
+          <BackToHomeButton />
           <h1 className="text-4xl font-bold mb-8 text-center text-slate-900">Donate & Get Compensated</h1>
           <p className="mb-8 text-center text-lg text-slate-700">
             Discover how you can help others and get compensated for your generosity! Below are three common ways to make a difference—and receive compensation—by donating blood, sperm, or eggs.

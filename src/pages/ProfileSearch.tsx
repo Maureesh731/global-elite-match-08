@@ -1,6 +1,6 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { BackToHomeButton } from "@/components/BackToHomeButton";
 
 // This demo list is static - backend filter coming in production.
 const demoProfiles = [
@@ -44,6 +44,7 @@ export default function ProfileSearch() {
   if (!userGender)
     return (
       <div className="flex flex-col items-center mx-auto py-20 gap-8">
+        <BackToHomeButton />
         <h2 className="text-2xl font-semibold">Select Your Gender to Search</h2>
         <div className="flex gap-8">
           <Button onClick={() => setUserGender("Gentleman")} className="px-8 text-lg">Gentleman</Button>
@@ -55,6 +56,7 @@ export default function ProfileSearch() {
   if (!subscribed)
     return (
       <div className="flex flex-col items-center mx-auto py-20 gap-6">
+        <BackToHomeButton />
         <h2 className="text-xl font-bold">Subscription Required</h2>
         <p className="text-gray-700 mb-2">Please purchase a monthly subscription to access the search.</p>
         <Button
@@ -66,6 +68,7 @@ export default function ProfileSearch() {
 
   return (
     <div className="container max-w-3xl mx-auto py-12">
+      <BackToHomeButton />
       <h2 className="text-3xl font-extrabold mb-8 text-center">Browse Members</h2>
       {filtered.length === 0 && (
         <div className="text-center text-gray-400 py-12">
