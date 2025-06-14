@@ -1,13 +1,16 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
++import { FullApplicationModal } from "@/components/FullApplicationModal";
 
 export const Header = () => {
   // Simulate membership state: in a real app, derive from auth context/provider
   const [isMember, setIsMember] = useState(false);
   const navigate = useNavigate();
++  const [showAppModal, setShowAppModal] = useState(false);
 
   // Simulate sign in
   const handleSignIn = () => {
@@ -21,9 +24,12 @@ export const Header = () => {
     toast.success("Signed out (demo)");
   };
 
-  const handleApply = () => {
-    navigate("/gentlemen-profile"); // Or route to a registration/join page
-  };
+-  const handleApply = () => {
+-    navigate("/gentlemen-profile"); // Or route to a registration/join page
+-  };
++  const handleApply = () => {
++    setShowAppModal(true);
++  };
 
   return (
     <header className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
@@ -95,9 +101,16 @@ export const Header = () => {
               <Button variant="ghost" className="text-slate-600 hover:text-blue-900" onClick={handleSignIn}>
                 Sign In
               </Button>
-              <Button className="bg-blue-900 hover:bg-blue-800" onClick={handleApply}>
-                Apply Now
-              </Button>
+-              <Button className="bg-blue-900 hover:bg-blue-800" onClick={handleApply}>
+-                Apply Now
+-              </Button>
++              <Button className="bg-blue-900 hover:bg-blue-800" onClick={handleApply}>
++                Apply Now
++              </Button>
++              <FullApplicationModal
++                open={showAppModal}
++                onOpenChange={setShowAppModal}
++              />
             </>
           )}
         </div>
