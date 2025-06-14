@@ -1,4 +1,3 @@
-
 import { Heart, Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 
 export const Footer = () => {
@@ -84,6 +83,11 @@ export const Footer = () => {
               <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Safety Guidelines</a></li>
+              <li>
+                <a href="/referral-program" className="hover:text-white text-blue-300 transition-colors font-semibold">
+                  Referral Program
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -97,4 +101,3 @@ export const Footer = () => {
     </footer>
   );
 };
-
