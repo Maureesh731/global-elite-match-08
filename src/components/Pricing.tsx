@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -45,7 +44,7 @@ export const Pricing = () => {
               </CardDescription>
               
               <div className="flex items-center justify-center space-x-2">
-                <span className="text-5xl font-bold text-slate-900">$39</span>
+                <span className="text-5xl font-bold text-slate-900">$49</span>
                 <div className="text-left">
                   <div className="text-xl font-semibold text-slate-900">.95</div>
                   <div className="text-slate-600">per month</div>
