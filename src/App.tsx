@@ -11,6 +11,7 @@ import ProfileSearch from "./pages/ProfileSearch";
 import TestimonialsPage from "./pages/TestimonialsPage";
 import DonateCompensation from "./pages/DonateCompensation";
 import ReferralProgram from "./pages/ReferralProgram";
+import NetworkingPage from "./pages/NetworkingPage";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/donate-compensation" element={<DonateCompensation />} />
           <Route path="/referral-program" element={<ReferralProgram />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/networking" element={<NetworkingPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
