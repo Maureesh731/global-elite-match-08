@@ -1,4 +1,5 @@
-import { Heart, facebook, instagram, linkedin, twitter, youtube } from "lucide-react";
+
+import { Heart, Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -25,7 +26,7 @@ export const Footer = () => {
                 aria-label="Facebook"
                 className="hover:text-blue-400 transition-colors"
               >
-                {facebook({ className: "w-6 h-6" })}
+                <Facebook className="w-6 h-6" />
               </a>
               <a
                 href="https://instagram.com"
@@ -34,7 +35,7 @@ export const Footer = () => {
                 aria-label="Instagram"
                 className="hover:text-pink-400 transition-colors"
               >
-                {instagram({ className: "w-6 h-6" })}
+                <Instagram className="w-6 h-6" />
               </a>
               <a
                 href="https://linkedin.com"
@@ -43,7 +44,7 @@ export const Footer = () => {
                 aria-label="LinkedIn"
                 className="hover:text-blue-300 transition-colors"
               >
-                {linkedin({ className: "w-6 h-6" })}
+                <Linkedin className="w-6 h-6" />
               </a>
               <a
                 href="https://twitter.com"
@@ -52,7 +53,7 @@ export const Footer = () => {
                 aria-label="Twitter"
                 className="hover:text-sky-400 transition-colors"
               >
-                {twitter({ className: "w-6 h-6" })}
+                <Twitter className="w-6 h-6" />
               </a>
               <a
                 href="https://youtube.com"
@@ -61,7 +62,7 @@ export const Footer = () => {
                 aria-label="YouTube"
                 className="hover:text-red-500 transition-colors"
               >
-                {youtube({ className: "w-6 h-6" })}
+                <Youtube className="w-6 h-6" />
               </a>
             </div>
           </div>
@@ -96,3 +97,4 @@ export const Footer = () => {
     </footer>
   );
 };
+
