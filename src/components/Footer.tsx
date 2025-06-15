@@ -1,5 +1,5 @@
-
 import { Heart, Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
@@ -77,9 +77,14 @@ export const Footer = () => {
               <li><a href="#" className="hover:text-white transition-colors">Success Stories</a></li>
               <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
               <li>
-                <a href="/networking" className="hover:text-white text-blue-300 transition-colors font-semibold">
+                <Link to="/networking" className="hover:text-white text-blue-300 transition-colors font-semibold">
                   Networking
-                </a>
+                </Link>
+              </li>
+              <li>
+                <Link to="/lab-partner" className="hover:text-white text-blue-300 transition-colors font-semibold">
+                  Lab Partnership
+                </Link>
               </li>
             </ul>
           </div>
@@ -93,9 +98,9 @@ export const Footer = () => {
               <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Safety Guidelines</a></li>
               <li>
-                <a href="/referral-program" className="hover:text-white text-blue-300 transition-colors font-semibold">
+                <Link to="/referral-program" className="hover:text-white text-blue-300 transition-colors font-semibold">
                   Referral Program
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -129,4 +134,3 @@ export const Footer = () => {
     </footer>
   );
 };
-

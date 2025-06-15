@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
@@ -65,6 +64,12 @@ export const Header = () => {
             >
               Testimonials
             </Link>
+            <Link
+              to="/lab-partner"
+              className="text-slate-600 hover:text-blue-900 transition-colors"
+            >
+              Lab Partner
+            </Link>
           </nav>
         ) : (
           <nav className="hidden md:flex items-center space-x-8">
@@ -83,6 +88,12 @@ export const Header = () => {
               className="text-slate-600 hover:text-blue-900 transition-colors"
             >
               Testimonials
+            </Link>
+            <Link
+              to="/lab-partner"
+              className="text-slate-600 hover:text-blue-900 transition-colors"
+            >
+              Lab Partner
             </Link>
           </nav>
         )}
