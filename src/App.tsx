@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,6 +15,7 @@ import ReferralProgram from "./pages/ReferralProgram";
 import NetworkingPage from "./pages/NetworkingPage";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCanceled from "./pages/PaymentCanceled";
+import LabPartnerPage from "./pages/LabPartner";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +33,7 @@ const App = () => (
           <Route path="/testimonials" element={<TestimonialsPage />} />
           <Route path="/donate-compensation" element={<DonateCompensation />} />
           <Route path="/referral-program" element={<ReferralProgram />} />
+          <Route path="/lab-partner" element={<LabPartnerPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="/networking" element={<NetworkingPage />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
