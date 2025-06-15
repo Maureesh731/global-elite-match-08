@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, FlaskConical, MapPin } from "lucide-react";
+import { BackToHomeButton } from "@/components/BackToHomeButton";
 
 const LabPartnerPage = () => {
   return (
@@ -11,6 +12,7 @@ const LabPartnerPage = () => {
       <Header />
       <main className="container mx-auto px-4 py-12 md:py-20">
         <div className="max-w-4xl mx-auto">
+          <BackToHomeButton />
           <Card className="overflow-hidden shadow-lg border border-slate-200">
             <div className="bg-gradient-to-br from-blue-900 to-blue-700 p-8 md:p-12 text-white">
               <div className="flex items-center gap-4">

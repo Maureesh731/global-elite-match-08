@@ -1,10 +1,10 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Mail, MessageSquare, Phone, User } from "lucide-react";
+import { BackToHomeButton } from "@/components/BackToHomeButton";
 
 type Promo = {
   id: number;
@@ -56,6 +56,7 @@ export default function NetworkingPage() {
 
   return (
     <div className="container mx-auto max-w-3xl py-12 px-4">
+      <BackToHomeButton />
       <h1 className="text-3xl font-bold mb-3 text-blue-900">Networking – Promote Yourself & Your Offering</h1>
       <p className="text-muted-foreground mb-8">Share your business, product, service, or yourself – and connect with other professionals through chat, email, or phone.</p>
 

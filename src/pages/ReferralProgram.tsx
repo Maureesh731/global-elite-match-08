@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { useState } from "react";
+import { BackToHomeButton } from "@/components/BackToHomeButton";
 
 export default function ReferralProgram() {
   const [form, setForm] = useState({ yourName: "", yourEmail: "", friendEmail: "" });
@@ -26,6 +27,7 @@ export default function ReferralProgram() {
       <Header />
       <main className="flex-1 py-12">
         <div className="container max-w-lg mx-auto px-4">
+          <BackToHomeButton />
           <h1 className="text-4xl font-bold text-center mb-6 text-blue-900">Referral Program</h1>
           <p className="text-lg text-center mb-6 text-slate-700">
             Refer a friend to EliteMatch! When they join and activate a membership, <span className="font-semibold">you BOTH get a 2nd month absolutely FREE.</span>
