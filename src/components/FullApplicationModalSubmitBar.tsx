@@ -47,7 +47,6 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
         className="w-full text-lg bg-blue-900 hover:bg-blue-800"
         disabled={!agreed || loading}
         onClick={onPaidApplication}
-        loading={loading}
       >
         {loading ? "Redirecting to Payment..." : "Submit & Pay $49.95/mo"}
       </Button>
