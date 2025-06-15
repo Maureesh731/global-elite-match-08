@@ -1,10 +1,12 @@
+
 import { Heart, Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 
 export const Footer = () => {
   return (
     <footer className="bg-slate-900 text-white py-16">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8 mb-12">
+        <div className="grid md:grid-cols-5 gap-8 mb-12">
+          {/* Brand & Social */}
           <div className="col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
@@ -66,6 +68,7 @@ export const Footer = () => {
             </div>
           </div>
           
+          {/* Platform Section */}
           <div>
             <h3 className="font-semibold text-white mb-4">Platform</h3>
             <ul className="space-y-2 text-slate-400">
@@ -81,6 +84,7 @@ export const Footer = () => {
             </ul>
           </div>
           
+          {/* Support Section */}
           <div>
             <h3 className="font-semibold text-white mb-4">Support</h3>
             <ul className="space-y-2 text-slate-400">
@@ -95,6 +99,25 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
+
+          {/* Lab Partner Section */}
+          <div>
+            <h3 className="font-semibold text-white mb-4">Lab Partner</h3>
+            <div className="space-y-3">
+              <p className="text-slate-400 text-sm">
+                Find a local Quest Diagnostics lab to complete your required drug, STD, and disease screenings.
+              </p>
+              <a
+                href="https://www.questdiagnostics.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded mt-2 font-semibold transition-all"
+                aria-label="Find Quest Diagnostics Labs"
+              >
+                Quest Diagnostics &rarr;
+              </a>
+            </div>
+          </div>
         </div>
         
         <div className="border-t border-slate-800 pt-8 text-center">
@@ -106,3 +129,4 @@ export const Footer = () => {
     </footer>
   );
 };
+
