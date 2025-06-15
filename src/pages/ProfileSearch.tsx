@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { BackToHomeButton } from "@/components/BackToHomeButton";
@@ -126,14 +125,14 @@ export default function ProfileSearch() {
   const [userGender, setUserGender] = useState<"Gentleman" | "Lady" | null>(null);
   const [subscribed, setSubscribed] = useState(false);
 
-  // Filter state
-  const [diet, setDiet] = useState<string | null>(null);
-  const [smoking, setSmoking] = useState<string | null>(null);
+  // Filter state -- set initial values to "any"
+  const [diet, setDiet] = useState<string>("any");
+  const [smoking, setSmoking] = useState<string>("any");
   const [marijuana, setMarijuana] = useState(false);
-  const [orientation, setOrientation] = useState<string | null>(null);
-  const [relationship, setRelationship] = useState<string | null>(null);
+  const [orientation, setOrientation] = useState<string>("any");
+  const [relationship, setRelationship] = useState<string>("any");
   const [ethnicities, setEthnicities] = useState<string[]>([]);
-  const [petOwner, setPetOwner] = useState<boolean | null>(null);
+  const [petOwner, setPetOwner] = useState<string>("any"); // "any" | "yes" | "no"
 
   const handleEthnicityChange = (eth: string) => {
     setEthnicities((current) =>
@@ -150,33 +149,33 @@ export default function ProfileSearch() {
       ((userGender === "Gentleman" && profile.gender === "Lady") ||
         (userGender === "Lady" && profile.gender === "Gentleman")) &&
       // dietary
-      (diet ? profile.diet === diet : true) &&
+      (diet !== "any" ? profile.diet === diet : true) &&
       // smoking
-      (smoking ? profile.smoking === smoking : true) &&
+      (smoking !== "any" ? profile.smoking === smoking : true) &&
       // marijuana
       (!marijuana || !!profile.marijuana) &&
       // orientation
-      (orientation ? profile.orientation === orientation : true) &&
+      (orientation !== "any" ? profile.orientation === orientation : true) &&
       // relationship
-      (relationship ? profile.relationship === relationship : true) &&
+      (relationship !== "any" ? profile.relationship === relationship : true) &&
       // ethnicities: at least one selected ethnicity must match profile's array
       (ethnicities.length > 0
         ? ethnicities.some((eth) => profile.ethnicity.includes(eth))
         : true) &&
       // pet owner
-      (petOwner === null ? true : profile.petOwner === petOwner)
+      (petOwner === "any" ? true : (petOwner === "yes" ? profile.petOwner : !profile.petOwner))
   );
 
   // Reset filters when switching user gender
   const handleUserGender = (g: "Gentleman" | "Lady") => {
     setUserGender(g);
-    setDiet(null);
-    setSmoking(null);
+    setDiet("any");
+    setSmoking("any");
     setMarijuana(false);
-    setOrientation(null);
-    setRelationship(null);
+    setOrientation("any");
+    setRelationship("any");
     setEthnicities([]);
-    setPetOwner(null);
+    setPetOwner("any");
   };
 
   if (!userGender)
@@ -214,12 +213,12 @@ export default function ProfileSearch() {
           {/* Dietary */}
           <div>
             <label className="font-medium mr-2">Diet:</label>
-            <Select value={diet ?? ""} onValueChange={v => setDiet(v)}>
+            <Select value={diet} onValueChange={v => setDiet(v)}>
               <SelectTrigger className="w-40 inline-block">
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="any">Any</SelectItem>
                 {dietOptions.map(opt => (
                   <SelectItem value={opt.value} key={opt.value}>{opt.label}</SelectItem>
                 ))}
@@ -229,12 +228,12 @@ export default function ProfileSearch() {
           {/* Smoking */}
           <div>
             <label className="font-medium mr-2">Smoking:</label>
-            <Select value={smoking ?? ""} onValueChange={v => setSmoking(v)}>
+            <Select value={smoking} onValueChange={v => setSmoking(v)}>
               <SelectTrigger className="w-40 inline-block">
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="any">Any</SelectItem>
                 {smokingOptions.map(opt => (
                   <SelectItem value={opt.value} key={opt.value}>{opt.label}</SelectItem>
                 ))}
@@ -250,12 +249,12 @@ export default function ProfileSearch() {
           {/* Sexual Orientation */}
           <div>
             <label className="font-medium mr-2">Orientation:</label>
-            <Select value={orientation ?? ""} onValueChange={v => setOrientation(v)}>
+            <Select value={orientation} onValueChange={v => setOrientation(v)}>
               <SelectTrigger className="w-44 inline-block">
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="any">Any</SelectItem>
                 {orientationOptions.map(opt => (
                   <SelectItem value={opt.value} key={opt.value}>{opt.label}</SelectItem>
                 ))}
@@ -265,12 +264,12 @@ export default function ProfileSearch() {
           {/* Relationship type */}
           <div>
             <label className="font-medium mr-2">Relationship:</label>
-            <Select value={relationship ?? ""} onValueChange={v => setRelationship(v)}>
+            <Select value={relationship} onValueChange={v => setRelationship(v)}>
               <SelectTrigger className="w-44 inline-block">
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="any">Any</SelectItem>
                 {relationshipOptions.map(opt => (
                   <SelectItem value={opt.value} key={opt.value}>{opt.label}</SelectItem>
                 ))}
@@ -296,12 +295,12 @@ export default function ProfileSearch() {
           {/* Pet owner */}
           <div>
             <label className="font-medium mr-2">Pet Owner:</label>
-            <Select value={petOwner === null ? "" : petOwner ? "yes" : "no"} onValueChange={val => setPetOwner(val === "" ? null : val === "yes")}>
+            <Select value={petOwner} onValueChange={val => setPetOwner(val)}>
               <SelectTrigger className="w-40 inline-block">
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="any">Any</SelectItem>
                 <SelectItem value="yes">Yes</SelectItem>
                 <SelectItem value="no">No</SelectItem>
               </SelectContent>
