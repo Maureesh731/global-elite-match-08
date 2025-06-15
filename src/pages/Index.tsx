@@ -1,8 +1,5 @@
-import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Users, Shield, Heart, Star, Globe, Briefcase, GraduationCap } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
@@ -11,6 +8,7 @@ import { Verification } from "@/components/Verification";
 import { Testimonials } from "@/components/Testimonials";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
+import { FeaturedMembers } from "@/components/FeaturedMembers";
 
 const Index = () => {
   return (
@@ -21,6 +19,7 @@ const Index = () => {
       <Verification />
       <Pricing />
       <Testimonials />
+      <FeaturedMembers />
       <div className="container mx-auto py-12 flex flex-col items-center gap-4">
         <div className="flex flex-wrap gap-4 justify-center">
           <Link to="/gentlemen-profile">
