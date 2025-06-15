@@ -1,8 +1,11 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { BackToHomeButton } from "@/components/BackToHomeButton";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 
-// This demo list is static - backend filter coming in production.
+// Extended demoProfiles to cover new fields for realistic filtering.
 const demoProfiles = [
   {
     gender: "Gentleman",
@@ -12,6 +15,13 @@ const demoProfiles = [
     linkedin: "https://linkedin.com/in/johnsmith",
     healthStatus: "Yes, I am drug and disease free.",
     covidVaccinated: "no",
+    diet: "vegan",
+    smoking: "non_smoker",
+    marijuana: false,
+    orientation: "straight",
+    relationship: "monogamous",
+    ethnicity: ["white", "european"],
+    petOwner: true,
     photos: [
       "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"
     ]
@@ -24,22 +34,150 @@ const demoProfiles = [
     linkedin: "https://linkedin.com/in/janedoe",
     healthStatus: "Yes, I am drug and disease free.",
     covidVaccinated: "no",
+    diet: "vegetarian",
+    smoking: "non_smoker",
+    marijuana: true,
+    orientation: "bisexual",
+    relationship: "polyamorous",
+    ethnicity: ["latin", "white"],
+    petOwner: false,
     photos: [
       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
     ]
   },
+  {
+    gender: "Gentleman",
+    fullName: "Mike Lee",
+    age: 29,
+    bio: "Pet lover, pescatarian, and community activist.",
+    linkedin: "https://linkedin.com/in/mikelee",
+    healthStatus: "Yes, I am drug and disease free.",
+    covidVaccinated: "yes",
+    diet: "pescatarian",
+    smoking: "smoker",
+    marijuana: true,
+    orientation: "gay",
+    relationship: "monogamous",
+    ethnicity: ["asian"],
+    petOwner: true,
+    photos: [
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2"
+    ]
+  },
+  {
+    gender: "Lady",
+    fullName: "Lila Black",
+    age: 35,
+    bio: "Jewish heritage, proud pet owner, passionate about books.",
+    linkedin: "https://linkedin.com/in/lilablack",
+    healthStatus: "Yes, I am drug and disease free.",
+    covidVaccinated: "yes",
+    diet: "vegan",
+    smoking: "non_smoker",
+    marijuana: false,
+    orientation: "straight",
+    relationship: "polygamy",
+    ethnicity: ["black", "african", "jewish"],
+    petOwner: true,
+    photos: [
+      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
+    ]
+  }
+];
+
+// Defines the available filter options.
+const dietOptions = [
+  { value: "vegan", label: "Vegan" },
+  { value: "vegetarian", label: "Vegetarian" },
+  { value: "pescatarian", label: "Pescatarian" }
+];
+const smokingOptions = [
+  { value: "non_smoker", label: "Non Smoker" },
+  { value: "smoker", label: "Smoker" }
+];
+const marijuanaOptions = [
+  { value: "marijuana", label: "Marijuana Smoker" }
+];
+const orientationOptions = [
+  { value: "gay", label: "Gay" },
+  { value: "bisexual", label: "Bisexual" },
+  { value: "straight", label: "Straight" }
+];
+const relationshipOptions = [
+  { value: "monogamous", label: "Monogamous" },
+  { value: "polyamorous", label: "Polyamorous" },
+  { value: "polygamy", label: "Polygamy" }
+];
+const ethnicityOptions = [
+  { value: "white", label: "White" },
+  { value: "indigenous", label: "Indigenous" },
+  { value: "native_american", label: "Native American" },
+  { value: "latin", label: "Latin" },
+  { value: "latino", label: "Latino" },
+  { value: "black", label: "Black" },
+  { value: "african", label: "African" },
+  { value: "african_american", label: "African American" },
+  { value: "european", label: "European" },
+  { value: "asian", label: "Asian" },
+  { value: "jewish", label: "Jewish" }
 ];
 
 export default function ProfileSearch() {
-  // Demo: user picks gender and confirms "subscription"
   const [userGender, setUserGender] = useState<"Gentleman" | "Lady" | null>(null);
   const [subscribed, setSubscribed] = useState(false);
 
+  // Filter state
+  const [diet, setDiet] = useState<string | null>(null);
+  const [smoking, setSmoking] = useState<string | null>(null);
+  const [marijuana, setMarijuana] = useState(false);
+  const [orientation, setOrientation] = useState<string | null>(null);
+  const [relationship, setRelationship] = useState<string | null>(null);
+  const [ethnicities, setEthnicities] = useState<string[]>([]);
+  const [petOwner, setPetOwner] = useState<boolean | null>(null);
+
+  const handleEthnicityChange = (eth: string) => {
+    setEthnicities((current) =>
+      current.includes(eth)
+        ? current.filter((e) => e !== eth)
+        : [...current, eth]
+    );
+  };
+
+  // This logic applies all filters selected by the user.
   const filtered = demoProfiles.filter(
     (profile) =>
-      (userGender === "Gentleman" && profile.gender === "Lady") ||
-      (userGender === "Lady" && profile.gender === "Gentleman")
+      // gender filter (existing logic)
+      ((userGender === "Gentleman" && profile.gender === "Lady") ||
+        (userGender === "Lady" && profile.gender === "Gentleman")) &&
+      // dietary
+      (diet ? profile.diet === diet : true) &&
+      // smoking
+      (smoking ? profile.smoking === smoking : true) &&
+      // marijuana
+      (!marijuana || !!profile.marijuana) &&
+      // orientation
+      (orientation ? profile.orientation === orientation : true) &&
+      // relationship
+      (relationship ? profile.relationship === relationship : true) &&
+      // ethnicities: at least one selected ethnicity must match profile's array
+      (ethnicities.length > 0
+        ? ethnicities.some((eth) => profile.ethnicity.includes(eth))
+        : true) &&
+      // pet owner
+      (petOwner === null ? true : profile.petOwner === petOwner)
   );
+
+  // Reset filters when switching user gender
+  const handleUserGender = (g: "Gentleman" | "Lady") => {
+    setUserGender(g);
+    setDiet(null);
+    setSmoking(null);
+    setMarijuana(false);
+    setOrientation(null);
+    setRelationship(null);
+    setEthnicities([]);
+    setPetOwner(null);
+  };
 
   if (!userGender)
     return (
@@ -47,8 +185,8 @@ export default function ProfileSearch() {
         <BackToHomeButton />
         <h2 className="text-2xl font-semibold">Select Your Gender to Search</h2>
         <div className="flex gap-8">
-          <Button onClick={() => setUserGender("Gentleman")} className="px-8 text-lg">Gentleman</Button>
-          <Button onClick={() => setUserGender("Lady")} className="px-8 text-lg">Lady</Button>
+          <Button onClick={() => handleUserGender("Gentleman")} className="px-8 text-lg">Gentleman</Button>
+          <Button onClick={() => handleUserGender("Lady")} className="px-8 text-lg">Lady</Button>
         </div>
       </div>
     );
@@ -70,9 +208,110 @@ export default function ProfileSearch() {
     <div className="container max-w-3xl mx-auto py-12">
       <BackToHomeButton />
       <h2 className="text-3xl font-extrabold mb-8 text-center">Browse Members</h2>
+      <div className="bg-slate-50 border rounded-xl p-4 mb-8">
+        <h3 className="font-semibold text-lg mb-4">Additional Search Filters</h3>
+        <div className="flex flex-col gap-4">
+          {/* Dietary */}
+          <div>
+            <label className="font-medium mr-2">Diet:</label>
+            <Select value={diet ?? ""} onValueChange={v => setDiet(v)}>
+              <SelectTrigger className="w-40 inline-block">
+                <SelectValue placeholder="Any" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Any</SelectItem>
+                {dietOptions.map(opt => (
+                  <SelectItem value={opt.value} key={opt.value}>{opt.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          {/* Smoking */}
+          <div>
+            <label className="font-medium mr-2">Smoking:</label>
+            <Select value={smoking ?? ""} onValueChange={v => setSmoking(v)}>
+              <SelectTrigger className="w-40 inline-block">
+                <SelectValue placeholder="Any" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Any</SelectItem>
+                {smokingOptions.map(opt => (
+                  <SelectItem value={opt.value} key={opt.value}>{opt.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          {/* Marijuana */}
+          <div>
+            <label className="font-medium mr-2">Marijuana Smoker:</label>
+            <Checkbox id="marijuana" checked={marijuana} onCheckedChange={val => setMarijuana(!!val)} />
+            <label htmlFor="marijuana" className="ml-2 text-sm">Yes</label>
+          </div>
+          {/* Sexual Orientation */}
+          <div>
+            <label className="font-medium mr-2">Orientation:</label>
+            <Select value={orientation ?? ""} onValueChange={v => setOrientation(v)}>
+              <SelectTrigger className="w-44 inline-block">
+                <SelectValue placeholder="Any" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Any</SelectItem>
+                {orientationOptions.map(opt => (
+                  <SelectItem value={opt.value} key={opt.value}>{opt.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          {/* Relationship type */}
+          <div>
+            <label className="font-medium mr-2">Relationship:</label>
+            <Select value={relationship ?? ""} onValueChange={v => setRelationship(v)}>
+              <SelectTrigger className="w-44 inline-block">
+                <SelectValue placeholder="Any" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Any</SelectItem>
+                {relationshipOptions.map(opt => (
+                  <SelectItem value={opt.value} key={opt.value}>{opt.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          {/* Ethnicities */}
+          <div>
+            <label className="font-medium mr-2 block">Ethnicity:</label>
+            <div className="flex flex-wrap gap-3">
+              {ethnicityOptions.map(opt => (
+                <label className="flex items-center gap-1 text-sm" key={opt.value}>
+                  <Checkbox
+                    checked={ethnicities.includes(opt.value)}
+                    onCheckedChange={() => handleEthnicityChange(opt.value)}
+                    id={"ethnicity_" + opt.value}
+                  />
+                  <span>{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+          {/* Pet owner */}
+          <div>
+            <label className="font-medium mr-2">Pet Owner:</label>
+            <Select value={petOwner === null ? "" : petOwner ? "yes" : "no"} onValueChange={val => setPetOwner(val === "" ? null : val === "yes")}>
+              <SelectTrigger className="w-40 inline-block">
+                <SelectValue placeholder="Any" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="yes">Yes</SelectItem>
+                <SelectItem value="no">No</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      </div>
       {filtered.length === 0 && (
         <div className="text-center text-gray-400 py-12">
-          No profiles found yet!
+          No profiles found with your selected criteria.
         </div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -90,7 +329,26 @@ export default function ProfileSearch() {
             </div>
             <div className="text-xs text-gray-500">
               Health: {profile.healthStatus}<br />
-              Covid-19 Vaccinated: <span className={profile.covidVaccinated === "no" ? "text-green-600 font-bold" : "text-red-600"}>{profile.covidVaccinated === "no" ? "Unvaccinated" : "Vaccinated"}</span>
+              Covid-19 Vaccinated:{" "}
+              <span className={profile.covidVaccinated === "no" ? "text-green-600 font-bold" : "text-red-600"}>
+                {profile.covidVaccinated === "no" ? "Unvaccinated" : "Vaccinated"}
+              </span>
+              <br />
+              Diet: {dietOptions.find(opt => opt.value === profile.diet)?.label || profile.diet}
+              <br />
+              Smoking: {smokingOptions.find(opt => opt.value === profile.smoking)?.label || profile.smoking}
+              <br />
+              Marijuana Smoker: {profile.marijuana ? "Yes" : "No"}
+              <br />
+              Orientation: {orientationOptions.find(opt => opt.value === profile.orientation)?.label || profile.orientation}
+              <br />
+              Relationship: {relationshipOptions.find(opt => opt.value === profile.relationship)?.label || profile.relationship}
+              <br />
+              Ethnicity: {profile.ethnicity.map(e =>
+                ethnicityOptions.find(opt => opt.value === e)?.label || e
+              ).join(", ")}
+              <br />
+              Pet Owner: {profile.petOwner ? "Yes" : "No"}
             </div>
           </div>
         ))}
