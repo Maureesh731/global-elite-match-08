@@ -16,25 +16,32 @@ const LabPartnerPage = () => {
               <div className="flex items-center gap-4">
                 <FlaskConical className="w-12 h-12 flex-shrink-0" />
                 <div>
-                  <h1 className="text-3xl md:text-4xl font-bold">Quest Diagnostics: Our Lab Partner in (Comedic) Science</h1>
+                  <h1 className="text-3xl md:text-4xl font-bold">
+                    Quest Diagnostics: Our Lab Partner (Because Tinder Doesn’t Swab)
+                  </h1>
                   <p className="text-blue-200 mt-2 text-lg">
-                    Because “Trust, but verify” isn’t just for secret agents.
+                    The only blind date where blood gets drawn—and not because you wore Crocs.
                   </p>
                 </div>
               </div>
             </div>
             <CardContent className="p-8 space-y-8">
               <section>
-                <h2 className="text-2xl font-semibold text-slate-800 mb-4">Why Team Up with Quest Diagnostics?</h2>
+                <h2 className="text-2xl font-semibold text-slate-800 mb-4">
+                  Why Are We Doing This, Besides the Meme Value?
+                </h2>
                 <p className="text-slate-600 leading-relaxed">
-                  At EliteMatch, we’re on a mission: eliminate catfish, tall tales, and suspicious lab results. That’s why we shook hands (with gloves on, obviously) with Quest Diagnostics, the real MVPs of testing. Together, we guarantee that you’re chatting with health-conscious singles, not someone whose idea of a “clean bill of health” is washing their hands once a week.
+                  Here at EliteMatch, we believe there’s nothing sexier than honesty, transparency, and maybe… a negative test result. That’s why we teamed up with Quest Diagnostics—
+                  a company that's obsessed with accuracy, even if you aren’t. Together, we keep our community cleaner than your grandma’s favorite kitchen sponge.
                 </p>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-slate-800 mb-4">The Screening (Not the Hollywood Kind)</h2>
+                <h2 className="text-2xl font-semibold text-slate-800 mb-4">
+                  Our Not-So-Secret Lab Menu
+                </h2>
                 <p className="text-slate-600 leading-relaxed mb-6">
-                  Before you can say “first date jitters,” you get to be truly verified. Here’s what’s on the menu at Quest—no need to fast (except when told to):
+                  We check more boxes than your latest dating app. Presenting the Quest triple-threat experience:
                 </p>
                 <ul className="space-y-4">
                   <li className="flex items-start gap-4">
@@ -43,7 +50,9 @@ const LabPartnerPage = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-slate-700">Comprehensive Drug Screening</h3>
-                      <p className="text-slate-600">No, this doesn’t mean “the caffeine count in your espresso.” This is the real deal. Approval: doctor, and maybe your mom.</p>
+                      <p className="text-slate-600">
+                        Caffeine doesn't count (otherwise we'd all fail). Quest tests for the real stuff—because “high on life” is the only buzz allowed here.
+                      </p>
                     </div>
                   </li>
                   <li className="flex items-start gap-4">
@@ -52,7 +61,9 @@ const LabPartnerPage = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-slate-700">STD Panel</h3>
-                      <p className="text-slate-600">Because it’s good to know who’s bringing what to the table—besides dessert.</p>
+                      <p className="text-slate-600">
+                        Keep your love life spicy, not risky. We test for more acronyms than the SAT—so you can flirt (mostly) worry-free!
+                      </p>
                     </div>
                   </li>
                   <li className="flex items-start gap-4">
@@ -61,30 +72,44 @@ const LabPartnerPage = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-slate-700">General Disease Screening</h3>
-                      <p className="text-slate-600">Just to make sure you’re not secretly a 17th-century pirate. Or at least not contagious.</p>
+                      <p className="text-slate-600">
+                        Are pirates real? Are there still plagues? Probably not, but just to be sure—we check. Arrr you healthy, matey?
+                      </p>
                     </div>
                   </li>
                 </ul>
               </section>
 
               <section>
-                <h2 className="text-2xl font-semibold text-slate-800 mb-4">How Does This Magical Science Happen?</h2>
+                <h2 className="text-2xl font-semibold text-slate-800 mb-4">
+                  Becoming Verified: An Epic Saga (Sort Of)
+                </h2>
                 <p className="text-slate-600 leading-relaxed">
-                  Becoming verified is easier than trying to explain to your grandma what a “swipe left” is:
+                  Getting verified is easier than assembling IKEA furniture (and far less likely to result in leftover screws):
                 </p>
                 <ol className="list-decimal list-inside space-y-2 mt-4 text-slate-600 pl-4">
-                  <li>Complete your EliteMatch application (pinky promise: no trick questions).</li>
-                  <li>Use our handy Quest Diagnostics link to find a lab near you (bonus points if you put on your Sherlock Holmes hat).</li>
-                  <li>Pick any appointment time—even 7:00am if you’re feeling dangerous.</li>
-                  <li>Show up at the lab, try to look calm and collected, and bravely submit your samples like the hero you are.</li>
-                  <li>Sit back, relax, and wait for your health badge, delivered with high-security digital wizardry. (Maybe not a real wizard, but pretty close!)</li>
+                  <li>Apply on EliteMatch (don’t worry, we don’t ask you to recall 10th grade math).</li>
+                  <li>
+                    Use our Quest Diagnostics link below to hunt down your nearest lab—magnifying glass and dramatic music optional.
+                  </li>
+                  <li>
+                    Book any appointment—yes, even at that time you swore you’d “start the gym.”
+                  </li>
+                  <li>
+                    Arrive, smile awkwardly at the phlebotomist, and donate your bodily fluids for the cause. (So romantic.)
+                  </li>
+                  <li>
+                    Kick back and await your mighty “Verified & Vetted” badge, perfect for showing off in group chats.
+                  </li>
                 </ol>
               </section>
 
               <div className="text-center bg-slate-100 p-6 rounded-lg">
-                <h3 className="text-xl font-semibold text-slate-800 mb-2">Step Right Up, Find Your Lab!</h3>
+                <h3 className="text-xl font-semibold text-slate-800 mb-2">
+                  Find a Lab, Win at Life!
+                </h3>
                 <p className="text-slate-600 mb-4">
-                  Click below and prepare for weirdly polite lab technicians, free bandaids, and the glory of being EliteMatch-certified.
+                  Hit the button, march into Quest like you own the place, and get one step closer to dating glory (and a free sticker, probably).
                 </p>
                 <Button asChild size="lg" className="bg-green-600 hover:bg-green-700">
                   <a
@@ -93,14 +118,14 @@ const LabPartnerPage = () => {
                     rel="noopener noreferrer"
                   >
                     <MapPin className="mr-2 h-5 w-5" />
-                    I Want the Quest Quest!
+                    Take Me To The Lab!
                   </a>
                 </Button>
               </div>
 
               <div className="border-t border-slate-200 pt-6 text-center text-sm text-slate-500">
                 <p>
-                  Your privacy is sacred. Your medical details are locked down tighter than your high school diary. Read all the fine print in our Privacy Policy before you even panic.
+                  Science is serious, but your secrets are safe: We guard your medical data like we guard our last slice of pizza. See our Privacy Policy for painfully boring legal stuff.
                 </p>
               </div>
 
