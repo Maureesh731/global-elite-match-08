@@ -1,105 +1,94 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Untouchable Dating Color Palette */
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
 
 @layer base {
   :root {
-    /* Primary Palette */
-    --untouchable-charcoal: #121212;
-    --untouchable-midnight: #1E1E1E;
-    --untouchable-crimson: #C8102E;
-    --untouchable-ruby: #8B0000;
-    --untouchable-plum: #4B1248;
-    --untouchable-aubergine: #3B1F4F;
-    --untouchable-gold: #D4AF37;
-    --untouchable-bronze: #CBA135;
-    
-    /* Supporting Tones */
-    --untouchable-cream: #F9F6F0;
-    --untouchable-steel: #707070;
-    --untouchable-rose: #C68FA0;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
-    /* Shadcn Variables adapted to Untouchable theme */
-    --background: 249 246 240; /* Soft Cream */
-    --foreground: 18 18 18; /* Deep Charcoal */
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-    --card: 249 246 240; /* Soft Cream */
-    --card-foreground: 18 18 18; /* Deep Charcoal */
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    --popover: 249 246 240; /* Soft Cream */
-    --popover-foreground: 18 18 18; /* Deep Charcoal */
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
 
-    --primary: 75 18 72; /* Royal Plum */
-    --primary-foreground: 249 246 240; /* Soft Cream */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 112 112 112; /* Steel Gray */
-    --secondary-foreground: 249 246 240; /* Soft Cream */
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --muted: 198 143 160; /* Dusty Rose */
-    --muted-foreground: 18 18 18; /* Deep Charcoal */
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-    --accent: 200 16 46; /* Crimson Red */
-    --accent-foreground: 249 246 240; /* Soft Cream */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --destructive: 200 16 46; /* Crimson Red */
-    --destructive-foreground: 249 246 240; /* Soft Cream */
-
-    --border: 112 112 112; /* Steel Gray */
-    --input: 112 112 112; /* Steel Gray */
-    --ring: 200 16 46; /* Crimson Red */
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 30 30 30; /* Midnight Black */
-    --sidebar-foreground: 249 246 240; /* Soft Cream */
-    --sidebar-primary: 75 18 72; /* Royal Plum */
-    --sidebar-primary-foreground: 249 246 240; /* Soft Cream */
-    --sidebar-accent: 59 31 79; /* Deep Aubergine */
-    --sidebar-accent-foreground: 249 246 240; /* Soft Cream */
-    --sidebar-border: 112 112 112; /* Steel Gray */
-    --sidebar-ring: 200 16 46; /* Crimson Red */
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 18 18 18; /* Deep Charcoal */
-    --foreground: 249 246 240; /* Soft Cream */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-    --card: 30 30 30; /* Midnight Black */
-    --card-foreground: 249 246 240; /* Soft Cream */
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 30 30 30; /* Midnight Black */
-    --popover-foreground: 249 246 240; /* Soft Cream */
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 212 175 55; /* Champagne Gold */
-    --primary-foreground: 18 18 18; /* Deep Charcoal */
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 59 31 79; /* Deep Aubergine */
-    --secondary-foreground: 249 246 240; /* Soft Cream */
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 59 31 79; /* Deep Aubergine */
-    --muted-foreground: 198 143 160; /* Dusty Rose */
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 200 16 46; /* Crimson Red */
-    --accent-foreground: 249 246 240; /* Soft Cream */
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 139 0 0; /* Deep Ruby */
-    --destructive-foreground: 249 246 240; /* Soft Cream */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 59 31 79; /* Deep Aubergine */
-    --input: 59 31 79; /* Deep Aubergine */
-    --ring: 212 175 55; /* Champagne Gold */
-
-    --sidebar-background: 18 18 18; /* Deep Charcoal */
-    --sidebar-foreground: 249 246 240; /* Soft Cream */
-    --sidebar-primary: 212 175 55; /* Champagne Gold */
-    --sidebar-primary-foreground: 18 18 18; /* Deep Charcoal */
-    --sidebar-accent: 75 18 72; /* Royal Plum */
-    --sidebar-accent-foreground: 249 246 240; /* Soft Cream */
-    --sidebar-border: 75 18 72; /* Royal Plum */
-    --sidebar-ring: 212 175 55; /* Champagne Gold */
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -111,31 +100,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-/* Custom Untouchable color utilities */
-@layer utilities {
-  .bg-untouchable-charcoal { background-color: var(--untouchable-charcoal); }
-  .bg-untouchable-midnight { background-color: var(--untouchable-midnight); }
-  .bg-untouchable-crimson { background-color: var(--untouchable-crimson); }
-  .bg-untouchable-ruby { background-color: var(--untouchable-ruby); }
-  .bg-untouchable-plum { background-color: var(--untouchable-plum); }
-  .bg-untouchable-aubergine { background-color: var(--untouchable-aubergine); }
-  .bg-untouchable-gold { background-color: var(--untouchable-gold); }
-  .bg-untouchable-bronze { background-color: var(--untouchable-bronze); }
-  .bg-untouchable-cream { background-color: var(--untouchable-cream); }
-  .bg-untouchable-steel { background-color: var(--untouchable-steel); }
-  .bg-untouchable-rose { background-color: var(--untouchable-rose); }
-  
-  .text-untouchable-charcoal { color: var(--untouchable-charcoal); }
-  .text-untouchable-midnight { color: var(--untouchable-midnight); }
-  .text-untouchable-crimson { color: var(--untouchable-crimson); }
-  .text-untouchable-ruby { color: var(--untouchable-ruby); }
-  .text-untouchable-plum { color: var(--untouchable-plum); }
-  .text-untouchable-aubergine { color: var(--untouchable-aubergine); }
-  .text-untouchable-gold { color: var(--untouchable-gold); }
-  .text-untouchable-bronze { color: var(--untouchable-bronze); }
-  .text-untouchable-cream { color: var(--untouchable-cream); }
-  .text-untouchable-steel { color: var(--untouchable-steel); }
-  .text-untouchable-rose { color: var(--untouchable-rose); }
 }
