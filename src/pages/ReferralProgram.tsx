@@ -30,7 +30,7 @@ export default function ReferralProgram() {
           <BackToHomeButton />
           <h1 className="text-4xl font-bold text-center mb-6 text-blue-900">Referral Program</h1>
           <p className="text-lg text-center mb-6 text-slate-700">
-            Refer a friend to EliteMatch! When they join and activate a membership, <span className="font-semibold">you BOTH get a 2nd month absolutely FREE.</span>
+            Refer a friend to Untouchable Dating! When they join and activate a membership, <span className="font-semibold">you BOTH get a 2nd month absolutely FREE.</span>
           </p>
           <Card>
             <CardHeader>
@@ -42,7 +42,7 @@ export default function ReferralProgram() {
             <CardContent>
               <ol className="list-decimal ml-6 mb-4 text-slate-700 space-y-2">
                 <li>Submit the referral form below with your info and your friend's email.</li>
-                <li>Your friend will receive an invitation to join EliteMatch.</li>
+                <li>Your friend will receive an invitation to join Untouchable Dating.</li>
                 <li>After your friend subscribes, you both receive the 2nd month of membership free!</li>
               </ol>
               <div className="bg-blue-50 p-3 rounded text-blue-900 text-sm mb-5">
