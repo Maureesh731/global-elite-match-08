@@ -1,4 +1,5 @@
 
+
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
@@ -12,7 +13,7 @@ import { FeaturedMembers } from "@/components/FeaturedMembers";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-untouchable-cream to-untouchable-cream">
       <Header />
       <Hero />
       <Features />
@@ -23,16 +24,16 @@ const Index = () => {
       <div className="container mx-auto py-12 flex flex-col items-center gap-4">
         <div className="flex flex-wrap gap-4 justify-center">
           <Link to="/gentlemen-profile">
-            <Button variant="secondary">Create Gentleman's Profile</Button>
+            <Button variant="secondary" className="bg-untouchable-plum text-untouchable-cream hover:bg-untouchable-aubergine">Create Gentleman's Profile</Button>
           </Link>
           <Link to="/ladies-profile">
-            <Button variant="secondary">Create Lady's Profile</Button>
+            <Button variant="secondary" className="bg-untouchable-plum text-untouchable-cream hover:bg-untouchable-aubergine">Create Lady's Profile</Button>
           </Link>
           <Link to="/profile-search">
-            <Button className="bg-blue-900 text-white hover:bg-blue-800">Search Profiles</Button>
+            <Button className="bg-untouchable-crimson text-untouchable-cream hover:bg-untouchable-ruby">Search Profiles</Button>
           </Link>
           <Link to="/donate-compensation">
-            <Button className="bg-green-700 text-white hover:bg-green-800">
+            <Button className="bg-untouchable-gold text-untouchable-charcoal hover:bg-untouchable-bronze">
               Donate &amp; Get Compensated
             </Button>
           </Link>
@@ -44,3 +45,4 @@ const Index = () => {
 };
 
 export default Index;
+
