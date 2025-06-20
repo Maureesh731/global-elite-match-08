@@ -4,29 +4,31 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <footer className="bg-untouchable-charcoal text-untouchable-cream py-16">
+    <footer className="bg-untouchable-charcoal text-untouchable-cream py-20 border-t border-untouchable-midnight">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-5 gap-8 mb-12">
+        <div className="grid md:grid-cols-5 gap-12 mb-16">
           {/* Brand & Social */}
           <div className="col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-untouchable-crimson to-untouchable-ruby rounded-lg flex items-center justify-center">
-                <Heart className="w-5 h-5 text-untouchable-cream" />
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-10 h-10 bg-untouchable-gradient-accent rounded-xl flex items-center justify-center shadow-lg">
+                <Heart className="w-6 h-6 text-untouchable-cream" />
               </div>
-              <span className="text-xl font-bold">Untouchable Dating</span>
+              <span className="text-2xl font-bold bg-gradient-to-r from-untouchable-cream to-untouchable-pearl bg-clip-text text-transparent">
+                Untouchable Dating
+              </span>
             </div>
-            <p className="text-untouchable-rose leading-relaxed max-w-md">
+            <p className="text-untouchable-cream/80 leading-relaxed max-w-md mb-8 text-lg">
               The exclusive dating platform for verified global professionals seeking 
               authentic, health-conscious connections for marriage and long-term commitment.
             </p>
             {/* Social Media Icons */}
-            <div className="flex items-center space-x-4 mt-6">
+            <div className="flex items-center space-x-6">
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="hover:text-untouchable-gold transition-colors"
+                className="hover:text-untouchable-gold transition-colors p-2 rounded-lg hover:bg-untouchable-midnight/50"
               >
                 <Facebook className="w-6 h-6" />
               </a>
@@ -35,7 +37,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="hover:text-untouchable-rose transition-colors"
+                className="hover:text-untouchable-rose transition-colors p-2 rounded-lg hover:bg-untouchable-midnight/50"
               >
                 <Instagram className="w-6 h-6" />
               </a>
@@ -44,7 +46,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="hover:text-untouchable-gold transition-colors"
+                className="hover:text-untouchable-gold transition-colors p-2 rounded-lg hover:bg-untouchable-midnight/50"
               >
                 <Linkedin className="w-6 h-6" />
               </a>
@@ -53,7 +55,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
-                className="hover:text-untouchable-gold transition-colors"
+                className="hover:text-untouchable-gold transition-colors p-2 rounded-lg hover:bg-untouchable-midnight/50"
               >
                 <Twitter className="w-6 h-6" />
               </a>
@@ -62,7 +64,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"
-                className="hover:text-untouchable-crimson transition-colors"
+                className="hover:text-untouchable-crimson transition-colors p-2 rounded-lg hover:bg-untouchable-midnight/50"
               >
                 <Youtube className="w-6 h-6" />
               </a>
@@ -71,12 +73,12 @@ export const Footer = () => {
           
           {/* Platform Section */}
           <div>
-            <h3 className="font-semibold text-untouchable-cream mb-4">Platform</h3>
-            <ul className="space-y-2 text-untouchable-rose">
-              <li><a href="#" className="hover:text-untouchable-gold transition-colors">How It Works</a></li>
-              <li><a href="#" className="hover:text-untouchable-gold transition-colors">Verification</a></li>
-              <li><a href="#" className="hover:text-untouchable-gold transition-colors">Success Stories</a></li>
-              <li><a href="#" className="hover:text-untouchable-gold transition-colors">FAQ</a></li>
+            <h3 className="font-bold text-untouchable-cream mb-6 text-lg">Platform</h3>
+            <ul className="space-y-3 text-untouchable-cream/80">
+              <li><a href="#" className="hover:text-untouchable-gold transition-colors font-medium">How It Works</a></li>
+              <li><a href="#" className="hover:text-untouchable-gold transition-colors font-medium">Verification</a></li>
+              <li><a href="#" className="hover:text-untouchable-gold transition-colors font-medium">Success Stories</a></li>
+              <li><a href="#" className="hover:text-untouchable-gold transition-colors font-medium">FAQ</a></li>
               <li>
                 <Link to="/networking" className="hover:text-untouchable-gold text-untouchable-gold transition-colors font-semibold">
                   Networking
@@ -92,12 +94,12 @@ export const Footer = () => {
           
           {/* Support Section */}
           <div>
-            <h3 className="font-semibold text-untouchable-cream mb-4">Support</h3>
-            <ul className="space-y-2 text-untouchable-rose">
-              <li><a href="#" className="hover:text-untouchable-gold transition-colors">Contact Us</a></li>
-              <li><a href="#" className="hover:text-untouchable-gold transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-untouchable-gold transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-untouchable-gold transition-colors">Safety Guidelines</a></li>
+            <h3 className="font-bold text-untouchable-cream mb-6 text-lg">Support</h3>
+            <ul className="space-y-3 text-untouchable-cream/80">
+              <li><a href="#" className="hover:text-untouchable-gold transition-colors font-medium">Contact Us</a></li>
+              <li><a href="#" className="hover:text-untouchable-gold transition-colors font-medium">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-untouchable-gold transition-colors font-medium">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-untouchable-gold transition-colors font-medium">Safety Guidelines</a></li>
               <li>
                 <Link to="/referral-program" className="hover:text-untouchable-gold text-untouchable-gold transition-colors font-semibold">
                   Referral Program
@@ -108,16 +110,16 @@ export const Footer = () => {
 
           {/* Lab Partner Section */}
           <div>
-            <h3 className="font-semibold text-untouchable-cream mb-4">Lab Partner</h3>
-            <div className="space-y-3">
-              <p className="text-untouchable-rose text-sm">
+            <h3 className="font-bold text-untouchable-cream mb-6 text-lg">Lab Partner</h3>
+            <div className="space-y-4">
+              <p className="text-untouchable-cream/80 text-sm leading-relaxed">
                 Find a local Quest Diagnostics lab to complete your required drug, STD, and disease screenings.
               </p>
               <a
                 href="https://www.questdiagnostics.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-untouchable-crimson hover:bg-untouchable-ruby text-untouchable-cream px-4 py-2 rounded mt-2 font-semibold transition-all"
+                className="inline-block bg-untouchable-gradient-accent hover:shadow-lg text-untouchable-cream px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
                 aria-label="Find Quest Diagnostics Labs"
               >
                 Quest Diagnostics &rarr;
@@ -126,8 +128,8 @@ export const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t border-untouchable-steel pt-8 text-center">
-          <p className="text-untouchable-rose">
+        <div className="border-t border-untouchable-midnight pt-8 text-center">
+          <p className="text-untouchable-cream/70 text-lg">
             © 2024 Untouchable Dating. All rights reserved. | Premium Dating for Verified Professionals
           </p>
         </div>
@@ -135,4 +137,3 @@ export const Footer = () => {
     </footer>
   );
 };
-
