@@ -35,7 +35,7 @@ export const Header = () => {
           <div className="w-10 h-10 bg-gradient-to-br from-blue-900 to-blue-700 rounded-lg flex items-center justify-center">
             <Heart className="w-6 h-6 text-white" />
           </div>
-          <span className="text-2xl font-bold text-slate-900">EliteMatch</span>
+          <span className="text-2xl font-bold text-slate-900">Untouchable Dating</span>
         </Link>
 
         {/* Navigation links - show only if member */}
