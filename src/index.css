@@ -3,105 +3,103 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Enhanced Untouchable Dating Color Palette */
+/* Untouchable Dating Color Palette */
 
 @layer base {
   :root {
-    /* Primary Palette - Enhanced */
-    --untouchable-charcoal: #0A0A0A;
-    --untouchable-midnight: #1A1A1A;
-    --untouchable-crimson: #DC2626;
-    --untouchable-ruby: #991B1B;
-    --untouchable-plum: #6B21A8;
-    --untouchable-aubergine: #581C87;
-    --untouchable-gold: #F59E0B;
-    --untouchable-bronze: #D97706;
+    /* Primary Palette */
+    --untouchable-charcoal: #121212;
+    --untouchable-midnight: #1E1E1E;
+    --untouchable-crimson: #C8102E;
+    --untouchable-ruby: #8B0000;
+    --untouchable-plum: #4B1248;
+    --untouchable-aubergine: #3B1F4F;
+    --untouchable-gold: #D4AF37;
+    --untouchable-bronze: #CBA135;
     
-    /* Supporting Tones - Enhanced */
-    --untouchable-cream: #FEFDFB;
-    --untouchable-steel: #6B7280;
-    --untouchable-rose: #E879F9;
-    --untouchable-pearl: #F3F4F6;
-    --untouchable-shadow: #374151;
+    /* Supporting Tones */
+    --untouchable-cream: #F9F6F0;
+    --untouchable-steel: #707070;
+    --untouchable-rose: #C68FA0;
 
-    /* Shadcn Variables adapted to Enhanced Untouchable theme */
-    --background: 254 253 251; /* Enhanced Cream */
-    --foreground: 10 10 10; /* Enhanced Charcoal */
+    /* Shadcn Variables adapted to Untouchable theme */
+    --background: 249 246 240; /* Soft Cream */
+    --foreground: 18 18 18; /* Deep Charcoal */
 
-    --card: 254 253 251; /* Enhanced Cream */
-    --card-foreground: 10 10 10; /* Enhanced Charcoal */
+    --card: 249 246 240; /* Soft Cream */
+    --card-foreground: 18 18 18; /* Deep Charcoal */
 
-    --popover: 254 253 251; /* Enhanced Cream */
-    --popover-foreground: 10 10 10; /* Enhanced Charcoal */
+    --popover: 249 246 240; /* Soft Cream */
+    --popover-foreground: 18 18 18; /* Deep Charcoal */
 
-    --primary: 107 33 168; /* Enhanced Plum */
-    --primary-foreground: 254 253 251; /* Enhanced Cream */
+    --primary: 75 18 72; /* Royal Plum */
+    --primary-foreground: 249 246 240; /* Soft Cream */
 
-    --secondary: 107 114 128; /* Enhanced Steel */
-    --secondary-foreground: 254 253 251; /* Enhanced Cream */
+    --secondary: 112 112 112; /* Steel Gray */
+    --secondary-foreground: 249 246 240; /* Soft Cream */
 
-    --muted: 243 244 246; /* Enhanced Pearl */
-    --muted-foreground: 55 65 81; /* Enhanced Shadow */
+    --muted: 198 143 160; /* Dusty Rose */
+    --muted-foreground: 18 18 18; /* Deep Charcoal */
 
-    --accent: 220 38 38; /* Enhanced Crimson */
-    --accent-foreground: 254 253 251; /* Enhanced Cream */
+    --accent: 200 16 46; /* Crimson Red */
+    --accent-foreground: 249 246 240; /* Soft Cream */
 
-    --destructive: 153 27 27; /* Enhanced Ruby */
-    --destructive-foreground: 254 253 251; /* Enhanced Cream */
+    --destructive: 200 16 46; /* Crimson Red */
+    --destructive-foreground: 249 246 240; /* Soft Cream */
 
-    --border: 229 231 235; /* Light Border */
-    --input: 243 244 246; /* Enhanced Pearl */
-    --ring: 220 38 38; /* Enhanced Crimson */
+    --border: 112 112 112; /* Steel Gray */
+    --input: 112 112 112; /* Steel Gray */
+    --ring: 200 16 46; /* Crimson Red */
 
     --radius: 0.5rem;
 
-    --sidebar-background: 26 26 26; /* Enhanced Midnight */
-    --sidebar-foreground: 254 253 251; /* Enhanced Cream */
-    --sidebar-primary: 107 33 168; /* Enhanced Plum */
-    --sidebar-primary-foreground: 254 253 251; /* Enhanced Cream */
-    --sidebar-accent: 88 28 135; /* Enhanced Aubergine */
-    --sidebar-accent-foreground: 254 253 251; /* Enhanced Cream */
-    --sidebar-border: 107 114 128; /* Enhanced Steel */
-    --sidebar-ring: 220 38 38; /* Enhanced Crimson */
+    --sidebar-background: 30 30 30; /* Midnight Black */
+    --sidebar-foreground: 249 246 240; /* Soft Cream */
+    --sidebar-primary: 75 18 72; /* Royal Plum */
+    --sidebar-primary-foreground: 249 246 240; /* Soft Cream */
+    --sidebar-accent: 59 31 79; /* Deep Aubergine */
+    --sidebar-accent-foreground: 249 246 240; /* Soft Cream */
+    --sidebar-border: 112 112 112; /* Steel Gray */
+    --sidebar-ring: 200 16 46; /* Crimson Red */
   }
 
   .dark {
-    --background: 10 10 10; /* Enhanced Charcoal */
-    --foreground: 254 253 251; /* Enhanced Cream */
+    --background: 18 18 18; /* Deep Charcoal */
+    --foreground: 249 246 240; /* Soft Cream */
 
-    --card: 26 26 26; /* Enhanced Midnight */
-    --card-foreground: 254 253 251; /* Enhanced Cream */
+    --card: 30 30 30; /* Midnight Black */
+    --card-foreground: 249 246 240; /* Soft Cream */
 
-    --popover: 26 26 26; /* Enhanced Midnight */
-    --popover-foreground: 254 253 251; /* Enhanced Cream */
+    --popover: 30 30 30; /* Midnight Black */
+    --popover-foreground: 249 246 240; /* Soft Cream */
 
-    --primary: 245 158 11; /* Enhanced Gold */
-    --primary-foreground: 10 10 10; /* Enhanced Charcoal */
+    --primary: 212 175 55; /* Champagne Gold */
+    --primary-foreground: 18 18 18; /* Deep Charcoal */
 
-    --secondary: 88 28 135; /* Enhanced Aubergine */
-    --secondary-foreground: 254 253 251; /* Enhanced Cream */
+    --secondary: 59 31 79; /* Deep Aubergine */
+    --secondary-foreground: 249 246 240; /* Soft Cream */
 
-    --muted: 55 65 81; /* Enhanced Shadow */
-    --muted-foreground: 156 163 175; /* Light Gray */
+    --muted: 59 31 79; /* Deep Aubergine */
+    --muted-foreground: 198 143 160; /* Dusty Rose */
 
-    --accent: 220 38 38; /* Enhanced Crimson */
-    --accent-foreground: 254 253 251; /* Enhanced Cream */
+    --accent: 200 16 46; /* Crimson Red */
+    --accent-foreground: 249 246 240; /* Soft Cream */
 
-    --destructive: 153 27 27; /* Enhanced Ruby */
-    --destructive-foreground: 254 253 251; /* Enhanced Cream */
+    --destructive: 139 0 0; /* Deep Ruby */
+    --destructive-foreground: 249 246 240; /* Soft Cream */
 
-    --border: 55 65 81; /* Enhanced Shadow */
-    --input: 55 65 81; /* Enhanced Shadow */
-    --ring: 245 158 11; /* Enhanced Gold */
+    --border: 59 31 79; /* Deep Aubergine */
+    --input: 59 31 79; /* Deep Aubergine */
+    --ring: 212 175 55; /* Champagne Gold */
 
-    --sidebar-background: 10 10 10; /* Enhanced Charcoal */
-    --sidebar-foreground: 254 253 251; /* Enhanced Cream */
-    --sidebar-primary: 245 158 11; /* Enhanced Gold */
-    --sidebar-primary-foreground: 10 10 10; /* Enhanced Charcoal */
-    --sidebar-accent: 107 33 168; /* Enhanced Plum */
-    --sidebar-accent-foreground: 254 253 251; /* Enhanced Cream */
-    --sidebar-border: 107 33 168; /* Enhanced Plum */
-    --sidebar-ring: 245 158 11; /* Enhanced Gold */
+    --sidebar-background: 18 18 18; /* Deep Charcoal */
+    --sidebar-foreground: 249 246 240; /* Soft Cream */
+    --sidebar-primary: 212 175 55; /* Champagne Gold */
+    --sidebar-primary-foreground: 18 18 18; /* Deep Charcoal */
+    --sidebar-accent: 75 18 72; /* Royal Plum */
+    --sidebar-accent-foreground: 249 246 240; /* Soft Cream */
+    --sidebar-border: 75 18 72; /* Royal Plum */
+    --sidebar-ring: 212 175 55; /* Champagne Gold */
   }
 }
 
@@ -115,7 +113,7 @@
   }
 }
 
-/* Enhanced Untouchable color utilities */
+/* Custom Untouchable color utilities */
 @layer utilities {
   .bg-untouchable-charcoal { background-color: var(--untouchable-charcoal); }
   .bg-untouchable-midnight { background-color: var(--untouchable-midnight); }
@@ -128,8 +126,6 @@
   .bg-untouchable-cream { background-color: var(--untouchable-cream); }
   .bg-untouchable-steel { background-color: var(--untouchable-steel); }
   .bg-untouchable-rose { background-color: var(--untouchable-rose); }
-  .bg-untouchable-pearl { background-color: var(--untouchable-pearl); }
-  .bg-untouchable-shadow { background-color: var(--untouchable-shadow); }
   
   .text-untouchable-charcoal { color: var(--untouchable-charcoal); }
   .text-untouchable-midnight { color: var(--untouchable-midnight); }
@@ -142,19 +138,4 @@
   .text-untouchable-cream { color: var(--untouchable-cream); }
   .text-untouchable-steel { color: var(--untouchable-steel); }
   .text-untouchable-rose { color: var(--untouchable-rose); }
-  .text-untouchable-pearl { color: var(--untouchable-pearl); }
-  .text-untouchable-shadow { color: var(--untouchable-shadow); }
-
-  /* Gradient utilities */
-  .bg-untouchable-gradient-primary {
-    background: linear-gradient(135deg, var(--untouchable-plum), var(--untouchable-aubergine));
-  }
-  
-  .bg-untouchable-gradient-accent {
-    background: linear-gradient(135deg, var(--untouchable-crimson), var(--untouchable-ruby));
-  }
-  
-  .bg-untouchable-gradient-luxury {
-    background: linear-gradient(135deg, var(--untouchable-gold), var(--untouchable-bronze));
-  }
 }
