@@ -41,7 +41,7 @@ export const Features = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-            Why Choose EliteMatch?
+            Why Choose Untouchable Dating?
           </h2>
           <p className="text-xl text-slate-600 leading-relaxed">
             Our platform is designed exclusively for high-achieving individuals who value quality, 
