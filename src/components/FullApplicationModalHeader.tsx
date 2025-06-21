@@ -19,9 +19,8 @@ export const FullApplicationModalHeader: React.FC<Props> = ({ onClose }) => (
     </button>
     <DialogHeader className="pt-8 px-6">
       <DialogTitle className="text-xl mb-2">
-        Elite Match: Full Application
+        Untouchable Dating: Full Application
       </DialogTitle>
     </DialogHeader>
   </div>
 );
-
