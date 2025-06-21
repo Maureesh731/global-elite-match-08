@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -37,7 +38,7 @@ export const Pricing = () => {
             
             <CardHeader className="text-center pb-8">
               <CardTitle className="text-3xl font-bold text-slate-900 mb-2">
-                Elite Membership
+                Untouchable Dating Membership
               </CardTitle>
               <CardDescription className="text-lg text-slate-600 mb-6">
                 For serious professionals seeking meaningful connections
