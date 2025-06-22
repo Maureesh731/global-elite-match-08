@@ -37,7 +37,7 @@ export const Features = () => {
   ];
 
   return (
-    <section id="features" className="py-24" style={{backgroundColor: '#1E1E1E'}}>
+    <section id="features" className="py-24 bg-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -51,10 +51,10 @@ export const Features = () => {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <Card key={index} className="border-2 hover:shadow-lg transition-shadow duration-300" style={{backgroundColor: '#121212', borderColor: '#4B1248'}}>
+            <Card key={index} className="bg-black border-2 border-purple-900 hover:border-yellow-400 hover:shadow-lg hover:shadow-yellow-400/20 transition-all duration-300">
               <CardHeader>
-                <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{backgroundColor: '#4B1248'}}>
-                  <feature.icon className="w-6 h-6" style={{color: '#D4AF37'}} />
+                <div className="w-12 h-12 bg-purple-900 rounded-lg flex items-center justify-center mb-4">
+                  <feature.icon className="w-6 h-6 text-yellow-400" />
                 </div>
                 <CardTitle className="text-xl text-white">{feature.title}</CardTitle>
               </CardHeader>

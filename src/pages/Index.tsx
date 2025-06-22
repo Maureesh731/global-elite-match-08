@@ -12,7 +12,7 @@ import { FeaturedMembers } from "@/components/FeaturedMembers";
 
 const Index = () => {
   return (
-    <div className="min-h-screen" style={{backgroundColor: '#121212'}}>
+    <div className="min-h-screen bg-black">
       <Header />
       <Hero />
       <Features />
@@ -23,16 +23,22 @@ const Index = () => {
       <div className="container mx-auto py-12 flex flex-col items-center gap-4">
         <div className="flex flex-wrap gap-4 justify-center">
           <Link to="/gentlemen-profile">
-            <Button variant="secondary" className="text-white border-2" style={{backgroundColor: '#4B1248', borderColor: '#D4AF37', '&:hover': {backgroundColor: '#3B1F4F'}}}>Create Gentleman's Profile</Button>
+            <Button variant="secondary" className="bg-purple-900 hover:bg-purple-800 text-white border-2 border-yellow-400">
+              Create Gentleman's Profile
+            </Button>
           </Link>
           <Link to="/ladies-profile">
-            <Button variant="secondary" className="text-white border-2" style={{backgroundColor: '#4B1248', borderColor: '#D4AF37', '&:hover': {backgroundColor: '#3B1F4F'}}}>Create Lady's Profile</Button>
+            <Button variant="secondary" className="bg-purple-900 hover:bg-purple-800 text-white border-2 border-yellow-400">
+              Create Lady's Profile
+            </Button>
           </Link>
           <Link to="/profile-search">
-            <Button className="text-white border-0" style={{backgroundColor: '#C8102E', '&:hover': {backgroundColor: '#8B0000'}}}>Search Profiles</Button>
+            <Button className="bg-red-700 hover:bg-red-800 text-white border-0">
+              Search Profiles
+            </Button>
           </Link>
           <Link to="/donate-compensation">
-            <Button className="text-black border-0" style={{backgroundColor: '#D4AF37', '&:hover': {backgroundColor: '#CBA135'}}}>
+            <Button className="bg-yellow-400 hover:bg-yellow-300 text-black border-0">
               Donate &amp; Get Compensated
             </Button>
           </Link>

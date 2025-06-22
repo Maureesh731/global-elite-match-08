@@ -15,7 +15,7 @@ export const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-24" style={{backgroundColor: '#1E1E1E'}}>
+    <section id="pricing" className="py-24 bg-gray-900">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -28,9 +28,9 @@ export const Pricing = () => {
         </div>
         
         <div className="max-w-2xl mx-auto">
-          <Card className="border-2 relative overflow-hidden" style={{backgroundColor: '#121212', borderColor: '#4B1248'}}>
+          <Card className="bg-black border-2 border-purple-900 relative overflow-hidden">
             <div className="absolute top-4 right-4">
-              <Badge className="text-black px-3 py-1" style={{backgroundColor: '#D4AF37'}}>
+              <Badge className="bg-yellow-400 text-black px-3 py-1">
                 <Star className="w-4 h-4 mr-1" />
                 Exclusive
               </Badge>
@@ -45,7 +45,7 @@ export const Pricing = () => {
               </CardDescription>
               
               <div className="mb-4">
-                <Badge className="text-white px-4 py-2 text-sm font-semibold" style={{backgroundColor: '#8B0000'}}>
+                <Badge className="bg-red-800 text-white px-4 py-2 text-sm font-semibold">
                   🚀 Launch Special: 50% OFF First 30 Days!
                 </Badge>
               </div>
@@ -71,13 +71,13 @@ export const Pricing = () => {
               <div className="space-y-4 mb-8">
                 {features.map((feature, index) => (
                   <div key={index} className="flex items-center space-x-3">
-                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{color: '#D4AF37'}} />
+                    <CheckCircle className="w-5 h-5 text-yellow-400 flex-shrink-0" />
                     <span className="text-slate-300">{feature}</span>
                   </div>
                 ))}
               </div>
               
-              <Button className="w-full py-6 text-lg font-semibold text-white border-0" style={{backgroundColor: '#C8102E', '&:hover': {backgroundColor: '#8B0000'}}}>
+              <Button className="w-full py-6 text-lg font-semibold bg-red-700 hover:bg-red-800 text-white border-0">
                 Begin Application Process
               </Button>
               

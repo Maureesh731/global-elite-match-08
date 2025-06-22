@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <footer className="text-white py-16" style={{backgroundColor: '#121212'}}>
+    <footer className="bg-black text-white py-16">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-5 gap-8 mb-12">
           {/* Brand & Social */}
           <div className="col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{backgroundColor: '#4B1248'}}>
-                <Heart className="w-5 h-5" style={{color: '#D4AF37'}} />
+              <div className="w-8 h-8 bg-purple-900 rounded-lg flex items-center justify-center">
+                <Heart className="w-5 h-5 text-yellow-400" />
               </div>
               <span className="text-xl font-bold">Untouchable Dating</span>
             </div>
@@ -26,8 +26,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="transition-colors"
-                style={{'&:hover': {color: '#D4AF37'}}}
+                className="text-slate-300 hover:text-yellow-400 transition-colors"
               >
                 <Facebook className="w-6 h-6" />
               </a>
@@ -36,8 +35,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="transition-colors"
-                style={{'&:hover': {color: '#D4AF37'}}}
+                className="text-slate-300 hover:text-yellow-400 transition-colors"
               >
                 <Instagram className="w-6 h-6" />
               </a>
@@ -46,8 +44,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="transition-colors"
-                style={{'&:hover': {color: '#D4AF37'}}}
+                className="text-slate-300 hover:text-yellow-400 transition-colors"
               >
                 <Linkedin className="w-6 h-6" />
               </a>
@@ -56,8 +53,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
-                className="transition-colors"
-                style={{'&:hover': {color: '#D4AF37'}}}
+                className="text-slate-300 hover:text-yellow-400 transition-colors"
               >
                 <Twitter className="w-6 h-6" />
               </a>
@@ -66,8 +62,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"
-                className="transition-colors"
-                style={{'&:hover': {color: '#C8102E'}}}
+                className="text-slate-300 hover:text-red-700 transition-colors"
               >
                 <Youtube className="w-6 h-6" />
               </a>
@@ -78,17 +73,17 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold text-white mb-4">Platform</h3>
             <ul className="space-y-2 text-slate-300">
-              <li><a href="#" className="transition-colors" style={{'&:hover': {color: '#D4AF37'}}}>How It Works</a></li>
-              <li><a href="#" className="transition-colors" style={{'&:hover': {color: '#D4AF37'}}}>Verification</a></li>
-              <li><a href="#" className="transition-colors" style={{'&:hover': {color: '#D4AF37'}}}>Success Stories</a></li>
-              <li><a href="#" className="transition-colors" style={{'&:hover': {color: '#D4AF37'}}}>FAQ</a></li>
+              <li><a href="#" className="hover:text-yellow-400 transition-colors">How It Works</a></li>
+              <li><a href="#" className="hover:text-yellow-400 transition-colors">Verification</a></li>
+              <li><a href="#" className="hover:text-yellow-400 transition-colors">Success Stories</a></li>
+              <li><a href="#" className="hover:text-yellow-400 transition-colors">FAQ</a></li>
               <li>
-                <Link to="/networking" className="font-semibold transition-colors" style={{color: '#D4AF37', '&:hover': {color: '#CBA135'}}}>
+                <Link to="/networking" className="text-yellow-400 hover:text-yellow-300 font-semibold transition-colors">
                   Networking
                 </Link>
               </li>
               <li>
-                <Link to="/lab-partner" className="font-semibold transition-colors" style={{color: '#D4AF37', '&:hover': {color: '#CBA135'}}}>
+                <Link to="/lab-partner" className="text-yellow-400 hover:text-yellow-300 font-semibold transition-colors">
                   Lab Partnership
                 </Link>
               </li>
@@ -99,12 +94,12 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold text-white mb-4">Support</h3>
             <ul className="space-y-2 text-slate-300">
-              <li><a href="#" className="transition-colors" style={{'&:hover': {color: '#D4AF37'}}}>Contact Us</a></li>
-              <li><a href="#" className="transition-colors" style={{'&:hover': {color: '#D4AF37'}}}>Privacy Policy</a></li>
-              <li><a href="#" className="transition-colors" style={{'&:hover': {color: '#D4AF37'}}}>Terms of Service</a></li>
-              <li><a href="#" className="transition-colors" style={{'&:hover': {color: '#D4AF37'}}}>Safety Guidelines</a></li>
+              <li><a href="#" className="hover:text-yellow-400 transition-colors">Contact Us</a></li>
+              <li><a href="#" className="hover:text-yellow-400 transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-yellow-400 transition-colors">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-yellow-400 transition-colors">Safety Guidelines</a></li>
               <li>
-                <Link to="/referral-program" className="font-semibold transition-colors" style={{color: '#D4AF37', '&:hover': {color: '#CBA135'}}}>
+                <Link to="/referral-program" className="text-yellow-400 hover:text-yellow-300 font-semibold transition-colors">
                   Referral Program
                 </Link>
               </li>
@@ -122,8 +117,7 @@ export const Footer = () => {
                 href="https://www.questdiagnostics.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block text-white px-4 py-2 rounded mt-2 font-semibold transition-all"
-                style={{backgroundColor: '#4B1248', '&:hover': {backgroundColor: '#3B1F4F'}}}
+                className="inline-block bg-purple-900 hover:bg-purple-800 text-white px-4 py-2 rounded mt-2 font-semibold transition-all"
                 aria-label="Find Quest Diagnostics Labs"
               >
                 Quest Diagnostics &rarr;
@@ -132,7 +126,7 @@ export const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t pt-8 text-center" style={{borderColor: '#4B1248'}}>
+        <div className="border-t border-purple-900 pt-8 text-center">
           <p className="text-slate-400">
             © 2024 Untouchable Dating. All rights reserved. | Premium Dating for Verified Professionals
           </p>

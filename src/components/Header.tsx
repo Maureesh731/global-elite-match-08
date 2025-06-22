@@ -29,11 +29,11 @@ export const Header = () => {
   };
 
   return (
-    <header className="border-b backdrop-blur-sm sticky top-0 z-50" style={{backgroundColor: '#121212', borderColor: '#4B1248'}}>
+    <header className="border-b backdrop-blur-sm sticky top-0 z-50 bg-black border-purple-900">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{backgroundColor: '#4B1248'}}>
-            <Heart className="w-6 h-6" style={{color: '#D4AF37'}} />
+          <div className="w-10 h-10 rounded-lg bg-purple-900 flex items-center justify-center">
+            <Heart className="w-6 h-6 text-yellow-400" />
           </div>
           <span className="text-2xl font-bold text-white">Untouchable Dating</span>
         </Link>
@@ -43,36 +43,31 @@ export const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/profile-search"
-              className="text-slate-300 transition-colors"
-              style={{'&:hover': {color: '#D4AF37'}}}
+              className="text-slate-300 hover:text-yellow-400 transition-colors"
             >
               Search Profiles
             </Link>
             <Link
               to="/gentlemen-profile"
-              className="text-slate-300 transition-colors"
-              style={{'&:hover': {color: '#D4AF37'}}}
+              className="text-slate-300 hover:text-yellow-400 transition-colors"
             >
               Create Gentlemen's Profile
             </Link>
             <Link
               to="/ladies-profile"
-              className="text-slate-300 transition-colors"
-              style={{'&:hover': {color: '#D4AF37'}}}
+              className="text-slate-300 hover:text-yellow-400 transition-colors"
             >
               Create Ladies Profile
             </Link>
             <Link
               to="/testimonials"
-              className="text-slate-300 transition-colors"
-              style={{'&:hover': {color: '#D4AF37'}}}
+              className="text-slate-300 hover:text-yellow-400 transition-colors"
             >
               Testimonials
             </Link>
             <Link
               to="/lab-partner"
-              className="text-slate-300 transition-colors"
-              style={{'&:hover': {color: '#D4AF37'}}}
+              className="text-slate-300 hover:text-yellow-400 transition-colors"
             >
               Lab Partner
             </Link>
@@ -91,15 +86,13 @@ export const Header = () => {
             </span>
             <Link
               to="/testimonials"
-              className="text-slate-300 transition-colors"
-              style={{'&:hover': {color: '#D4AF37'}}}
+              className="text-slate-300 hover:text-yellow-400 transition-colors"
             >
               Testimonials
             </Link>
             <Link
               to="/lab-partner"
-              className="text-slate-300 transition-colors"
-              style={{'&:hover': {color: '#D4AF37'}}}
+              className="text-slate-300 hover:text-yellow-400 transition-colors"
             >
               Lab Partner
             </Link>
@@ -109,15 +102,15 @@ export const Header = () => {
         {/* Actions */}
         <div className="flex items-center space-x-4">
           {isMember ? (
-            <Button variant="ghost" className="text-slate-300" style={{'&:hover': {color: '#D4AF37'}}} onClick={handleSignOut}>
+            <Button variant="ghost" className="text-slate-300 hover:text-yellow-400" onClick={handleSignOut}>
               Sign Out
             </Button>
           ) : (
             <>
-              <Button variant="ghost" className="text-slate-300" style={{'&:hover': {color: '#D4AF37'}}} onClick={handleSignIn}>
+              <Button variant="ghost" className="text-slate-300 hover:text-yellow-400" onClick={handleSignIn}>
                 Sign In
               </Button>
-              <Button className="text-white border-0" style={{backgroundColor: '#C8102E', '&:hover': {backgroundColor: '#8B0000'}}} onClick={handleApply}>
+              <Button className="bg-red-700 hover:bg-red-800 text-white border-0" onClick={handleApply}>
                 Apply Now
               </Button>
               <FullApplicationModal
