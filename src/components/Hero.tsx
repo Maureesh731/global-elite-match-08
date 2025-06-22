@@ -61,7 +61,7 @@ export const Hero = () => {
             <Button size="lg" className="bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white px-12 py-6 text-xl font-bold shadow-2xl shadow-red-500/30 border border-red-500/50 transform hover:scale-105 transition-all duration-300">
               Begin Your Journey
             </Button>
-            <Button size="lg" className="border-2 border-gray-400 text-white hover:bg-white/10 px-12 py-6 text-xl backdrop-blur-sm transform hover:scale-105 transition-all duration-300" variant="outline">
+            <Button size="lg" className="bg-gradient-to-r from-purple-800/80 to-red-800/80 hover:from-purple-700 hover:to-red-700 text-white border-2 border-purple-400/50 hover:border-red-400/60 px-12 py-6 text-xl font-semibold backdrop-blur-sm transform hover:scale-105 transition-all duration-300 shadow-2xl shadow-purple-500/30" variant="outline">
               Discover More
             </Button>
           </div>
