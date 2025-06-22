@@ -12,7 +12,7 @@ import { FeaturedMembers } from "@/components/FeaturedMembers";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen" style={{backgroundColor: '#121212'}}>
       <Header />
       <Hero />
       <Features />
@@ -23,16 +23,16 @@ const Index = () => {
       <div className="container mx-auto py-12 flex flex-col items-center gap-4">
         <div className="flex flex-wrap gap-4 justify-center">
           <Link to="/gentlemen-profile">
-            <Button variant="secondary">Create Gentleman's Profile</Button>
+            <Button variant="secondary" className="text-white border-2" style={{backgroundColor: '#4B1248', borderColor: '#D4AF37', '&:hover': {backgroundColor: '#3B1F4F'}}}>Create Gentleman's Profile</Button>
           </Link>
           <Link to="/ladies-profile">
-            <Button variant="secondary">Create Lady's Profile</Button>
+            <Button variant="secondary" className="text-white border-2" style={{backgroundColor: '#4B1248', borderColor: '#D4AF37', '&:hover': {backgroundColor: '#3B1F4F'}}}>Create Lady's Profile</Button>
           </Link>
           <Link to="/profile-search">
-            <Button className="bg-blue-900 text-white hover:bg-blue-800">Search Profiles</Button>
+            <Button className="text-white border-0" style={{backgroundColor: '#C8102E', '&:hover': {backgroundColor: '#8B0000'}}}>Search Profiles</Button>
           </Link>
           <Link to="/donate-compensation">
-            <Button className="bg-green-700 text-white hover:bg-green-800">
+            <Button className="text-black border-0" style={{backgroundColor: '#D4AF37', '&:hover': {backgroundColor: '#CBA135'}}}>
               Donate &amp; Get Compensated
             </Button>
           </Link>
