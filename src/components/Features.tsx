@@ -37,14 +37,13 @@ export const Features = () => {
   ];
 
   return (
-    <section id="features" className="py-24 bg-gradient-to-b from-gray-900 via-charcoal-900 to-black">
+    <section id="features" className="py-24 bg-white">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Why Choose 
-            <span className="bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text text-transparent"> Untouchable Dating</span>?
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            Why Choose Untouchable Dating?
           </h2>
-          <p className="text-xl text-gray-300 leading-relaxed">
+          <p className="text-xl text-slate-600 leading-relaxed">
             Our platform is designed exclusively for high-achieving individuals who value quality, 
             authenticity, and meaningful connections.
           </p>
@@ -52,15 +51,15 @@ export const Features = () => {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <Card key={index} className="group bg-gradient-to-br from-black to-gray-900 border-2 border-purple-800/50 hover:border-yellow-400/70 hover:shadow-2xl hover:shadow-yellow-400/20 transition-all duration-500 transform hover:scale-105">
+            <Card key={index} className="border-slate-200 hover:shadow-lg transition-shadow duration-300">
               <CardHeader>
-                <div className="w-14 h-14 bg-gradient-to-br from-purple-600 via-purple-700 to-purple-800 rounded-xl flex items-center justify-center mb-4 group-hover:from-yellow-400 group-hover:to-yellow-500 transition-all duration-500 shadow-lg">
-                  <feature.icon className="w-7 h-7 text-white group-hover:text-black transition-colors duration-500" />
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-900 to-blue-700 rounded-lg flex items-center justify-center mb-4">
+                  <feature.icon className="w-6 h-6 text-white" />
                 </div>
-                <CardTitle className="text-xl text-white group-hover:text-yellow-400 transition-colors duration-300">{feature.title}</CardTitle>
+                <CardTitle className="text-xl text-slate-900">{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-gray-300 text-base leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
+                <CardDescription className="text-slate-600 text-base leading-relaxed">
                   {feature.description}
                 </CardDescription>
               </CardContent>

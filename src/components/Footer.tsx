@@ -4,18 +4,18 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <footer className="bg-black text-white py-16">
+    <footer className="bg-slate-900 text-white py-16">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-5 gap-8 mb-12">
           {/* Brand & Social */}
           <div className="col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-purple-900 rounded-lg flex items-center justify-center">
-                <Heart className="w-5 h-5 text-yellow-400" />
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                <Heart className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold">Untouchable Dating</span>
             </div>
-            <p className="text-slate-300 leading-relaxed max-w-md">
+            <p className="text-slate-400 leading-relaxed max-w-md">
               The exclusive dating platform for verified global professionals seeking 
               authentic, health-conscious connections for marriage and long-term commitment.
             </p>
@@ -26,7 +26,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="text-slate-300 hover:text-yellow-400 transition-colors"
+                className="hover:text-blue-400 transition-colors"
               >
                 <Facebook className="w-6 h-6" />
               </a>
@@ -35,7 +35,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="text-slate-300 hover:text-yellow-400 transition-colors"
+                className="hover:text-pink-400 transition-colors"
               >
                 <Instagram className="w-6 h-6" />
               </a>
@@ -44,7 +44,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="text-slate-300 hover:text-yellow-400 transition-colors"
+                className="hover:text-blue-300 transition-colors"
               >
                 <Linkedin className="w-6 h-6" />
               </a>
@@ -53,7 +53,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
-                className="text-slate-300 hover:text-yellow-400 transition-colors"
+                className="hover:text-sky-400 transition-colors"
               >
                 <Twitter className="w-6 h-6" />
               </a>
@@ -62,7 +62,7 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"
-                className="text-slate-300 hover:text-red-700 transition-colors"
+                className="hover:text-red-500 transition-colors"
               >
                 <Youtube className="w-6 h-6" />
               </a>
@@ -72,18 +72,18 @@ export const Footer = () => {
           {/* Platform Section */}
           <div>
             <h3 className="font-semibold text-white mb-4">Platform</h3>
-            <ul className="space-y-2 text-slate-300">
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">How It Works</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">Verification</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">Success Stories</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">FAQ</a></li>
+            <ul className="space-y-2 text-slate-400">
+              <li><a href="#" className="hover:text-white transition-colors">How It Works</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Verification</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Success Stories</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
               <li>
-                <Link to="/networking" className="text-yellow-400 hover:text-yellow-300 font-semibold transition-colors">
+                <Link to="/networking" className="hover:text-white text-blue-300 transition-colors font-semibold">
                   Networking
                 </Link>
               </li>
               <li>
-                <Link to="/lab-partner" className="text-yellow-400 hover:text-yellow-300 font-semibold transition-colors">
+                <Link to="/lab-partner" className="hover:text-white text-blue-300 transition-colors font-semibold">
                   Lab Partnership
                 </Link>
               </li>
@@ -93,13 +93,13 @@ export const Footer = () => {
           {/* Support Section */}
           <div>
             <h3 className="font-semibold text-white mb-4">Support</h3>
-            <ul className="space-y-2 text-slate-300">
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">Contact Us</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">Safety Guidelines</a></li>
+            <ul className="space-y-2 text-slate-400">
+              <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Safety Guidelines</a></li>
               <li>
-                <Link to="/referral-program" className="text-yellow-400 hover:text-yellow-300 font-semibold transition-colors">
+                <Link to="/referral-program" className="hover:text-white text-blue-300 transition-colors font-semibold">
                   Referral Program
                 </Link>
               </li>
@@ -110,14 +110,14 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold text-white mb-4">Lab Partner</h3>
             <div className="space-y-3">
-              <p className="text-slate-300 text-sm">
+              <p className="text-slate-400 text-sm">
                 Find a local Quest Diagnostics lab to complete your required drug, STD, and disease screenings.
               </p>
               <a
                 href="https://www.questdiagnostics.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-purple-900 hover:bg-purple-800 text-white px-4 py-2 rounded mt-2 font-semibold transition-all"
+                className="inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded mt-2 font-semibold transition-all"
                 aria-label="Find Quest Diagnostics Labs"
               >
                 Quest Diagnostics &rarr;
@@ -126,7 +126,7 @@ export const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t border-purple-900 pt-8 text-center">
+        <div className="border-t border-slate-800 pt-8 text-center">
           <p className="text-slate-400">
             © 2024 Untouchable Dating. All rights reserved. | Premium Dating for Verified Professionals
           </p>
