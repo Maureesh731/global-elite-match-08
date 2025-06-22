@@ -1,4 +1,5 @@
 
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -44,11 +45,25 @@ export const Pricing = () => {
                 For serious professionals seeking meaningful connections
               </CardDescription>
               
+              <div className="mb-4">
+                <Badge className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 text-sm font-semibold">
+                  🚀 Launch Special: 50% OFF First 30 Days!
+                </Badge>
+              </div>
+              
               <div className="flex items-center justify-center space-x-2">
-                <span className="text-5xl font-bold text-slate-900">$49</span>
                 <div className="text-left">
-                  <div className="text-xl font-semibold text-slate-900">.95</div>
-                  <div className="text-slate-600">per month</div>
+                  <div className="flex items-baseline space-x-2">
+                    <span className="text-2xl text-slate-500 line-through">$79.00</span>
+                    <span className="text-5xl font-bold text-slate-900">$39</span>
+                    <div className="text-left">
+                      <div className="text-xl font-semibold text-slate-900">.50</div>
+                      <div className="text-slate-600">first month</div>
+                    </div>
+                  </div>
+                  <div className="text-center text-slate-600 mt-2">
+                    Then $79.00/month
+                  </div>
                 </div>
               </div>
             </CardHeader>
@@ -77,3 +92,4 @@ export const Pricing = () => {
     </section>
   );
 };
+
