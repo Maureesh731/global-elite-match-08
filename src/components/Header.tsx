@@ -7,18 +7,15 @@ import { toast } from "sonner";
 import { FullApplicationModal } from "@/components/FullApplicationModal";
 
 export const Header = () => {
-  // Simulate membership state: in a real app, derive from auth context/provider
   const [isMember, setIsMember] = useState(false);
   const navigate = useNavigate();
   const [showAppModal, setShowAppModal] = useState(false);
 
-  // Simulate sign in
   const handleSignIn = () => {
     setIsMember(true);
     toast.success("Signed in (demo)");
   };
 
-  // Simulate sign out
   const handleSignOut = () => {
     setIsMember(false);
     toast.success("Signed out (demo)");
@@ -29,88 +26,98 @@ export const Header = () => {
   };
 
   return (
-    <header className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+    <header className="border-b border-purple-900/30 bg-black/95 backdrop-blur-sm sticky top-0 z-50 shadow-lg shadow-purple-500/10">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-900 to-blue-700 rounded-lg flex items-center justify-center">
-            <Heart className="w-6 h-6 text-white" />
+        <Link to="/" className="flex items-center space-x-3">
+          <div className="w-12 h-12 bg-gradient-to-br from-red-600 to-purple-700 rounded-xl flex items-center justify-center shadow-lg shadow-red-500/20">
+            <Heart className="w-7 h-7 text-white" />
           </div>
-          <span className="text-2xl font-bold text-slate-900">Untouchable Dating</span>
+          <span className="text-2xl font-bold bg-gradient-to-r from-white via-purple-200 to-red-200 bg-clip-text text-transparent">
+            Untouchable Dating
+          </span>
         </Link>
 
-        {/* Navigation links - show only if member */}
         {isMember ? (
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/profile-search"
-              className="text-slate-600 hover:text-blue-900 transition-colors"
+              className="text-gray-300 hover:text-purple-400 transition-all duration-300 font-medium hover:scale-105"
             >
               Search Profiles
             </Link>
             <Link
               to="/gentlemen-profile"
-              className="text-slate-600 hover:text-blue-900 transition-colors"
+              className="text-gray-300 hover:text-purple-400 transition-all duration-300 font-medium hover:scale-105"
             >
               Create Gentlemen's Profile
             </Link>
             <Link
               to="/ladies-profile"
-              className="text-slate-600 hover:text-blue-900 transition-colors"
+              className="text-gray-300 hover:text-red-400 transition-all duration-300 font-medium hover:scale-105"
             >
               Create Ladies Profile
             </Link>
             <Link
               to="/testimonials"
-              className="text-slate-600 hover:text-blue-900 transition-colors"
+              className="text-gray-300 hover:text-white transition-all duration-300 font-medium hover:scale-105"
             >
               Testimonials
             </Link>
             <Link
               to="/lab-partner"
-              className="text-slate-600 hover:text-blue-900 transition-colors"
+              className="text-gray-300 hover:text-white transition-all duration-300 font-medium hover:scale-105"
             >
               Lab Partner
             </Link>
           </nav>
         ) : (
           <nav className="hidden md:flex items-center space-x-8">
-            {/* Non-members: only show informative links */}
-            <span className="text-slate-400 select-none cursor-not-allowed opacity-60">
+            <span className="text-gray-600 select-none cursor-not-allowed opacity-50">
               Search Profiles
             </span>
-            <span className="text-slate-400 select-none cursor-not-allowed opacity-60">
+            <span className="text-gray-600 select-none cursor-not-allowed opacity-50">
               Create Gentlemen's Profile
             </span>
-            <span className="text-slate-400 select-none cursor-not-allowed opacity-60">
+            <span className="text-gray-600 select-none cursor-not-allowed opacity-50">
               Create Ladies Profile
             </span>
             <Link
               to="/testimonials"
-              className="text-slate-600 hover:text-blue-900 transition-colors"
+              className="text-gray-300 hover:text-white transition-all duration-300 font-medium hover:scale-105"
             >
               Testimonials
             </Link>
             <Link
               to="/lab-partner"
-              className="text-slate-600 hover:text-blue-900 transition-colors"
+              className="text-gray-300 hover:text-white transition-all duration-300 font-medium hover:scale-105"
             >
               Lab Partner
             </Link>
           </nav>
         )}
 
-        {/* Actions */}
         <div className="flex items-center space-x-4">
           {isMember ? (
-            <Button variant="ghost" className="text-slate-600 hover:text-blue-900" onClick={handleSignOut}>
+            <Button 
+              variant="ghost" 
+              className="text-gray-300 hover:text-white hover:bg-gray-800/50" 
+              onClick={handleSignOut}
+            >
               Sign Out
             </Button>
           ) : (
             <>
-              <Button variant="ghost" className="text-slate-600 hover:text-blue-900" onClick={handleSignIn}>
+              <Button 
+                variant="ghost" 
+                className="text-gray-300 hover:text-white hover:bg-gray-800/50" 
+                onClick={handleSignIn}
+              >
                 Sign In
               </Button>
-              <Button className="bg-blue-900 hover:bg-blue-800" onClick={handleApply}>
+              <Button 
+                className="bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white font-semibold px-6 py-2 shadow-lg shadow-red-500/20 border border-red-500/30" 
+                onClick={handleApply}
+              >
                 Apply Now
               </Button>
               <FullApplicationModal
