@@ -21,12 +21,6 @@ export const labTests: LabTest[] = [
     included: "Blood test with rapid results"
   },
   {
-    name: "HIV 1 & 2 Test with Confirmation",
-    description: "Check for the human immunodeficiency virus (HIV), a sexually transmitted viral infection that may progress to acquired immunodeficiency syndrome (AIDS).",
-    price: "$89",
-    included: "Independent physician consultation for abnormal results included"
-  },
-  {
     name: "HPV Test for Cervical Cancer Risk (Self-Swab Collection)",
     description: "This high-risk HPV test detects high-risk Human Papillomavirus (HPV) types to assess the risk for cervical precancer and cancer. Self-collection vaginal swab in healthcare setting.",
     price: "$119",

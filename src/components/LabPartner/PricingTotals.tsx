@@ -14,12 +14,12 @@ export const PricingTotals = () => {
         <div className="text-center p-4 bg-white rounded-lg border border-slate-200">
           <h4 className="font-semibold text-slate-700 mb-2">Gentlemen's Package</h4>
           <div className="text-3xl font-bold text-blue-600">${totalPricing.men}</div>
-          <p className="text-sm text-slate-500 mt-1">6 Essential Tests</p>
+          <p className="text-sm text-slate-500 mt-1">5 Essential Tests</p>
         </div>
         <div className="text-center p-4 bg-white rounded-lg border border-slate-200">
           <h4 className="font-semibold text-slate-700 mb-2">Ladies' Package</h4>
           <div className="text-3xl font-bold text-purple-600">${totalPricing.women}</div>
-          <p className="text-sm text-slate-500 mt-1">7 Comprehensive Tests</p>
+          <p className="text-sm text-slate-500 mt-1">6 Comprehensive Tests</p>
         </div>
       </div>
     </div>
