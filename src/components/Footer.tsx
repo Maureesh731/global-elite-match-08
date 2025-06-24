@@ -1,11 +1,16 @@
-
 import { Heart, Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
+import { MemberCounter } from "@/components/MemberCounter";
 
 export const Footer = () => {
   return (
     <footer className="bg-black border-t border-purple-900/30 text-white py-20">
       <div className="container mx-auto px-4">
+        {/* Live Member Counter Section */}
+        <div className="flex justify-center mb-16">
+          <MemberCounter />
+        </div>
+
         <div className="grid md:grid-cols-5 gap-8 mb-16">
           <div className="col-span-2">
             <div className="flex items-center space-x-3 mb-6">
