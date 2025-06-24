@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { BackToHomeButton } from "@/components/BackToHomeButton";
+import { MemberCounter } from "@/components/MemberCounter";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 
@@ -182,6 +183,12 @@ export default function ProfileSearch() {
     return (
       <div className="flex flex-col items-center mx-auto py-20 gap-8">
         <BackToHomeButton />
+        
+        {/* Live Member Counter */}
+        <div className="flex justify-center mb-8">
+          <MemberCounter />
+        </div>
+        
         <h2 className="text-2xl font-semibold">Select Your Gender to Search</h2>
         <div className="flex gap-8">
           <Button onClick={() => handleUserGender("Gentleman")} className="px-8 text-lg">Gentleman</Button>
@@ -194,6 +201,12 @@ export default function ProfileSearch() {
     return (
       <div className="flex flex-col items-center mx-auto py-20 gap-6">
         <BackToHomeButton />
+        
+        {/* Live Member Counter */}
+        <div className="flex justify-center mb-8">
+          <MemberCounter />
+        </div>
+        
         <h2 className="text-xl font-bold">Subscription Required</h2>
         <p className="text-gray-700 mb-2">Please purchase a monthly subscription to access the search.</p>
         <Button
@@ -206,6 +219,12 @@ export default function ProfileSearch() {
   return (
     <div className="container max-w-3xl mx-auto py-12">
       <BackToHomeButton />
+      
+      {/* Live Member Counter */}
+      <div className="flex justify-center mb-8">
+        <MemberCounter />
+      </div>
+      
       <h2 className="text-3xl font-extrabold mb-8 text-center">Browse Members</h2>
       <div className="bg-slate-50 border rounded-xl p-4 mb-8">
         <h3 className="font-semibold text-lg mb-4">Additional Search Filters</h3>
