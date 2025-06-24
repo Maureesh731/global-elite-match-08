@@ -1,4 +1,3 @@
-
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
@@ -174,7 +173,7 @@ const LabPartnerPage = () => {
                   Time to Conquer the Lab!
                 </h3>
                 <p className="text-slate-600 mb-4">
-                  Visit Quest Health's online shop to browse all available tests, get detailed pricing, and book your appointment. As our referral partner, you'll get the best rates available.
+                  Visit Quest Health's online shop to browse all available tests and get detailed pricing. 10% to 20% savings possible when using this link below.
                 </p>
                 <Button asChild size="lg" className="bg-green-600 hover:bg-green-700">
                   <a
