@@ -9,13 +9,13 @@ export const LabPartnerHeader = () => {
         <FlaskConical className="w-12 h-12 flex-shrink-0" />
         <div>
           <h1 className="text-3xl md:text-4xl font-bold">
-            Our Referral Partner: Quest Diagnostics <span className="text-blue-300">(Because Cupid Can't Read Bloodwork)</span>
+            Our Lab Partner: Quest Diagnostics <span className="text-blue-300">(Because Cupid Can't Read Bloodwork)</span>
           </h1>
           <p className="text-blue-200 mt-2 text-lg">
             Swiping right is cool, but swabbing right? Now that's hot.
           </p>
           <Badge className="bg-yellow-500 text-black font-bold mt-4">
-            Referral Partner - Special EliteMatch Pricing
+            Lab Partner - Special EliteMatch Pricing
           </Badge>
         </div>
       </div>

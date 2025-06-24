@@ -24,7 +24,7 @@ const LabPartnerPage = () => {
                   Why Are We Dragging You to the Lab? (Spoiler: Not for Vampires)
                 </h2>
                 <p className="text-slate-600 leading-relaxed">
-                  At EliteMatch, honesty is the best policy—unless you're talking about your taste in reality TV, then we totally get it. But when it comes to health and wellness, we don't trust anything that rhymes with "Dr. Google." That's why we've partnered with Quest Diagnostics as our official referral partner, the scientists who actually passed chemistry. Together, we keep your love life cleaner than a germaphobe's sock drawer.
+                  At EliteMatch, honesty is the best policy—unless you're talking about your taste in reality TV, then we totally get it. But when it comes to health and wellness, we don't trust anything that rhymes with "Dr. Google." That's why we've partnered with Quest Diagnostics as our official lab partner, the scientists who actually passed chemistry. Together, we keep your love life cleaner than a germaphobe's sock drawer.
                 </p>
               </section>
 
