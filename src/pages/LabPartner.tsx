@@ -24,7 +24,7 @@ const LabPartnerPage = () => {
                   Why Are We Dragging You to the Lab? (Spoiler: Not for Vampires)
                 </h2>
                 <p className="text-slate-600 leading-relaxed">
-                  At EliteMatch, honesty is the best policy—unless you're talking about your taste in reality TV, then we totally get it. But when it comes to health and wellness, we don't trust anything that rhymes with "Dr. Google." That's why we've partnered with Quest Diagnostics as our official lab partner, the scientists who actually passed chemistry. Together, we keep your love life cleaner than a germaphobe's sock drawer.
+                  At Untouchable Match, honesty is the best policy—unless you're talking about your taste in reality TV, then we totally get it. But when it comes to health and wellness, we don't trust anything that rhymes with "Dr. Google." That's why we've partnered with Quest Diagnostics as our official lab partner, the scientists who actually passed chemistry. Together, we keep your love life cleaner than a germaphobe's sock drawer.
                 </p>
               </section>
 
@@ -49,7 +49,7 @@ const LabPartnerPage = () => {
                   Getting the "Verified & Vetted" badge is easier than trying to assemble Swedish furniture (bonus: zero Allen wrenches required):
                 </p>
                 <ol className="list-decimal list-inside space-y-2 mt-4 text-slate-600 pl-4">
-                  <li>Smash that "Apply" button on EliteMatch like it's a piñata at a birthday party.</li>
+                  <li>Smash that "Apply" button on Untouchable Match like it's a piñata at a birthday party.</li>
                   <li>
                     Hit our Quest Diagnostics link below and channel your inner Sherlock to find the nearest lab. Deerstalker hat: optional but encouraged.
                   </li>

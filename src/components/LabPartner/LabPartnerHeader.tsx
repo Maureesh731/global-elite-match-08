@@ -15,7 +15,7 @@ export const LabPartnerHeader = () => {
             Swiping right is cool, but swabbing right? Now that's hot.
           </p>
           <Badge className="bg-yellow-500 text-black font-bold mt-4">
-            Lab Partner - Special EliteMatch Pricing
+            Lab Partner - Special Untouchable Match Pricing
           </Badge>
         </div>
       </div>
