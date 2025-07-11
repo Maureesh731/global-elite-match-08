@@ -23,16 +23,24 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
     phone: "",
     linkedin: "",
     idFile: null as File | null,
-    medicalFile: null as File | null,
     bio: "",
-    healthStatus: "",
+    // Health disclosure questions
+    hasHerpes: "no",
+    hasHIV: "no",
+    hasHPV: "no",
+    hasOtherSTDs: "no",
+    hasChronicDiseases: "no",
     covidVaccinated: "no",
+    usesAlcohol: "no",
+    usesDrugs: "no",
+    disclosureAuthorization: "no",
+    // Optional testing
+    wantsOptionalTesting: "no",
   });
   const [agreed, setAgreed] = useState(false);
   const [showSubmitSuccess, setShowSubmitSuccess] = useState(false);
 
   const idInputRef = useRef<HTMLInputElement>(null);
-  const medicalInputRef = useRef<HTMLInputElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -49,7 +57,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
   };
 
   const handleFileChange = (
-    name: "idFile" | "medicalFile",
+    name: "idFile",
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0] ?? null;
@@ -96,7 +104,6 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
                 handleInput={handleInput}
                 handleFileChange={handleFileChange}
                 idInputRef={idInputRef}
-                medicalInputRef={medicalInputRef}
               />
               <FullApplicationModalDisclaimer
                 agreed={agreed}
