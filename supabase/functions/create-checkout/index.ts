@@ -49,7 +49,7 @@ serve(async (req) => {
           price_data: {
             currency: "usd",
             product_data: { name: "EliteMatch Membership" },
-            unit_amount: 4995, // $49.95/mo (in cents)
+            unit_amount: 2450, // $24.50/mo (in cents)
             recurring: { interval: "month" },
           },
           quantity: 1,

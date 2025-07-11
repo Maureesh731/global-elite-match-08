@@ -60,15 +60,15 @@ export const Pricing = () => {
               <div className="flex items-center justify-center space-x-4 mb-4">
                 <div className="text-center">
                   <div className="flex items-baseline justify-center space-x-2">
-                    <span className="text-3xl text-gray-500 line-through">$79.00</span>
-                    <span className="text-6xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">$39</span>
-                    <div className="text-left">
-                      <div className="text-2xl font-bold text-yellow-500">.50</div>
-                      <div className="text-gray-400 text-sm">first month</div>
-                    </div>
-                  </div>
-                  <div className="text-center text-gray-400 mt-3 text-lg">
-                    Then $79.00/month
+                     <span className="text-3xl text-gray-500 line-through">$49.99</span>
+                     <span className="text-6xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">$24</span>
+                     <div className="text-left">
+                       <div className="text-2xl font-bold text-yellow-500">.50</div>
+                       <div className="text-gray-400 text-sm">first month</div>
+                     </div>
+                   </div>
+                   <div className="text-center text-gray-400 mt-3 text-lg">
+                     Then $49.99/month
                   </div>
                 </div>
               </div>

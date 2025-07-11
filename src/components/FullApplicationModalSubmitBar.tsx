@@ -48,7 +48,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
         disabled={!agreed || loading}
         onClick={onPaidApplication}
       >
-        {loading ? "Redirecting to Payment..." : "Submit & Pay $49.95/mo"}
+        {loading ? "Redirecting to Payment..." : "Submit & Pay $24.50/mo"}
       </Button>
     </DialogFooter>
   );
