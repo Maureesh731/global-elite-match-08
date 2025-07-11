@@ -18,6 +18,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
 }) => {
   const [form, setForm] = useState({
     fullName: "",
+    memberProfileName: "",
     age: "",
     email: "",
     phone: "",
@@ -33,6 +34,9 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
     covidVaccinated: "no",
     usesAlcohol: "no",
     usesDrugs: "no",
+    usesMarijuana: "no",
+    smokesCigarettes: "no",
+    usesPrescriptionDrugs: "no",
     disclosureAuthorization: "no",
     // Optional testing
     wantsOptionalTesting: "no",

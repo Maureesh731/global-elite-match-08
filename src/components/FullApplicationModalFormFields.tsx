@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 
 type FormState = {
   fullName: string;
+  memberProfileName: string;
   age: string;
   email: string;
   phone: string;
@@ -20,6 +21,9 @@ type FormState = {
   covidVaccinated: string;
   usesAlcohol: string;
   usesDrugs: string;
+  usesMarijuana: string;
+  smokesCigarettes: string;
+  usesPrescriptionDrugs: string;
   disclosureAuthorization: string;
   // Optional testing
   wantsOptionalTesting: string;
@@ -41,6 +45,10 @@ export const FullApplicationModalFormFields: React.FC<Props> = ({
     <div>
       <Label htmlFor="fullName">Full Name</Label>
       <Input name="fullName" id="fullName" value={form.fullName} onChange={handleInput} required />
+    </div>
+    <div>
+      <Label htmlFor="memberProfileName">Member Profile Name</Label>
+      <Input name="memberProfileName" id="memberProfileName" value={form.memberProfileName} onChange={handleInput} required />
     </div>
     <div>
       <Label htmlFor="age">Age</Label>
@@ -273,6 +281,78 @@ export const FullApplicationModalFormFields: React.FC<Props> = ({
                 name="usesDrugs"
                 value="yes"
                 checked={form.usesDrugs === "yes"}
+                onChange={handleInput}
+              /> Yes
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <Label>Do you use marijuana?</Label>
+          <div className="flex gap-4 mt-1">
+            <label className="flex items-center gap-2">
+              <Input
+                type="radio"
+                name="usesMarijuana"
+                value="no"
+                checked={form.usesMarijuana === "no"}
+                onChange={handleInput}
+              /> No
+            </label>
+            <label className="flex items-center gap-2">
+              <Input
+                type="radio"
+                name="usesMarijuana"
+                value="yes"
+                checked={form.usesMarijuana === "yes"}
+                onChange={handleInput}
+              /> Yes
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <Label>Do you smoke cigarettes?</Label>
+          <div className="flex gap-4 mt-1">
+            <label className="flex items-center gap-2">
+              <Input
+                type="radio"
+                name="smokesCigarettes"
+                value="no"
+                checked={form.smokesCigarettes === "no"}
+                onChange={handleInput}
+              /> No
+            </label>
+            <label className="flex items-center gap-2">
+              <Input
+                type="radio"
+                name="smokesCigarettes"
+                value="yes"
+                checked={form.smokesCigarettes === "yes"}
+                onChange={handleInput}
+              /> Yes
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <Label>Do you use prescription drugs?</Label>
+          <div className="flex gap-4 mt-1">
+            <label className="flex items-center gap-2">
+              <Input
+                type="radio"
+                name="usesPrescriptionDrugs"
+                value="no"
+                checked={form.usesPrescriptionDrugs === "no"}
+                onChange={handleInput}
+              /> No
+            </label>
+            <label className="flex items-center gap-2">
+              <Input
+                type="radio"
+                name="usesPrescriptionDrugs"
+                value="yes"
+                checked={form.usesPrescriptionDrugs === "yes"}
                 onChange={handleInput}
               /> Yes
             </label>
