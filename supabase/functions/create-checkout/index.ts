@@ -48,7 +48,7 @@ serve(async (req) => {
         {
           price_data: {
             currency: "usd",
-            product_data: { name: "EliteMatch Membership" },
+            product_data: { name: "Untouchable Dating Membership" },
             unit_amount: 2450, // $24.50/mo (in cents)
             recurring: { interval: "month" },
           },

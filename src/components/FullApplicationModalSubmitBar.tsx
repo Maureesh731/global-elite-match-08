@@ -66,7 +66,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
           return;
         }
         
-        toast.success("Free registration approved! Welcome to EliteMatch.");
+        toast.success("Free registration approved! Welcome to Untouchable Dating.");
         handleSubmit(e);
       } catch (err) {
         toast.error("Registration failed. Please try again.");
