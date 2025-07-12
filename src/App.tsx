@@ -16,6 +16,7 @@ import NetworkingPage from "./pages/NetworkingPage";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCanceled from "./pages/PaymentCanceled";
 import LabPartnerPage from "./pages/LabPartner";
+import ProfileDetail from "./pages/ProfileDetail";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/gentlemen-profile" element={<GentlemenProfilePage />} />
           <Route path="/ladies-profile" element={<LadiesProfilePage />} />
           <Route path="/profile-search" element={<ProfileSearch />} />
+          <Route path="/profile/:id" element={<ProfileDetail />} />
           <Route path="/testimonials" element={<TestimonialsPage />} />
           <Route path="/donate-compensation" element={<DonateCompensation />} />
           <Route path="/referral-program" element={<ReferralProgram />} />

@@ -8,6 +8,7 @@ import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@
 // Extended demoProfiles to cover new fields for realistic filtering.
 const demoProfiles = [
   {
+    id: "1",
     gender: "Gentleman",
     fullName: "John Smith",
     age: 32,
@@ -27,6 +28,7 @@ const demoProfiles = [
     ]
   },
   {
+    id: "2",
     gender: "Lady",
     fullName: "Jane Doe",
     age: 27,
@@ -334,14 +336,19 @@ export default function ProfileSearch() {
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {filtered.map((profile, idx) => (
-          <div key={idx} className="rounded-xl border p-4 bg-white flex flex-col gap-4 shadow">
+          <div key={idx} className="rounded-xl border p-4 bg-white flex flex-col gap-4 shadow hover:shadow-lg transition-shadow">
             <div className="grid grid-cols-3 gap-2">
               {profile.photos.map((src, i) => (
                 <img key={i} src={src} alt="Profile" className="object-cover aspect-square rounded-md border" />
               ))}
             </div>
             <div>
-              <div className="font-bold text-lg">{profile.fullName} ({profile.age})</div>
+              <button
+                onClick={() => window.open(`/profile/${profile.id}`, '_blank')}
+                className="font-bold text-lg text-blue-600 hover:text-blue-800 underline text-left"
+              >
+                {profile.fullName} ({profile.age})
+              </button>
               <div className="text-gray-600 mb-1">{profile.bio}</div>
               <a href={profile.linkedin} className="underline text-blue-700" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>

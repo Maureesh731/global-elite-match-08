@@ -14,11 +14,13 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ gender, onSave }) => {
     fullName: "",
     age: "",
     bio: "",
+    story: "",
     linkedin: "",
     healthStatus: "",
     covidVaccinated: "no"
   });
   const [photos, setPhotos] = useState<(string | ArrayBuffer | null)[]>([]);
+  const [photoPrivacy, setPhotoPrivacy] = useState<boolean[]>(Array(10).fill(false));
   const fileInputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [agreedToDisclaimer, setAgreedToDisclaimer] = useState(false);
 
@@ -41,10 +43,18 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ gender, onSave }) => {
     }
   };
 
+  const togglePhotoPrivacy = (idx: number) => {
+    setPhotoPrivacy(prev => {
+      const newArr = [...prev];
+      newArr[idx] = !newArr[idx];
+      return newArr;
+    });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!agreedToDisclaimer) return;
-    onSave({ ...form, photos });
+    onSave({ ...form, photos, photoPrivacy });
   };
 
   return (
@@ -74,6 +84,22 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ gender, onSave }) => {
           value={form.bio}
           onChange={handleInput}
         />
+      </div>
+      <div>
+        <Label htmlFor="story">Member Story (Who you are & who you're seeking - up to 1500 characters)</Label>
+        <textarea
+          name="story"
+          id="story"
+          className="w-full border rounded p-2"
+          maxLength={1500}
+          rows={6}
+          value={form.story}
+          onChange={handleInput}
+          placeholder="Tell your story... What makes you unique? What are you looking for in a partner? Share your values, interests, and what you hope to find in a meaningful relationship."
+        />
+        <div className="text-xs text-gray-500 mt-1">
+          {form.story.length}/1500 characters
+        </div>
       </div>
       <div>
         <Label htmlFor="linkedin">LinkedIn Profile URL</Label>
@@ -126,37 +152,62 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ gender, onSave }) => {
         </div>
       </div>
       <div>
-        <Label>Profile Photos (up to 6):</Label>
-        <div className="flex gap-2 flex-wrap mt-2">
-          {[...Array(6)].map((_, idx) => (
-            <div key={idx} className="relative w-20 h-20 rounded-md border border-slate-200 bg-slate-50 flex items-center justify-center">
-              <input
-                ref={el => (fileInputRefs.current[idx] = el)}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={(e) => handlePhotoChange(idx, e)}
-              />
-              {photos[idx] ? (
-                <img
-                  src={photos[idx] as string}
-                  alt={`Profile ${idx + 1}`}
-                  className="object-cover w-full h-full rounded-md"
-                  onClick={() => fileInputRefs.current[idx]?.click()}
+        <Label>Profile Photos (up to 10):</Label>
+        <div className="grid grid-cols-5 gap-2 mt-2">
+          {[...Array(10)].map((_, idx) => (
+            <div key={idx} className="relative">
+              <div className="relative w-20 h-20 rounded-md border border-slate-200 bg-slate-50 flex items-center justify-center">
+                <input
+                  ref={el => (fileInputRefs.current[idx] = el)}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => handlePhotoChange(idx, e)}
                 />
-              ) : (
-                <Button
+                {photos[idx] ? (
+                  <div className="relative w-full h-full">
+                    <img
+                      src={photos[idx] as string}
+                      alt={`Profile ${idx + 1}`}
+                      className={`object-cover w-full h-full rounded-md cursor-pointer ${photoPrivacy[idx] ? 'opacity-50' : ''}`}
+                      onClick={() => fileInputRefs.current[idx]?.click()}
+                    />
+                    {photoPrivacy[idx] && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-md">
+                        <span className="text-white text-xs font-bold">🔒</span>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="w-full h-full flex items-center justify-center text-xs"
+                    onClick={() => fileInputRefs.current[idx]?.click()}
+                  >
+                    + Photo
+                  </Button>
+                )}
+              </div>
+              {photos[idx] && (
+                <button
                   type="button"
-                  variant="secondary"
-                  className="w-full h-full flex items-center justify-center text-xs"
-                  onClick={() => fileInputRefs.current[idx]?.click()}
+                  onClick={() => togglePhotoPrivacy(idx)}
+                  className={`mt-1 text-xs px-2 py-1 rounded border w-full ${
+                    photoPrivacy[idx] 
+                      ? 'bg-red-100 text-red-700 border-red-300' 
+                      : 'bg-green-100 text-green-700 border-green-300'
+                  }`}
                 >
-                  + Photo
-                </Button>
+                  {photoPrivacy[idx] ? '🔒 Private' : '👁️ Public'}
+                </button>
               )}
             </div>
           ))}
         </div>
+        <p className="text-xs text-gray-600 mt-2">
+          Private photos can only be unlocked by request from other members (requires your approval).
+        </p>
       </div>
 
       {/* Disclaimer agreement */}
