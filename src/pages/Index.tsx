@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { Why } from "@/components/Why";
 import { Features } from "@/components/Features";
 import { Pricing } from "@/components/Pricing";
 import { Verification } from "@/components/Verification";
@@ -15,6 +16,7 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black">
       <Header />
       <Hero />
+      <Why />
       <Features />
       <Verification />
       <Pricing />
