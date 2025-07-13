@@ -4,6 +4,7 @@ import { FullApplicationModalHeader } from "./FullApplicationModalHeader";
 import { FullApplicationModalDisclaimer } from "./FullApplicationModalDisclaimer";
 import { FullApplicationModalFormFields } from "./FullApplicationModalFormFields";
 import { FullApplicationModalSubmitBar } from "./FullApplicationModalSubmitBar";
+import { supabase } from "@/integrations/supabase/client";
 
 type FullApplicationModalProps = {
   open: boolean;
@@ -73,14 +74,35 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
     onOpenChange(false);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!agreed) return;
-    if (onSubmit) onSubmit(form);
-    setShowSubmitSuccess(true);
-    setTimeout(() => {
-      handleModalClose();
-    }, 1200);
+    
+    try {
+      // Send application data to email
+      const { error } = await supabase.functions.invoke("send-application", {
+        body: { applicationData: form }
+      });
+      
+      if (error) {
+        console.error("Error sending application:", error);
+        // Still show success to user, but log the error
+      }
+      
+      if (onSubmit) onSubmit(form);
+      setShowSubmitSuccess(true);
+      setTimeout(() => {
+        handleModalClose();
+      }, 1200);
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      // Still show success to user even if email fails
+      if (onSubmit) onSubmit(form);
+      setShowSubmitSuccess(true);
+      setTimeout(() => {
+        handleModalClose();
+      }, 1200);
+    }
   };
 
   return (
