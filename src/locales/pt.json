@@ -80,8 +80,7 @@
       "coaching": "Sessões de coaching de relacionamento"
     },
     "cta_button": "Iniciar Processo de Aplicação",
-    "pay_with_crypto": "Renove sua associação com USDC ou Criptomoeda",
-    "pay_with_stripe": "Renove sua associação via Stripe",
+    "pay_with_crypto": "Pagar com Criptomoeda",
     "disclaimer": "*Associação requer conclusão bem-sucedida do processo de verificação"
   },
   "footer": {

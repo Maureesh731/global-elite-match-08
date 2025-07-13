@@ -80,8 +80,7 @@
       "coaching": "Sessioni di coaching relazionale"
     },
     "cta_button": "Inizia Processo di Applicazione",
-    "pay_with_crypto": "Rinnova la tua iscrizione con USDC o Criptovaluta",
-    "pay_with_stripe": "Rinnova la tua iscrizione tramite Stripe",
+    "pay_with_crypto": "Paga con Criptovaluta",
     "disclaimer": "*L'iscrizione richiede il completamento con successo del processo di verifica"
   },
   "footer": {

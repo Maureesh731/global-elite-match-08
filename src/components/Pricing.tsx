@@ -2,18 +2,14 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Star, Crown, Coins, CreditCard } from "lucide-react";
+import { CheckCircle, Star, Crown, Coins } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { CryptoPaymentModal } from "@/components/CryptoPaymentModal";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
 
 export const Pricing = () => {
   const { t } = useTranslation();
   const [showCryptoModal, setShowCryptoModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
   
   const features = [
     t('pricing.features.messaging'),
@@ -23,54 +19,6 @@ export const Pricing = () => {
     t('pricing.features.events'),
     t('pricing.features.coaching')
   ];
-
-  // Handle Stripe payment
-  const handleStripePayment = async () => {
-    setLoading(true);
-    
-    toast({
-      title: "Creating payment session...",
-      description: "Please wait while we set up your payment",
-    });
-    
-    try {
-      const { data, error } = await supabase.functions.invoke("create-checkout");
-      if (error || !data?.url) {
-        console.error("Checkout error:", error);
-        toast({
-          title: "Payment Error",
-          description: "Could not start payment session. Try again.",
-          variant: "destructive",
-        });
-        setLoading(false);
-        return;
-      }
-      // Open Stripe checkout in a new tab
-      window.open(data.url, "_blank");
-      toast({
-        title: "Payment page opened",
-        description: "Complete your subscription in the new tab",
-      });
-    } catch (err) {
-      console.error("Payment exception:", err);
-      toast({
-        title: "Something went wrong",
-        description: "Please refresh and try again",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Handle crypto payment success
-  const onCryptoPaymentSuccess = () => {
-    toast({
-      title: "Payment Successful!",
-      description: "Your crypto payment has been confirmed. Welcome to the platform!",
-    });
-    setShowCryptoModal(false);
-  };
 
   return (
     <section id="pricing" className="py-32 bg-gradient-to-b from-gray-900 to-black">
@@ -147,20 +95,10 @@ export const Pricing = () => {
               
               <Button 
                 onClick={() => setShowCryptoModal(true)}
-                className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-500 hover:to-orange-500 text-white py-6 text-lg font-bold shadow-2xl shadow-yellow-500/30 border border-yellow-500/50 transform hover:scale-105 transition-all duration-300 mb-4"
-                disabled={loading}
+                className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-500 hover:to-orange-500 text-white py-6 text-lg font-bold shadow-2xl shadow-yellow-500/30 border border-yellow-500/50 transform hover:scale-105 transition-all duration-300"
               >
                 <Coins className="w-5 h-5 mr-2" />
                 {t('pricing.pay_with_crypto')}
-              </Button>
-              
-              <Button 
-                onClick={handleStripePayment}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 text-white py-6 text-lg font-bold shadow-2xl shadow-blue-500/30 border border-blue-500/50 transform hover:scale-105 transition-all duration-300"
-                disabled={loading}
-              >
-                <CreditCard className="w-5 h-5 mr-2" />
-                {loading ? "Redirecting to Payment..." : t('pricing.pay_with_stripe')}
               </Button>
               
               <p className="text-center text-sm text-gray-500 mt-6">
@@ -175,7 +113,6 @@ export const Pricing = () => {
           onClose={() => setShowCryptoModal(false)}
           amount={24.50}
           currency="USD"
-          onSuccess={onCryptoPaymentSuccess}
         />
       </div>
     </section>
