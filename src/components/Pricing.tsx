@@ -95,10 +95,16 @@ export const Pricing = () => {
               
               <Button 
                 onClick={() => setShowCryptoModal(true)}
-                className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-500 hover:to-orange-500 text-white py-6 text-lg font-bold shadow-2xl shadow-yellow-500/30 border border-yellow-500/50 transform hover:scale-105 transition-all duration-300"
+                className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-500 hover:to-orange-500 text-white py-6 text-lg font-bold shadow-2xl shadow-yellow-500/30 border border-yellow-500/50 transform hover:scale-105 transition-all duration-300 mb-4"
               >
                 <Coins className="w-5 h-5 mr-2" />
-                {t('pricing.pay_with_crypto')}
+                {t('pricing.renew_crypto')}
+              </Button>
+              
+              <Button 
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white py-6 text-lg font-bold shadow-2xl shadow-blue-500/30 border border-blue-500/50 transform hover:scale-105 transition-all duration-300"
+              >
+                {t('pricing.renew_stripe')}
               </Button>
               
               <p className="text-center text-sm text-gray-500 mt-6">
