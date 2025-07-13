@@ -6,10 +6,16 @@ import { CheckCircle, Star, Crown, Coins } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { CryptoPaymentModal } from "@/components/CryptoPaymentModal";
+import { FullApplicationModal } from "@/components/FullApplicationModal";
 
 export const Pricing = () => {
   const { t } = useTranslation();
   const [showCryptoModal, setShowCryptoModal] = useState(false);
+  const [showAppModal, setShowAppModal] = useState(false);
+
+  const handleApply = () => {
+    setShowAppModal(true);
+  };
   
   const features = [
     t('pricing.features.messaging'),
@@ -89,7 +95,10 @@ export const Pricing = () => {
                 ))}
               </div>
               
-              <Button className="w-full bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white py-8 text-xl font-bold shadow-2xl shadow-red-500/30 border border-red-500/50 transform hover:scale-105 transition-all duration-300 mb-4">
+              <Button 
+                onClick={handleApply}
+                className="w-full bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white py-8 text-xl font-bold shadow-2xl shadow-red-500/30 border border-red-500/50 transform hover:scale-105 transition-all duration-300 mb-4"
+              >
                 {t('pricing.cta_button')}
               </Button>
               
@@ -119,6 +128,12 @@ export const Pricing = () => {
           onClose={() => setShowCryptoModal(false)}
           amount={24.50}
           currency="USD"
+        />
+        
+        <FullApplicationModal
+          open={showAppModal}
+          onOpenChange={setShowAppModal}
+          isFreeApplication={false}
         />
       </div>
     </section>
