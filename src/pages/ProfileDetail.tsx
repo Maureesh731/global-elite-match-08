@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { BackToHomeButton } from "@/components/BackToHomeButton";
 import { ArrowLeft, Lock, Unlock, Camera } from "lucide-react";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { VerificationBadge } from "@/components/VerificationBadge";
 
 // Mock data - in a real app this would come from an API
 const mockProfiles = [
@@ -28,9 +29,10 @@ const mockProfiles = [
       "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952",
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
-    ],
-    photoPrivacy: [false, false, true, true, false, false, true, false, false, false]
+       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+     ],
+     photoPrivacy: [false, false, true, true, false, false, true, false, false, false],
+     hasBloodTest: true
   },
   {
     id: "2", 
@@ -52,9 +54,10 @@ const mockProfiles = [
     photos: [
       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
       "https://images.unsplash.com/photo-1494790108755-2616b612b786",
-      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
-    ],
-    photoPrivacy: [false, true, true, false, false, false, false, false, false, false]
+       "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
+     ],
+     photoPrivacy: [false, true, true, false, false, false, false, false, false, false],
+     hasBloodTest: false
   }
 ];
 
@@ -157,8 +160,12 @@ export default function ProfileDetail() {
         <div className="bg-white rounded-xl shadow-lg p-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-2">{profile.fullName}</h1>
-            <p className="text-xl text-gray-600">Age {profile.age} • {profile.gender}</p>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <h1 className="text-3xl font-bold">{profile.fullName}</h1>
+              <VerificationBadge hasBloodTest={profile.hasBloodTest} showText={false} size="lg" />
+            </div>
+            <p className="text-xl text-gray-600 mb-3">Age {profile.age} • {profile.gender}</p>
+            <VerificationBadge hasBloodTest={profile.hasBloodTest} size="default" />
           </div>
 
           {/* Photos Grid */}

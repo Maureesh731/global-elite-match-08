@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { BackToHomeButton } from "@/components/BackToHomeButton";
 import { MemberCounter } from "@/components/MemberCounter";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { VerificationBadge } from "@/components/VerificationBadge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 
@@ -24,9 +25,10 @@ const demoProfiles = [
     relationship: "monogamous",
     ethnicity: ["white", "european"],
     petOwner: true,
-    photos: [
-      "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"
-    ]
+     photos: [
+       "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"
+     ],
+     hasBloodTest: true
   },
   {
     id: "2",
@@ -44,9 +46,10 @@ const demoProfiles = [
     relationship: "polyamorous",
     ethnicity: ["latin", "white"],
     petOwner: false,
-    photos: [
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
-    ]
+     photos: [
+       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
+     ],
+     hasBloodTest: false
   },
   {
     id: "3",
@@ -64,9 +67,10 @@ const demoProfiles = [
     relationship: "monogamous",
     ethnicity: ["asian"],
     petOwner: true,
-    photos: [
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2"
-    ]
+     photos: [
+       "https://images.unsplash.com/photo-1544005313-94ddf0286df2"
+     ],
+     hasBloodTest: true
   },
   {
     id: "4",
@@ -84,9 +88,10 @@ const demoProfiles = [
     relationship: "polygamy",
     ethnicity: ["black", "african", "jewish"],
     petOwner: true,
-    photos: [
-      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
-    ]
+     photos: [
+       "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
+     ],
+     hasBloodTest: false
   }
 ];
 
@@ -346,17 +351,23 @@ export default function ProfileSearch() {
               ))}
             </div>
             <div>
-              <button
-                onClick={() => window.open(`/profile/${profile.id}`, '_blank')}
-                className="font-bold text-lg text-blue-600 hover:text-blue-800 underline text-left"
-              >
-                {profile.fullName} ({profile.age})
-              </button>
-              <div className="text-gray-600 mb-1">{profile.bio}</div>
               <div className="flex items-center gap-2 mb-2">
-                <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                  <span className="text-blue-600 text-sm font-medium">LinkedIn Verified</span>
+                <button
+                  onClick={() => window.open(`/profile/${profile.id}`, '_blank')}
+                  className="font-bold text-lg text-blue-600 hover:text-blue-800 underline text-left"
+                >
+                  {profile.fullName} ({profile.age})
+                </button>
+                <VerificationBadge hasBloodTest={profile.hasBloodTest} showText={false} size="sm" />
+              </div>
+              <div className="text-gray-600 mb-1">{profile.bio}</div>
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1">
+                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                    <span className="text-blue-600 text-sm font-medium">LinkedIn Verified</span>
+                  </div>
+                  <VerificationBadge hasBloodTest={profile.hasBloodTest} size="sm" />
                 </div>
                 <FavoriteButton 
                   profileId={profile.id}
