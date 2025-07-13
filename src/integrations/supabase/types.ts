@@ -167,6 +167,45 @@ export type Database = {
         }
         Relationships: []
       }
+      photo_access_requests: {
+        Row: {
+          created_at: string
+          id: string
+          message: string | null
+          photo_index: number
+          profile_owner_id: string
+          profile_owner_name: string
+          requester_id: string
+          requester_name: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          photo_index: number
+          profile_owner_id: string
+          profile_owner_name: string
+          requester_id: string
+          requester_name: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          photo_index?: number
+          profile_owner_id?: string
+          profile_owner_name?: string
+          requester_id?: string
+          requester_name?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       promo_usage: {
         Row: {
           created_at: string

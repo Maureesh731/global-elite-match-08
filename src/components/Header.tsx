@@ -1,16 +1,18 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
+import { Heart, Bell } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { FullApplicationModal } from "@/components/FullApplicationModal";
+import { PhotoAccessRequests } from "@/components/PhotoAccessRequests";
 
 export const Header = () => {
   const [isMember, setIsMember] = useState(false);
   const navigate = useNavigate();
   const [showAppModal, setShowAppModal] = useState(false);
   const [isFreeApplication, setIsFreeApplication] = useState(false);
+  const [showPhotoRequests, setShowPhotoRequests] = useState(false);
 
   const handleSignIn = () => {
     setIsMember(true);
@@ -89,6 +91,16 @@ export const Header = () => {
               <span className="relative z-10">Lab Partner</span>
               <div className="absolute inset-0 bg-gradient-to-r from-gray-600/10 to-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -m-2"></div>
             </Link>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowPhotoRequests(true)}
+              className="text-white/90 hover:text-yellow-400 transition-all duration-300 font-semibold text-sm tracking-wide uppercase hover:scale-105 relative group"
+            >
+              <Bell className="w-4 h-4 mr-1" />
+              <span className="relative z-10">Photo Requests</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-600/10 to-orange-600/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -m-2"></div>
+            </Button>
           </nav>
         ) : (
           <nav className="hidden md:flex items-center space-x-8">
@@ -151,6 +163,11 @@ export const Header = () => {
           )}
         </div>
       </div>
+
+      <PhotoAccessRequests
+        isOpen={showPhotoRequests}
+        onClose={() => setShowPhotoRequests(false)}
+      />
     </header>
   );
 };

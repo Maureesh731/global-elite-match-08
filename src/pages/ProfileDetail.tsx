@@ -6,6 +6,8 @@ import { ArrowLeft, Lock, Unlock, Camera } from "lucide-react";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VerificationBadge } from "@/components/VerificationBadge";
 import { MessagingModal } from "@/components/MessagingModal";
+import { PhotoRequestModal } from "@/components/PhotoRequestModal";
+import { usePhotoAccess } from "@/hooks/usePhotoAccess";
 
 // Mock data - in a real app this would come from an API
 const mockProfiles = [
@@ -105,8 +107,25 @@ export default function ProfileDetail() {
   const [unlockedPhotos, setUnlockedPhotos] = useState<number[]>([]);
   const [requestedPhotos, setRequestedPhotos] = useState<number[]>([]);
   const [isMessagingOpen, setIsMessagingOpen] = useState(false);
+  const [photoRequestModal, setPhotoRequestModal] = useState<{
+    isOpen: boolean;
+    photoIndex: number;
+  }>({ isOpen: false, photoIndex: 0 });
+
+  const { 
+    fetchApprovedPhotos, 
+    isPhotoApproved, 
+    hasRequestedPhoto, 
+    getRequestStatus 
+  } = usePhotoAccess();
 
   const profile = mockProfiles.find(p => p.id === id);
+
+  React.useEffect(() => {
+    if (profile?.id) {
+      fetchApprovedPhotos(profile.id);
+    }
+  }, [profile?.id, fetchApprovedPhotos]);
 
   if (!profile) {
     return (
@@ -125,23 +144,24 @@ export default function ProfileDetail() {
     );
   }
 
-  const handlePhotoUnlockRequest = (photoIndex: number) => {
-    if (!requestedPhotos.includes(photoIndex)) {
-      setRequestedPhotos(prev => [...prev, photoIndex]);
-      // Simulate approval after 2 seconds
-      setTimeout(() => {
-        setUnlockedPhotos(prev => [...prev, photoIndex]);
-        setRequestedPhotos(prev => prev.filter(i => i !== photoIndex));
-      }, 2000);
-    }
+  const handlePhotoRequest = (photoIndex: number) => {
+    setPhotoRequestModal({
+      isOpen: true,
+      photoIndex
+    });
   };
 
   const isPhotoVisible = (photoIndex: number) => {
-    return !profile.photoPrivacy[photoIndex] || unlockedPhotos.includes(photoIndex);
+    // First photo is always visible, others are hidden unless approved
+    return photoIndex === 0 || isPhotoApproved(profile.id, photoIndex);
   };
 
-  const isPhotoRequested = (photoIndex: number) => {
-    return requestedPhotos.includes(photoIndex);
+  const getPhotoRequestStatus = (photoIndex: number) => {
+    if (hasRequestedPhoto(profile.id, photoIndex)) {
+      const status = getRequestStatus(profile.id, photoIndex);
+      return status;
+    }
+    return null;
   };
 
   return (
@@ -170,44 +190,54 @@ export default function ProfileDetail() {
             <VerificationBadge hasBloodTest={profile.hasBloodTest} size="default" />
           </div>
 
-          {/* Photos Grid */}
           <div className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
               <Camera className="w-6 h-6" />
               Photos
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {profile.photos.map((photo, index) => (
-                <div key={index} className="relative aspect-square">
-                  {isPhotoVisible(index) ? (
-                    <img
-                      src={photo}
-                      alt={`${profile.fullName} - Photo ${index + 1}`}
-                      className="w-full h-full object-cover rounded-lg"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 rounded-lg flex flex-col items-center justify-center">
-                      <Lock className="w-8 h-8 text-gray-400 mb-2" />
-                      <p className="text-xs text-gray-500 text-center mb-2">Private Photo</p>
-                      {isPhotoRequested(index) ? (
-                        <div className="text-xs text-blue-600 text-center">
-                          Request Sent...
-                        </div>
-                      ) : (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handlePhotoUnlockRequest(index)}
-                          className="text-xs px-2 py-1"
-                        >
-                          <Unlock className="w-3 h-3 mr-1" />
-                          Request
-                        </Button>
-                      )}
-                    </div>
-                  )}
-                </div>
-              ))}
+              {profile.photos.map((photo, index) => {
+                const requestStatus = getPhotoRequestStatus(index);
+                return (
+                  <div key={index} className="relative aspect-square">
+                    {isPhotoVisible(index) ? (
+                      <img
+                        src={photo}
+                        alt={`${profile.fullName} - Photo ${index + 1}`}
+                        className="w-full h-full object-cover rounded-lg"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200 rounded-lg flex flex-col items-center justify-center">
+                        <Lock className="w-8 h-8 text-gray-400 mb-2" />
+                        <p className="text-xs text-gray-500 text-center mb-2">Private Photo</p>
+                        {requestStatus === 'pending' ? (
+                          <div className="text-xs text-yellow-600 text-center">
+                            Request Pending
+                          </div>
+                        ) : requestStatus === 'denied' ? (
+                          <div className="text-xs text-red-600 text-center">
+                            Request Denied
+                          </div>
+                        ) : requestStatus === 'approved' ? (
+                          <div className="text-xs text-green-600 text-center">
+                            Access Granted
+                          </div>
+                        ) : (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handlePhotoRequest(index)}
+                            className="text-xs px-2 py-1"
+                          >
+                            <Unlock className="w-3 h-3 mr-1" />
+                            Request Access
+                          </Button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -331,6 +361,14 @@ export default function ProfileDetail() {
         onClose={() => setIsMessagingOpen(false)}
         recipientId={profile.id}
         recipientName={profile.fullName}
+      />
+
+      <PhotoRequestModal
+        isOpen={photoRequestModal.isOpen}
+        onClose={() => setPhotoRequestModal({ isOpen: false, photoIndex: 0 })}
+        profileId={profile.id}
+        profileName={profile.fullName}
+        photoIndex={photoRequestModal.photoIndex}
       />
     </div>
   );
