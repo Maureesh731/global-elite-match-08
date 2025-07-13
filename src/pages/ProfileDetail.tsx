@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BackToHomeButton } from "@/components/BackToHomeButton";
 import { ArrowLeft, Lock, Unlock, Camera } from "lucide-react";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 // Mock data - in a real app this would come from an API
 const mockProfiles = [
@@ -302,9 +303,11 @@ export default function ProfileDetail() {
               <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
                 Send Message
               </Button>
-              <Button size="lg" variant="outline">
-                Add to Favorites
-              </Button>
+              <FavoriteButton 
+                profileId={profile.id}
+                profileName={profile.fullName}
+                size="lg"
+              />
               <Button size="lg" variant="outline">
                 Report Profile
               </Button>

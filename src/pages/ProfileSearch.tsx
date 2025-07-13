@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { BackToHomeButton } from "@/components/BackToHomeButton";
 import { MemberCounter } from "@/components/MemberCounter";
+import { FavoriteButton } from "@/components/FavoriteButton";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 
@@ -48,6 +49,7 @@ const demoProfiles = [
     ]
   },
   {
+    id: "3",
     gender: "Gentleman",
     fullName: "Mike Lee",
     age: 29,
@@ -67,6 +69,7 @@ const demoProfiles = [
     ]
   },
   {
+    id: "4",
     gender: "Lady",
     fullName: "Lila Black",
     age: 35,
@@ -350,7 +353,15 @@ export default function ProfileSearch() {
                 {profile.fullName} ({profile.age})
               </button>
               <div className="text-gray-600 mb-1">{profile.bio}</div>
-              <a href={profile.linkedin} className="underline text-blue-700" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <div className="flex items-center gap-2 mb-2">
+                <a href={profile.linkedin} className="underline text-blue-700 flex-1" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <FavoriteButton 
+                  profileId={profile.id}
+                  profileName={profile.fullName}
+                  size="sm"
+                  variant="ghost"
+                />
+              </div>
             </div>
             <div className="text-xs text-gray-500">
               Health: {profile.healthStatus}<br />

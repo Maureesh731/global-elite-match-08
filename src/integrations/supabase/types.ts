@@ -104,6 +104,33 @@ export type Database = {
         }
         Relationships: []
       }
+      favorites: {
+        Row: {
+          created_at: string
+          favorited_at: string
+          favorited_profile_id: string
+          favorited_profile_name: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          favorited_at?: string
+          favorited_profile_id: string
+          favorited_profile_name: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          favorited_at?: string
+          favorited_profile_id?: string
+          favorited_profile_name?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       promo_usage: {
         Row: {
           created_at: string

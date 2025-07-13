@@ -17,6 +17,7 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCanceled from "./pages/PaymentCanceled";
 import LabPartnerPage from "./pages/LabPartner";
 import ProfileDetail from "./pages/ProfileDetail";
+import FavoritesPage from "./pages/FavoritesPage";
 import { ApplicationReview } from "./pages/ApplicationReview";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/gentlemen-profile" element={<GentlemenProfilePage />} />
           <Route path="/ladies-profile" element={<LadiesProfilePage />} />
           <Route path="/profile-search" element={<ProfileSearch />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/profile/:id" element={<ProfileDetail />} />
           <Route path="/testimonials" element={<TestimonialsPage />} />
           <Route path="/donate-compensation" element={<DonateCompensation />} />
