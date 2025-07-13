@@ -13,6 +13,7 @@ interface CryptoPaymentModalProps {
   onClose: () => void;
   amount: number;
   currency: string;
+  onSuccess?: () => void;
 }
 
 const supportedCryptos = [
@@ -24,7 +25,7 @@ const supportedCryptos = [
   { symbol: 'ada', name: 'Cardano', icon: '₳' },
 ];
 
-export const CryptoPaymentModal = ({ isOpen, onClose, amount, currency }: CryptoPaymentModalProps) => {
+export const CryptoPaymentModal = ({ isOpen, onClose, amount, currency, onSuccess }: CryptoPaymentModalProps) => {
   const { t } = useTranslation();
   const [selectedCrypto, setSelectedCrypto] = useState<string>('');
   const [paymentData, setPaymentData] = useState<any>(null);
@@ -79,8 +80,12 @@ export const CryptoPaymentModal = ({ isOpen, onClose, amount, currency }: Crypto
           setStatus('completed');
           toast.success('Payment completed successfully!');
           setTimeout(() => {
-            onClose();
-            window.location.href = '/payment-success';
+            if (onSuccess) {
+              onSuccess();
+            } else {
+              onClose();
+              window.location.href = '/payment-success';
+            }
           }, 2000);
         } else if (data.payment_status === 'failed' || data.payment_status === 'expired') {
           setStatus('failed');

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { CryptoPaymentModal } from "@/components/CryptoPaymentModal";
 
 type Props = {
   agreed: boolean;
@@ -24,6 +25,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
   const [loading, setLoading] = useState(false);
   const [promoCode, setPromoCode] = useState("");
   const [showPromoInput, setShowPromoInput] = useState(false);
+  const [showCryptoModal, setShowCryptoModal] = useState(false);
   const { toast } = useToast();
 
   // Check promo code validity
@@ -189,6 +191,17 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
     }
   };
 
+  // Handle crypto payment success
+  const onCryptoPaymentSuccess = () => {
+    toast({
+      title: "Payment Successful!",
+      description: "Your crypto payment has been confirmed. Welcome to the platform!",
+    });
+    setShowCryptoModal(false);
+    // Submit the application form after successful crypto payment
+    handleSubmit(new Event('submit') as any);
+  };
+
   return (
     <DialogFooter className="pt-4 space-y-3">
       {showPromoInput && (
@@ -231,6 +244,24 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
       >
         {loading ? "Redirecting to Payment..." : "Submit & Pay $24.50/mo"}
       </Button>
+      
+      <Button
+        type="button"
+        variant="outline"
+        className="w-full text-lg border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+        disabled={!agreed || loading || !isFormValid}
+        onClick={() => setShowCryptoModal(true)}
+      >
+        Pay with Crypto ($24.50)
+      </Button>
+      
+      <CryptoPaymentModal
+        isOpen={showCryptoModal}
+        onClose={() => setShowCryptoModal(false)}
+        amount={24.50}
+        currency="USD"
+        onSuccess={onCryptoPaymentSuccess}
+      />
     </DialogFooter>
   );
 };
