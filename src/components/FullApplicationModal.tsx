@@ -79,9 +79,51 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
     onOpenChange(false);
   };
 
+  const isFormValid = () => {
+    const requiredFields = [
+      form.fullName.trim(),
+      form.memberProfileName.trim(),
+      form.age.trim(),
+      form.email.trim(),
+      form.phone.trim(),
+      form.linkedin.trim(),
+      form.bio.trim()
+    ];
+
+    const healthDisclosureFields = [
+      form.hasHerpes,
+      form.hasHIV,
+      form.hasHPV,
+      form.hasOtherSTDs,
+      form.hasChronicDiseases,
+      form.covidVaccinated,
+      form.usesAlcohol,
+      form.usesDrugs,
+      form.usesMarijuana,
+      form.smokesCigarettes,
+      form.usesPrescriptionDrugs,
+      form.disclosureAuthorization,
+      form.wantsOptionalTesting
+    ];
+
+    // Check if all required text fields are filled
+    const allFieldsFilled = requiredFields.every(field => field !== "");
+    
+    // Check if all health disclosure questions are answered (not default "no")
+    const allHealthQuestionsAnswered = healthDisclosureFields.every(field => field !== "");
+    
+    // Check if ID file is uploaded
+    const idFileUploaded = form.idFile !== null;
+    
+    // Check if age is at least 18
+    const ageValid = parseInt(form.age) >= 18;
+
+    return allFieldsFilled && allHealthQuestionsAnswered && idFileUploaded && ageValid && agreed;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!agreed) return;
+    if (!isFormValid()) return;
     
     try {
       // Transform form data to match database schema
@@ -216,6 +258,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
                 onFreeApplicationStart={() => {
                   setIsProcessingFreeApp(true);
                 }}
+                isFormValid={isFormValid()}
               />
             </form>
           )}

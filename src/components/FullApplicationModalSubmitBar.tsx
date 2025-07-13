@@ -10,6 +10,7 @@ type Props = {
   handleSubmit: (e: React.FormEvent) => void;
   onFreeApplicationSuccess?: () => void;
   onFreeApplicationStart?: () => void;
+  isFormValid: boolean;
 };
 
 // Subscription application payment button logic
@@ -18,6 +19,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
   handleSubmit,
   onFreeApplicationSuccess,
   onFreeApplicationStart,
+  isFormValid,
 }) => {
   const [loading, setLoading] = useState(false);
   const [promoCode, setPromoCode] = useState("");
@@ -83,7 +85,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
   // Handle free application with promo code
   const onFreeApplication = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!agreed) return;
+    if (!agreed || !isFormValid) return;
     
     setLoading(true);
     console.log("Checking promo code:", promoCode);
@@ -149,7 +151,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
   // Handles paid application logic
   const onPaidApplication = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!agreed) return;
+    if (!agreed || !isFormValid) return;
     setLoading(true);
     
     toast({
@@ -202,7 +204,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
             type="button"
             variant="outline"
             className="w-full"
-            disabled={!agreed || loading || !promoCode}
+            disabled={!agreed || loading || !promoCode || !isFormValid}
             onClick={onFreeApplication}
           >
             {loading ? "Processing..." : "Submit Free Application (1 Year)"}
@@ -224,7 +226,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
       <Button
         type="button"
         className="w-full text-lg bg-blue-900 hover:bg-blue-800"
-        disabled={!agreed || loading}
+        disabled={!agreed || loading || !isFormValid}
         onClick={onPaidApplication}
       >
         {loading ? "Redirecting to Payment..." : "Submit & Pay $24.50/mo"}
