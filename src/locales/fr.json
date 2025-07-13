@@ -1,0 +1,118 @@
+{
+  "navigation": {
+    "search_profiles": "Rechercher des profils",
+    "gentlemen_profile": "Profil des Gentlemen",
+    "ladies_profile": "Profil des Dames",
+    "testimonials": "Témoignages",
+    "favorites": "Mes favoris",
+    "messages": "Messages",
+    "lab_partner": "Partenaire de laboratoire",
+    "photo_requests": "Demandes de photos",
+    "sign_in": "Se connecter",
+    "sign_out": "Se déconnecter",
+    "apply_now": "Postuler maintenant"
+  },
+  "hero": {
+    "title": "Rencontres exclusives pour les",
+    "title_highlight": "Conscients du bien-être",
+    "subtitle": "Une communauté sur invitation uniquement pour les célibataires vérifiés qui privilégient la santé, l'immunité naturelle et les connexions authentiques.",
+    "cta_button": "Demander l'adhésion",
+    "members_count": "Membres dans le monde entier"
+  },
+  "why": {
+    "title": "Pourquoi UntouchableDating.com",
+    "intro": "Une communauté de rencontres sur invitation uniquement créée pour les personnes qui valorisent le bien-être, la vie naturelle et le choix — spécifiquement les célibataires qui préfèrent des partenaires conscients de la santé et non vaccinés.",
+    "subtitle": "Le \"Pourquoi\"",
+    "description": "Ces dernières années, j'ai vu des amis qui privilégient la santé holistique lutter pour trouver des partenaires qui partagent leur mode de vie. Les applications de rencontre typiques nous regroupent tous, rendant difficile (et parfois gênant) de filtrer selon des choix de bien-être profondément ancrés. UntouchableDating est né pour résoudre cela :",
+    "aligned_values": {
+      "title": "Valeurs alignées",
+      "description": "Toutes les personnes que vous rencontrez ici partagent déjà votre position sur l'immunité naturelle, les habitudes saines et l'autonomie corporelle."
+    },
+    "curated_community": {
+      "title": "Communauté organisée",
+      "description": "L'accès n'est accordé que par invitation ou vérification, donc les spammeurs et les trolls ne passent jamais la porte."
+    },
+    "safety_privacy": {
+      "title": "Sécurité et confidentialité d'abord",
+      "description": "Paramètres de profil discrets, vérification d'identité et chiffrement gardent vos décisions personnelles privées."
+    },
+    "meaningful_features": {
+      "title": "Fonctionnalités significatives",
+      "description": "Biographies axées sur le bien-être, étiquettes d'intérêt (foodie bio, yogis, homesteaders, etc.), événements privés et \"premiers rendez-vous virtuels\" via chat vidéo sécurisé."
+    }
+  },
+  "features": {
+    "title": "Fonctionnalités Premium",
+    "subtitle": "Tout ce dont vous avez besoin pour trouver votre partenaire parfait",
+    "verification": {
+      "title": "Vérification d'identité",
+      "description": "Tous les membres subissent une vérification approfondie des antécédents et de l'identité"
+    },
+    "matching": {
+      "title": "Correspondance avancée",
+      "description": "Notre algorithme correspond basé sur les valeurs, le mode de vie et les préférences de bien-être"
+    },
+    "privacy": {
+      "title": "Confidentialité complète",
+      "description": "Vos choix personnels et de santé restent complètement privés"
+    },
+    "community": {
+      "title": "Communauté exclusive",
+      "description": "Rejoignez une communauté soigneusement organisée d'individus partageant les mêmes idées"
+    }
+  },
+  "pricing": {
+    "title": "Premium",
+    "subtitle": "Adhésion",
+    "description": "Investissement dans votre avenir avec accès à la communauté de rencontres la plus exclusive pour les professionnels vérifiés dans le monde entier.",
+    "exclusive": "Exclusif",
+    "launch_special": "🚀 Spécial de lancement : 50% DE RÉDUCTION sur les 30 premiers jours !",
+    "first_month": "premier mois",
+    "then_monthly": "Puis 49,99$/mois",
+    "membership_title": "Adhésion Untouchable Dating",
+    "membership_description": "Pour les professionnels sérieux cherchant des connexions significatives",
+    "features": {
+      "messaging": "Messagerie illimitée avec les membres vérifiés",
+      "algorithm": "Algorithme de correspondance avancé",
+      "verification": "Badge de vérification de profil",
+      "support": "Support client prioritaire",
+      "events": "Événements exclusifs mensuels",
+      "coaching": "Séances de coaching relationnel"
+    },
+    "cta_button": "Commencer le processus de candidature",
+    "pay_with_crypto": "Payer avec la crypto-monnaie",
+    "disclaimer": "*L'adhésion nécessite la réussite du processus de vérification"
+  },
+  "footer": {
+    "platform": "Plateforme",
+    "crypto_education": "Éducation Crypto",
+    "wealth_creation": "Cours de Création de Richesse",
+    "company": "Entreprise",
+    "about": "À propos de nous",
+    "contact": "Contact",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "rights_reserved": "Tous droits réservés."
+  },
+  "language": {
+    "select": "Sélectionner la langue",
+    "english": "English",
+    "spanish": "Español",
+    "french": "Français",
+    "german": "Deutsch",
+    "portuguese": "Português",
+    "italian": "Italiano",
+    "russian": "Русский",
+    "chinese": "中文",
+    "japanese": "日本語",
+    "arabic": "العربية"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "close": "Fermer"
+  }
+}

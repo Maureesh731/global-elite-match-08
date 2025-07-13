@@ -1,0 +1,118 @@
+{
+  "navigation": {
+    "search_profiles": "Profile durchsuchen",
+    "gentlemen_profile": "Herren-Profil",
+    "ladies_profile": "Damen-Profil",
+    "testimonials": "Testimonials",
+    "favorites": "Meine Favoriten",
+    "messages": "Nachrichten",
+    "lab_partner": "Labor-Partner",
+    "photo_requests": "Foto-Anfragen",
+    "sign_in": "Anmelden",
+    "sign_out": "Abmelden",
+    "apply_now": "Jetzt bewerben"
+  },
+  "hero": {
+    "title": "Exklusives Dating für die",
+    "title_highlight": "Wellness-Bewussten",
+    "subtitle": "Eine nur auf Einladung zugängliche Community für verifizierte Singles, die Gesundheit, natürliche Immunität und authentische Verbindungen priorisieren.",
+    "cta_button": "Mitgliedschaft beantragen",
+    "members_count": "Mitglieder weltweit"
+  },
+  "why": {
+    "title": "Warum UntouchableDating.com",
+    "intro": "Eine nur auf Einladung zugängliche Dating-Community, die für Menschen geschaffen wurde, die Wellness, natürliches Leben und Wahlfreiheit schätzen — spezifisch Singles, die Partner bevorzugen, die gesundheitsbewusst und ungeimpft sind.",
+    "subtitle": "Das \"Warum\"",
+    "description": "In den letzten Jahren sah ich Freunde, die ganzheitliche Gesundheit priorisieren, damit kämpfen, Partner zu finden, die ihren Lebensstil teilen. Typische Dating-Apps werfen uns alle zusammen, was es schwierig (und manchmal unangenehm) macht, nach tief verwurzelten Wellness-Entscheidungen zu filtern. UntouchableDating wurde geboren, um das zu lösen:",
+    "aligned_values": {
+      "title": "Ausgerichtete Werte",
+      "description": "Jeder, den Sie hier treffen, teilt bereits Ihre Haltung zu natürlicher Immunität, gesunden Gewohnheiten und körperlicher Autonomie."
+    },
+    "curated_community": {
+      "title": "Kuratierte Community",
+      "description": "Zugang wird nur durch Einladung oder Überprüfung gewährt, sodass Spammer und Trolle niemals durch die Tür kommen."
+    },
+    "safety_privacy": {
+      "title": "Sicherheit und Privatsphäre zuerst",
+      "description": "Diskrete Profileinstellungen, ID-Verifizierung und Verschlüsselung halten Ihre persönlichen Entscheidungen privat."
+    },
+    "meaningful_features": {
+      "title": "Bedeutungsvolle Features",
+      "description": "Wellness-fokussierte Biografien, Interessens-Tags (Bio-Foodies, Yogis, Homesteader, etc.), private Events und \"virtuelle erste Dates\" über sicheren Video-Chat."
+    }
+  },
+  "features": {
+    "title": "Premium-Features",
+    "subtitle": "Alles, was Sie brauchen, um Ihren perfekten Partner zu finden",
+    "verification": {
+      "title": "Identitätsverifizierung",
+      "description": "Alle Mitglieder durchlaufen eine gründliche Hintergrund- und Identitätsverifizierung"
+    },
+    "matching": {
+      "title": "Erweiterte Partnersuche",
+      "description": "Unser Algorithmus findet Übereinstimmungen basierend auf Werten, Lebensstil und Wellness-Präferenzen"
+    },
+    "privacy": {
+      "title": "Vollständige Privatsphäre",
+      "description": "Ihre persönlichen Entscheidungen und Gesundheitsentscheidungen bleiben vollständig privat"
+    },
+    "community": {
+      "title": "Exklusive Community",
+      "description": "Treten Sie einer sorgfältig kuratierten Community gleichgesinnter Personen bei"
+    }
+  },
+  "pricing": {
+    "title": "Premium",
+    "subtitle": "Mitgliedschaft",
+    "description": "Investition in Ihre Zukunft mit Zugang zur exklusivsten Dating-Community für verifizierte Profis weltweit.",
+    "exclusive": "Exklusiv",
+    "launch_special": "🚀 Launch-Special: 50% RABATT auf die ersten 30 Tage!",
+    "first_month": "erster Monat",
+    "then_monthly": "Dann $49.99/Monat",
+    "membership_title": "Untouchable Dating Mitgliedschaft",
+    "membership_description": "Für ernsthafte Profis, die bedeutungsvolle Verbindungen suchen",
+    "features": {
+      "messaging": "Unbegrenzte Nachrichten mit verifizierten Mitgliedern",
+      "algorithm": "Erweiterter Matching-Algorithmus",
+      "verification": "Profil-Verifizierungs-Badge",
+      "support": "Prioritäts-Kundensupport",
+      "events": "Monatliche exklusive Events",
+      "coaching": "Beziehungs-Coaching-Sitzungen"
+    },
+    "cta_button": "Bewerbungsprozess beginnen",
+    "pay_with_crypto": "Mit Kryptowährung bezahlen",
+    "disclaimer": "*Mitgliedschaft erfordert erfolgreichen Abschluss des Verifizierungsprozesses"
+  },
+  "footer": {
+    "platform": "Plattform",
+    "crypto_education": "Krypto-Bildung",
+    "wealth_creation": "Wohlstands-Erstellungskurse",
+    "company": "Unternehmen",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen",
+    "rights_reserved": "Alle Rechte vorbehalten."
+  },
+  "language": {
+    "select": "Sprache auswählen",
+    "english": "English",
+    "spanish": "Español",
+    "french": "Français",
+    "german": "Deutsch",
+    "portuguese": "Português",
+    "italian": "Italiano",
+    "russian": "Русский",
+    "chinese": "中文",
+    "japanese": "日本語",
+    "arabic": "العربية"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "close": "Schließen"
+  }
+}

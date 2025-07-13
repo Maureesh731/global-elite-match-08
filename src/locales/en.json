@@ -1,0 +1,118 @@
+{
+  "navigation": {
+    "search_profiles": "Search Profiles",
+    "gentlemen_profile": "Gentlemen's Profile",
+    "ladies_profile": "Ladies Profile",
+    "testimonials": "Testimonials",
+    "favorites": "My Favorites",
+    "messages": "Messages",
+    "lab_partner": "Lab Partner",
+    "photo_requests": "Photo Requests",
+    "sign_in": "Sign In",
+    "sign_out": "Sign Out",
+    "apply_now": "Apply Now"
+  },
+  "hero": {
+    "title": "Exclusive Dating for the",
+    "title_highlight": "Wellness-Conscious",
+    "subtitle": "An invitation-only community for verified singles who prioritize health, natural immunity, and authentic connections.",
+    "cta_button": "Apply for Membership",
+    "members_count": "Members worldwide"
+  },
+  "why": {
+    "title": "Why UntouchableDating.com",
+    "intro": "An invitation‑only dating community created for people who value wellness, natural living, and choice—specifically singles who prefer partners that are health‑conscious and unvaccinated.",
+    "subtitle": "The \"Why\"",
+    "description": "During the last few years, I saw friends who prioritize holistic health struggle to find partners who share their lifestyle. Typical dating apps lump us all together, making it hard (and sometimes awkward) to filter for deeply held wellness choices. UntouchableDating was born to solve that:",
+    "aligned_values": {
+      "title": "Aligned Values",
+      "description": "Everyone you meet here already shares your stance on natural immunity, healthy habits, and body autonomy."
+    },
+    "curated_community": {
+      "title": "Curated Community",
+      "description": "Access is granted by invite or vetting only, so spammers and trolls never make it through the door."
+    },
+    "safety_privacy": {
+      "title": "Safety & Privacy First",
+      "description": "Discreet profile settings, ID verification, and encryption keep your personal decisions personal."
+    },
+    "meaningful_features": {
+      "title": "Meaningful Features",
+      "description": "Wellness‑focused bios, interest tags (organic foodies, yogis, homesteaders, etc.), private events, and \"virtual first dates\" via secure video chat."
+    }
+  },
+  "features": {
+    "title": "Premium Features",
+    "subtitle": "Everything you need to find your perfect match",
+    "verification": {
+      "title": "Identity Verification",
+      "description": "All members undergo thorough background and identity verification"
+    },
+    "matching": {
+      "title": "Advanced Matching",
+      "description": "Our algorithm matches based on values, lifestyle, and wellness preferences"
+    },
+    "privacy": {
+      "title": "Complete Privacy",
+      "description": "Your personal choices and health decisions remain completely private"
+    },
+    "community": {
+      "title": "Exclusive Community",
+      "description": "Join a carefully curated community of like-minded individuals"
+    }
+  },
+  "pricing": {
+    "title": "Premium",
+    "subtitle": "Membership",
+    "description": "Investment in your future with access to the most exclusive dating community for verified professionals worldwide.",
+    "exclusive": "Exclusive",
+    "launch_special": "🚀 Launch Special: 50% OFF First 30 Days!",
+    "first_month": "first month",
+    "then_monthly": "Then $49.99/month",
+    "membership_title": "Untouchable Dating Membership",
+    "membership_description": "For serious professionals seeking meaningful connections",
+    "features": {
+      "messaging": "Unlimited messaging with verified members",
+      "algorithm": "Advanced matching algorithm",
+      "verification": "Profile verification badge",
+      "support": "Priority customer support",
+      "events": "Monthly exclusive events",
+      "coaching": "Relationship coaching sessions"
+    },
+    "cta_button": "Begin Application Process",
+    "pay_with_crypto": "Pay with Cryptocurrency",
+    "disclaimer": "*Membership requires successful completion of verification process"
+  },
+  "footer": {
+    "platform": "Platform",
+    "crypto_education": "Crypto Education",
+    "wealth_creation": "Wealth Creation Courses",
+    "company": "Company",
+    "about": "About Us",
+    "contact": "Contact", 
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "rights_reserved": "All rights reserved."
+  },
+  "language": {
+    "select": "Select Language",
+    "english": "English",
+    "spanish": "Español",
+    "french": "Français", 
+    "german": "Deutsch",
+    "portuguese": "Português",
+    "italian": "Italiano",
+    "russian": "Русский",
+    "chinese": "中文",
+    "japanese": "日本語",
+    "arabic": "العربية"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close"
+  }
+}

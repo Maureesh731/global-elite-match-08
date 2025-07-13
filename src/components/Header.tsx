@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { FullApplicationModal } from "@/components/FullApplicationModal";
 import { PhotoAccessRequests } from "@/components/PhotoAccessRequests";
 import { useAuth } from "@/contexts/AuthContext";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export const Header = () => {
   const { user, signOut } = useAuth();
@@ -137,6 +138,7 @@ export const Header = () => {
         )}
 
         <div className="flex items-center space-x-4">
+          <LanguageSwitcher />
           {user ? (
             <Button 
               variant="ghost" 

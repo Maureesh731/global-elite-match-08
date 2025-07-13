@@ -1,0 +1,118 @@
+{
+  "navigation": {
+    "search_profiles": "プロフィール検索",
+    "gentlemen_profile": "ジェントルマンプロフィール",
+    "ladies_profile": "レディースプロフィール",
+    "testimonials": "口コミ",
+    "favorites": "お気に入り",
+    "messages": "メッセージ",
+    "lab_partner": "ラボパートナー",
+    "photo_requests": "写真リクエスト",
+    "sign_in": "サインイン",
+    "sign_out": "サインアウト",
+    "apply_now": "今すぐ申し込み"
+  },
+  "hero": {
+    "title": "専用の出会いサービス",
+    "title_highlight": "健康意識の高い方向け",
+    "subtitle": "健康、自然免疫、真のつながりを重視する検証済みシングルのための招待制コミュニティ。",
+    "cta_button": "メンバーシップ申請",
+    "members_count": "世界中のメンバー"
+  },
+  "why": {
+    "title": "なぜUntouchableDating.comなのか",
+    "intro": "健康、自然な生活、選択を重視する人々のために作られた招待制の出会いコミュニティ—特に健康意識が高く、ワクチン接種を受けていないパートナーを好む独身者向けです。",
+    "subtitle": "「なぜ」",
+    "description": "過去数年間、私はホリスティックな健康を優先する友人たちが自分のライフスタイルを共有するパートナーを見つけるのに苦労しているのを見てきました。一般的な出会いアプリは私たち全員を一緒にまとめてしまい、深く根ざした健康の選択でフィルタリングすることを困難（そして時には気まずく）にしています。UntouchableDatingはこれを解決するために生まれました：",
+    "aligned_values": {
+      "title": "価値観の一致",
+      "description": "ここで出会う人は皆、自然免疫、健康的な習慣、身体の自主性に関するあなたの立場を既に共有しています。"
+    },
+    "curated_community": {
+      "title": "厳選されたコミュニティ",
+      "description": "アクセスは招待または審査によってのみ許可されるため、スパマーやトロールがドアを通過することはありません。"
+    },
+    "safety_privacy": {
+      "title": "安全性とプライバシー第一",
+      "description": "控えめなプロフィール設定、ID確認、暗号化により、あなたの個人的な決定を秘密に保ちます。"
+    },
+    "meaningful_features": {
+      "title": "意味のある機能",
+      "description": "健康に焦点を当てたプロフィール、興味タグ（オーガニック食品愛好家、ヨガ実践者、農家など）、プライベートイベント、安全なビデオチャットによる「バーチャル初回デート」。"
+    }
+  },
+  "features": {
+    "title": "プレミアム機能",
+    "subtitle": "完璧なパートナーを見つけるために必要なすべて",
+    "verification": {
+      "title": "身元確認",
+      "description": "すべてのメンバーは徹底的な身元調査と身元確認を受けます"
+    },
+    "matching": {
+      "title": "高度なマッチング",
+      "description": "私たちのアルゴリズムは価値観、ライフスタイル、健康の好みに基づいてマッチングします"
+    },
+    "privacy": {
+      "title": "完全なプライバシー",
+      "description": "あなたの個人的な選択と健康に関する決定は完全に秘密にされます"
+    },
+    "community": {
+      "title": "専用コミュニティ",
+      "description": "同じ考えを持つ人々の厳選されたコミュニティに参加してください"
+    }
+  },
+  "pricing": {
+    "title": "プレミアム",
+    "subtitle": "メンバーシップ",
+    "description": "世界中の検証済み専門家向けの最も排他的な出会いコミュニティへのアクセスで、あなたの未来への投資。",
+    "exclusive": "専用",
+    "launch_special": "🚀 ローンチスペシャル：初回30日間50%オフ！",
+    "first_month": "初月",
+    "then_monthly": "その後月額$49.99",
+    "membership_title": "Untouchable Dating メンバーシップ",
+    "membership_description": "意味のあるつながりを求める真剣な専門家向け",
+    "features": {
+      "messaging": "検証済みメンバーとの無制限メッセージ",
+      "algorithm": "高度なマッチングアルゴリズム",
+      "verification": "プロフィール認証バッジ",
+      "support": "優先カスタマーサポート",
+      "events": "月次専用イベント",
+      "coaching": "恋愛コーチングセッション"
+    },
+    "cta_button": "申請プロセスを開始",
+    "pay_with_crypto": "暗号通貨で支払い",
+    "disclaimer": "*メンバーシップには認証プロセスの正常な完了が必要です"
+  },
+  "footer": {
+    "platform": "プラットフォーム",
+    "crypto_education": "暗号教育",
+    "wealth_creation": "富の創造コース",
+    "company": "会社",
+    "about": "私たちについて",
+    "contact": "お問い合わせ",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約",
+    "rights_reserved": "すべての権利を保有。"
+  },
+  "language": {
+    "select": "言語を選択",
+    "english": "English",
+    "spanish": "Español",
+    "french": "Français",
+    "german": "Deutsch",
+    "portuguese": "Português",
+    "italian": "Italiano",
+    "russian": "Русский",
+    "chinese": "中文",
+    "japanese": "日本語",
+    "arabic": "العربية"
+  },
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "close": "閉じる"
+  }
+}

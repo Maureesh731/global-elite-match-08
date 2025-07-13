@@ -1,0 +1,118 @@
+{
+  "navigation": {
+    "search_profiles": "Buscar Perfis",
+    "gentlemen_profile": "Perfil dos Cavalheiros",
+    "ladies_profile": "Perfil das Damas",
+    "testimonials": "Depoimentos",
+    "favorites": "Meus Favoritos",
+    "messages": "Mensagens",
+    "lab_partner": "Parceiro de Laboratório",
+    "photo_requests": "Solicitações de Fotos",
+    "sign_in": "Entrar",
+    "sign_out": "Sair",
+    "apply_now": "Aplicar Agora"
+  },
+  "hero": {
+    "title": "Encontros Exclusivos para os",
+    "title_highlight": "Conscientes do Bem-estar",
+    "subtitle": "Uma comunidade apenas por convite para solteiros verificados que priorizam saúde, imunidade natural e conexões autênticas.",
+    "cta_button": "Solicitar Associação",
+    "members_count": "Membros mundialmente"
+  },
+  "why": {
+    "title": "Por que UntouchableDating.com",
+    "intro": "Uma comunidade de encontros apenas por convite criada para pessoas que valorizam bem-estar, vida natural e escolha — especificamente solteiros que preferem parceiros que são conscientes da saúde e não vacinados.",
+    "subtitle": "O \"Por quê\"",
+    "description": "Nos últimos anos, vi amigos que priorizam saúde holística lutarem para encontrar parceiros que compartilhem seu estilo de vida. Aplicativos de encontros típicos nos agrupam todos, tornando difícil (e às vezes constrangedor) filtrar por escolhas de bem-estar profundamente arraigadas. UntouchableDating nasceu para resolver isso:",
+    "aligned_values": {
+      "title": "Valores Alinhados",
+      "description": "Todos que você conhece aqui já compartilham sua posição sobre imunidade natural, hábitos saudáveis e autonomia corporal."
+    },
+    "curated_community": {
+      "title": "Comunidade Curada",
+      "description": "O acesso é concedido apenas por convite ou verificação, então spammers e trolls nunca passam pela porta."
+    },
+    "safety_privacy": {
+      "title": "Segurança e Privacidade Primeiro",
+      "description": "Configurações de perfil discretas, verificação de ID e criptografia mantêm suas decisões pessoais privadas."
+    },
+    "meaningful_features": {
+      "title": "Recursos Significativos",
+      "description": "Biografias focadas em bem-estar, tags de interesse (foodie orgânicos, yogis, agricultores, etc.), eventos privados e \"primeiros encontros virtuais\" via chat de vídeo seguro."
+    }
+  },
+  "features": {
+    "title": "Recursos Premium",
+    "subtitle": "Tudo que você precisa para encontrar seu par perfeito",
+    "verification": {
+      "title": "Verificação de Identidade",
+      "description": "Todos os membros passam por verificação completa de antecedentes e identidade"
+    },
+    "matching": {
+      "title": "Correspondência Avançada",
+      "description": "Nosso algoritmo corresponde baseado em valores, estilo de vida e preferências de bem-estar"
+    },
+    "privacy": {
+      "title": "Privacidade Completa",
+      "description": "Suas escolhas pessoais e decisões de saúde permanecem completamente privadas"
+    },
+    "community": {
+      "title": "Comunidade Exclusiva",
+      "description": "Junte-se a uma comunidade cuidadosamente curada de indivíduos com ideias similares"
+    }
+  },
+  "pricing": {
+    "title": "Premium",
+    "subtitle": "Associação",
+    "description": "Investimento no seu futuro com acesso à comunidade de encontros mais exclusiva para profissionais verificados mundialmente.",
+    "exclusive": "Exclusivo",
+    "launch_special": "🚀 Especial de Lançamento: 50% DE DESCONTO nos Primeiros 30 Dias!",
+    "first_month": "primeiro mês",
+    "then_monthly": "Então $49.99/mês",
+    "membership_title": "Associação Untouchable Dating",
+    "membership_description": "Para profissionais sérios buscando conexões significativas",
+    "features": {
+      "messaging": "Mensagens ilimitadas com membros verificados",
+      "algorithm": "Algoritmo de correspondência avançado",
+      "verification": "Distintivo de verificação de perfil",
+      "support": "Suporte ao cliente prioritário",
+      "events": "Eventos exclusivos mensais",
+      "coaching": "Sessões de coaching de relacionamento"
+    },
+    "cta_button": "Iniciar Processo de Aplicação",
+    "pay_with_crypto": "Pagar com Criptomoeda",
+    "disclaimer": "*Associação requer conclusão bem-sucedida do processo de verificação"
+  },
+  "footer": {
+    "platform": "Plataforma",
+    "crypto_education": "Educação Cripto",
+    "wealth_creation": "Cursos de Criação de Riqueza",
+    "company": "Empresa",
+    "about": "Sobre Nós",
+    "contact": "Contato",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Serviço",
+    "rights_reserved": "Todos os direitos reservados."
+  },
+  "language": {
+    "select": "Selecionar Idioma",
+    "english": "English",
+    "spanish": "Español",
+    "french": "Français",
+    "german": "Deutsch",
+    "portuguese": "Português",
+    "italian": "Italiano",
+    "russian": "Русский",
+    "chinese": "中文",
+    "japanese": "日本語",
+    "arabic": "العربية"
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "close": "Fechar"
+  }
+}
