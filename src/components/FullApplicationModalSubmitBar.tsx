@@ -243,7 +243,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
         disabled={!agreed || loading || !isFormValid}
         onClick={() => setShowCryptoModal(true)}
       >
-        Renew your membership with USDC or Cryptocurrency
+        Pay with USDC or Cryptocurrency ($24.50)
       </Button>
       
       <Button
@@ -252,7 +252,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
         disabled={!agreed || loading || !isFormValid}
         onClick={onPaidApplication}
       >
-        {loading ? "Redirecting to Payment..." : "Renew your membership via Stripe"}
+        {loading ? "Redirecting to Payment..." : "Pay via Stripe ($24.50)"}
       </Button>
       
       <CryptoPaymentModal
