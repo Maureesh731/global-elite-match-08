@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BackToHomeButton } from "@/components/BackToHomeButton";
@@ -7,7 +7,10 @@ import { FavoriteButton } from "@/components/FavoriteButton";
 import { VerificationBadge } from "@/components/VerificationBadge";
 import { MessagingModal } from "@/components/MessagingModal";
 import { PhotoRequestModal } from "@/components/PhotoRequestModal";
+import { HealthDisclosure } from "@/components/HealthDisclosure";
 import { usePhotoAccess } from "@/hooks/usePhotoAccess";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 // Mock data - in a real app this would come from an API
 const mockProfiles = [
@@ -104,6 +107,8 @@ const ethnicityOptions = [
 export default function ProfileDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [profile, setProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [unlockedPhotos, setUnlockedPhotos] = useState<number[]>([]);
   const [requestedPhotos, setRequestedPhotos] = useState<number[]>([]);
   const [isMessagingOpen, setIsMessagingOpen] = useState(false);
@@ -119,13 +124,75 @@ export default function ProfileDetail() {
     getRequestStatus 
   } = usePhotoAccess();
 
-  const profile = mockProfiles.find(p => p.id === id);
+  // Fetch profile data from applications table (approved applications only)
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (!id) return;
+      
+      try {
+        const { data, error } = await supabase
+          .from('applications')
+          .select(`
+            id,
+            first_name,
+            last_name,
+            member_profile_name,
+            age,
+            email,
+            bio,
+            linkedin,
+            has_herpes,
+            has_hiv,
+            has_hpv,
+            has_other_stds,
+            has_chronic_diseases,
+            covid_vaccinated,
+            uses_alcohol,
+            uses_drugs,
+            uses_marijuana,
+            smokes_cigarettes,
+            uses_prescription_drugs,
+            disclosure_authorization,
+            wants_optional_testing,
+            status
+          `)
+          .eq('id', id)
+          .eq('status', 'approved')
+          .single();
 
-  React.useEffect(() => {
-    if (profile?.id) {
-      fetchApprovedPhotos(profile.id);
-    }
-  }, [profile?.id, fetchApprovedPhotos]);
+        if (error) {
+          console.error('Error fetching profile:', error);
+          toast.error('Profile not found');
+          return;
+        }
+
+        if (data) {
+          setProfile(data);
+          fetchApprovedPhotos(data.id);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        toast.error('Failed to load profile');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, [id, fetchApprovedPhotos]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-8">
+        <div className="max-w-4xl mx-auto px-4">
+          <BackToHomeButton />
+          <div className="text-center py-20">
+            <h2 className="text-2xl font-bold mb-4">Loading Profile...</h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!profile) {
     return (
@@ -153,6 +220,7 @@ export default function ProfileDetail() {
 
   const isPhotoVisible = (photoIndex: number) => {
     // First photo is always visible, others are hidden unless approved
+    // For now, we'll use mock photo data since photos aren't stored in applications table yet
     return photoIndex === 0 || isPhotoApproved(profile.id, photoIndex);
   };
 
@@ -163,6 +231,14 @@ export default function ProfileDetail() {
     }
     return null;
   };
+
+  // Mock photos for now - in real implementation, photos would be stored separately
+  const mockPhotos = [
+    "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-8">
@@ -183,11 +259,12 @@ export default function ProfileDetail() {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <h1 className="text-3xl font-bold">{profile.fullName}</h1>
-              <VerificationBadge hasBloodTest={profile.hasBloodTest} showText={false} size="lg" />
+              <h1 className="text-3xl font-bold">{profile.first_name} {profile.last_name}</h1>
+              <VerificationBadge hasBloodTest={profile.wants_optional_testing === 'yes'} showText={false} size="lg" />
             </div>
-            <p className="text-xl text-gray-600 mb-3">Age {profile.age} • {profile.gender}</p>
-            <VerificationBadge hasBloodTest={profile.hasBloodTest} size="default" />
+            <p className="text-xl text-gray-600 mb-3">Age {profile.age}</p>
+            <p className="text-lg text-gray-600 mb-3">@{profile.member_profile_name}</p>
+            <VerificationBadge hasBloodTest={profile.wants_optional_testing === 'yes'} size="default" />
           </div>
 
           <div className="mb-8">
@@ -196,14 +273,14 @@ export default function ProfileDetail() {
               Photos
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {profile.photos.map((photo, index) => {
+              {mockPhotos.map((photo, index) => {
                 const requestStatus = getPhotoRequestStatus(index);
                 return (
                   <div key={index} className="relative aspect-square">
                     {isPhotoVisible(index) ? (
                       <img
                         src={photo}
-                        alt={`${profile.fullName} - Photo ${index + 1}`}
+                        alt={`${profile.first_name} ${profile.last_name} - Photo ${index + 1}`}
                         className="w-full h-full object-cover rounded-lg"
                       />
                     ) : (
@@ -241,6 +318,11 @@ export default function ProfileDetail() {
             </div>
           </div>
 
+          {/* Health Disclosure Section */}
+          <div className="mb-8">
+            <HealthDisclosure healthData={profile} />
+          </div>
+
           {/* Bio & Story */}
           <div className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">About</h2>
@@ -249,10 +331,17 @@ export default function ProfileDetail() {
                 <h3 className="text-lg font-medium mb-2">Bio</h3>
                 <p className="text-gray-700">{profile.bio}</p>
               </div>
-              {profile.story && (
+              {profile.linkedin && (
                 <div>
-                  <h3 className="text-lg font-medium mb-2">My Story</h3>
-                  <p className="text-gray-700 leading-relaxed">{profile.story}</p>
+                  <h3 className="text-lg font-medium mb-2">Professional</h3>
+                  <a 
+                    href={profile.linkedin} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    LinkedIn Profile
+                  </a>
                 </div>
               )}
             </div>
@@ -261,63 +350,33 @@ export default function ProfileDetail() {
           {/* Details */}
           <div className="grid md:grid-cols-2 gap-8 mb-8">
             <div>
-              <h2 className="text-2xl font-semibold mb-4">Details</h2>
+              <h2 className="text-2xl font-semibold mb-4">Health Status</h2>
               <div className="space-y-3">
                 <div>
-                  <span className="font-medium">Health Status:</span>
-                  <span className="ml-2 text-gray-700">{profile.healthStatus}</span>
-                </div>
-                <div>
-                  <span className="font-medium">Covid-19 Vaccination:</span>
-                  <span className={`ml-2 ${profile.covidVaccinated === "no" ? "text-green-600 font-bold" : "text-red-600"}`}>
-                    {profile.covidVaccinated === "no" ? "Unvaccinated" : "Vaccinated"}
+                  <span className="font-medium">COVID-19 Vaccination:</span>
+                  <span className={`ml-2 ${profile.covid_vaccinated === "no" ? "text-green-600 font-bold" : "text-red-600"}`}>
+                    {profile.covid_vaccinated === "no" ? "Unvaccinated" : "Vaccinated"}
                   </span>
                 </div>
                 <div>
-                  <span className="font-medium">Diet:</span>
+                  <span className="font-medium">Optional Testing:</span>
                   <span className="ml-2 text-gray-700">
-                    {dietOptions.find(opt => opt.value === profile.diet)?.label || profile.diet}
+                    {profile.wants_optional_testing === "yes" ? "Completed Lab Testing" : "No Lab Testing"}
                   </span>
-                </div>
-                <div>
-                  <span className="font-medium">Smoking:</span>
-                  <span className="ml-2 text-gray-700">
-                    {smokingOptions.find(opt => opt.value === profile.smoking)?.label || profile.smoking}
-                  </span>
-                </div>
-                <div>
-                  <span className="font-medium">Marijuana Use:</span>
-                  <span className="ml-2 text-gray-700">{profile.marijuana ? "Yes" : "No"}</span>
                 </div>
               </div>
             </div>
 
             <div>
-              <h2 className="text-2xl font-semibold mb-4">Preferences</h2>
+              <h2 className="text-2xl font-semibold mb-4">Contact</h2>
               <div className="space-y-3">
                 <div>
-                  <span className="font-medium">Sexual Orientation:</span>
-                  <span className="ml-2 text-gray-700">
-                    {orientationOptions.find(opt => opt.value === profile.orientation)?.label || profile.orientation}
-                  </span>
+                  <span className="font-medium">Member Profile:</span>
+                  <span className="ml-2 text-gray-700">@{profile.member_profile_name}</span>
                 </div>
                 <div>
-                  <span className="font-medium">Relationship Style:</span>
-                  <span className="ml-2 text-gray-700">
-                    {relationshipOptions.find(opt => opt.value === profile.relationship)?.label || profile.relationship}
-                  </span>
-                </div>
-                <div>
-                  <span className="font-medium">Ethnicity:</span>
-                  <span className="ml-2 text-gray-700">
-                    {profile.ethnicity.map(e =>
-                      ethnicityOptions.find(opt => opt.value === e)?.label || e
-                    ).join(", ")}
-                  </span>
-                </div>
-                <div>
-                  <span className="font-medium">Pet Owner:</span>
-                  <span className="ml-2 text-gray-700">{profile.petOwner ? "Yes" : "No"}</span>
+                  <span className="font-medium">Email:</span>
+                  <span className="ml-2 text-gray-700">{profile.email}</span>
                 </div>
               </div>
             </div>
@@ -345,7 +404,7 @@ export default function ProfileDetail() {
               </Button>
               <FavoriteButton 
                 profileId={profile.id}
-                profileName={profile.fullName}
+                profileName={`${profile.first_name} ${profile.last_name}`}
                 size="lg"
               />
               <Button size="lg" variant="outline">
@@ -360,14 +419,14 @@ export default function ProfileDetail() {
         isOpen={isMessagingOpen}
         onClose={() => setIsMessagingOpen(false)}
         recipientId={profile.id}
-        recipientName={profile.fullName}
+        recipientName={`${profile.first_name} ${profile.last_name}`}
       />
 
       <PhotoRequestModal
         isOpen={photoRequestModal.isOpen}
         onClose={() => setPhotoRequestModal({ isOpen: false, photoIndex: 0 })}
         profileId={profile.id}
-        profileName={profile.fullName}
+        profileName={`${profile.first_name} ${profile.last_name}`}
         photoIndex={photoRequestModal.photoIndex}
       />
     </div>
