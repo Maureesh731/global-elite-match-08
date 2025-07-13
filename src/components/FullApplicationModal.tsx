@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { useNavigate } from "react-router-dom";
 import { FullApplicationModalHeader } from "./FullApplicationModalHeader";
 import { FullApplicationModalDisclaimer } from "./FullApplicationModalDisclaimer";
 import { FullApplicationModalFormFields } from "./FullApplicationModalFormFields";
@@ -10,13 +11,16 @@ type FullApplicationModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmit?: (data: any) => void;
+  isFreeApplication?: boolean;
 };
 
 export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
   open,
   onOpenChange,
   onSubmit,
+  isFreeApplication = false,
 }) => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     fullName: "",
     memberProfileName: "",
@@ -44,6 +48,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
   });
   const [agreed, setAgreed] = useState(false);
   const [showSubmitSuccess, setShowSubmitSuccess] = useState(false);
+  const [isProcessingFreeApp, setIsProcessingFreeApp] = useState(false);
 
   const idInputRef = useRef<HTMLInputElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);
@@ -125,17 +130,43 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
       
       if (onSubmit) onSubmit(form);
       setShowSubmitSuccess(true);
-      setTimeout(() => {
-        handleModalClose();
-      }, 1200);
+      
+      // If this is a free application, navigate to profile after success message
+      if (isFreeApplication || isProcessingFreeApp) {
+        setTimeout(() => {
+          handleModalClose();
+          // Navigate to appropriate profile page based on member profile name
+          // Simple heuristic: if profile name suggests female, go to ladies page
+          const profileName = form.memberProfileName.toLowerCase();
+          const isFemale = profileName.includes('lady') || profileName.includes('miss') || profileName.includes('ms');
+          navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
+        }, 2500);
+      } else {
+        setTimeout(() => {
+          handleModalClose();
+        }, 1200);
+      }
     } catch (error) {
       console.error("Error submitting application:", error);
       // Show success even if there are issues since we want good UX
       if (onSubmit) onSubmit(form);
       setShowSubmitSuccess(true);
-      setTimeout(() => {
-        handleModalClose();
-      }, 1200);
+      
+      // If this is a free application, navigate to profile after success message
+      if (isFreeApplication || isProcessingFreeApp) {
+        setTimeout(() => {
+          handleModalClose();
+          // Navigate to appropriate profile page based on member profile name
+          // Simple heuristic: if profile name suggests female, go to ladies page
+          const profileName = form.memberProfileName.toLowerCase();
+          const isFemale = profileName.includes('lady') || profileName.includes('miss') || profileName.includes('ms');
+          navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
+        }, 2500);
+      } else {
+        setTimeout(() => {
+          handleModalClose();
+        }, 1200);
+      }
     }
   };
 
@@ -153,9 +184,18 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
               <div className="text-green-700 font-semibold mb-2">
                 Application submitted!
               </div>
-              <div className="text-xs text-gray-500">
-                You will be contacted via email or phone after review.
+              <div className="text-xs text-gray-500 mb-2">
+                {(isFreeApplication || isProcessingFreeApp) ? (
+                  <>Approvals usually take 24 hours for a decision. You can start building your profile now!</>
+                ) : (
+                  <>You will be contacted via email or phone after review.</>
+                )}
               </div>
+              {(isFreeApplication || isProcessingFreeApp) && (
+                <div className="text-xs text-blue-600">
+                  Redirecting to profile builder...
+                </div>
+              )}
             </div>
           ) : (
             <form className="space-y-4" onSubmit={handleSubmit}>
@@ -172,6 +212,10 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
               <FullApplicationModalSubmitBar
                 agreed={agreed}
                 handleSubmit={handleSubmit}
+                onFreeApplicationSuccess={() => setShowSubmitSuccess(true)}
+                onFreeApplicationStart={() => {
+                  setIsProcessingFreeApp(true);
+                }}
               />
             </form>
           )}

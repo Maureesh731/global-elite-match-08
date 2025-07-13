@@ -8,12 +8,16 @@ import { useToast } from "@/hooks/use-toast";
 type Props = {
   agreed: boolean;
   handleSubmit: (e: React.FormEvent) => void;
+  onFreeApplicationSuccess?: () => void;
+  onFreeApplicationStart?: () => void;
 };
 
 // Subscription application payment button logic
 export const FullApplicationModalSubmitBar: React.FC<Props> = ({
   agreed,
   handleSubmit,
+  onFreeApplicationSuccess,
+  onFreeApplicationStart,
 }) => {
   const [loading, setLoading] = useState(false);
   const [promoCode, setPromoCode] = useState("");
@@ -90,6 +94,11 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
       try {
         console.log("Promo code valid, recording usage directly...");
         
+        // Notify parent this is a free application
+        if (onFreeApplicationStart) {
+          onFreeApplicationStart();
+        }
+        
         // Record promo code usage directly in database
         const tempUserId = crypto.randomUUID();
         const tempEmail = `temp-${Date.now()}@temp.com`;
@@ -120,7 +129,10 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
           description: "Free registration approved! You now have 1 year of free access.",
         });
         
-        // Submit the application form
+        // Trigger success state and submit the application form
+        if (onFreeApplicationSuccess) {
+          onFreeApplicationSuccess();
+        }
         handleSubmit(e);
       } catch (err) {
         console.error("Registration error:", err);

@@ -10,6 +10,7 @@ export const Header = () => {
   const [isMember, setIsMember] = useState(false);
   const navigate = useNavigate();
   const [showAppModal, setShowAppModal] = useState(false);
+  const [isFreeApplication, setIsFreeApplication] = useState(false);
 
   const handleSignIn = () => {
     setIsMember(true);
@@ -130,6 +131,7 @@ export const Header = () => {
               <FullApplicationModal
                 open={showAppModal}
                 onOpenChange={setShowAppModal}
+                isFreeApplication={isFreeApplication}
               />
             </>
           )}
