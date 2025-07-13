@@ -80,7 +80,8 @@
       "coaching": "Beziehungs-Coaching-Sitzungen"
     },
     "cta_button": "Bewerbungsprozess beginnen",
-    "pay_with_crypto": "Mit Kryptowährung bezahlen",
+    "pay_with_crypto": "Verlängern Sie Ihre Mitgliedschaft mit USDC oder Kryptowährung",
+    "pay_with_stripe": "Verlängern Sie Ihre Mitgliedschaft über Stripe",
     "disclaimer": "*Mitgliedschaft erfordert erfolgreichen Abschluss des Verifizierungsprozesses"
   },
   "footer": {

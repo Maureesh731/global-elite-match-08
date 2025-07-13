@@ -80,7 +80,8 @@
       "coaching": "Séances de coaching relationnel"
     },
     "cta_button": "Commencer le processus de candidature",
-    "pay_with_crypto": "Payer avec la crypto-monnaie",
+    "pay_with_crypto": "Renouvelez votre adhésion avec USDC ou cryptomonnaie",
+    "pay_with_stripe": "Renouvelez votre adhésion via Stripe",
     "disclaimer": "*L'adhésion nécessite la réussite du processus de vérification"
   },
   "footer": {

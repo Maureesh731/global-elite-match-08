@@ -80,7 +80,8 @@
       "coaching": "Relationship coaching sessions"
     },
     "cta_button": "Begin Application Process",
-    "pay_with_crypto": "Pay with Cryptocurrency",
+    "pay_with_crypto": "Renew your membership with USDC or Cryptocurrency",
+    "pay_with_stripe": "Renew your membership via Stripe",
     "disclaimer": "*Membership requires successful completion of verification process"
   },
   "footer": {

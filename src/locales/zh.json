@@ -80,7 +80,8 @@
       "coaching": "关系指导会话"
     },
     "cta_button": "开始申请流程",
-    "pay_with_crypto": "使用加密货币支付",
+    "pay_with_crypto": "使用USDC或加密货币续费会员",
+    "pay_with_stripe": "通过Stripe续费会员",
     "disclaimer": "*会员资格需要成功完成验证流程"
   },
   "footer": {
