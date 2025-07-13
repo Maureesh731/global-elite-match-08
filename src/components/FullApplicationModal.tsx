@@ -4,6 +4,7 @@ import { FullApplicationModalHeader } from "./FullApplicationModalHeader";
 import { FullApplicationModalDisclaimer } from "./FullApplicationModalDisclaimer";
 import { FullApplicationModalFormFields } from "./FullApplicationModalFormFields";
 import { FullApplicationModalSubmitBar } from "./FullApplicationModalSubmitBar";
+import { PromoCodeSection } from "./PromoCodeSection";
 import { ApplicationSuccessMessage } from "./ApplicationSuccessMessage";
 import { useApplicationForm } from "@/hooks/useApplicationForm";
 import { useApplicationSubmission } from "@/hooks/useApplicationSubmission";
@@ -27,6 +28,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
   const [agreed, setAgreed] = useState(false);
   const [showSubmitSuccess, setShowSubmitSuccess] = useState(false);
   const [isProcessingFreeApp, setIsProcessingFreeApp] = useState(false);
+  const [hasValidPromoCode, setHasValidPromoCode] = useState(false);
 
   const idInputRef = useRef<HTMLInputElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);
@@ -90,15 +92,23 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
                 agreed={agreed}
                 setAgreed={setAgreed}
               />
-              <FullApplicationModalSubmitBar
-                agreed={agreed}
-                handleSubmit={handleSubmit}
+              <PromoCodeSection
+                onValidPromoCode={setHasValidPromoCode}
                 onFreeApplicationSuccess={() => setShowSubmitSuccess(true)}
                 onFreeApplicationStart={() => {
                   setIsProcessingFreeApp(true);
                 }}
+                handleSubmit={handleSubmit}
+                agreed={agreed}
                 isFormValid={isFormValid(agreed)}
               />
+              {!hasValidPromoCode && (
+                <FullApplicationModalSubmitBar
+                  agreed={agreed}
+                  handleSubmit={handleSubmit}
+                  isFormValid={isFormValid(agreed)}
+                />
+              )}
             </form>
           )}
         </div>
