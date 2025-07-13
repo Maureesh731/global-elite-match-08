@@ -32,12 +32,14 @@ export type Database = {
           last_name: string
           linkedin: string | null
           member_profile_name: string
+          password_hash: string | null
           phone: string
           review_notes: string | null
           reviewed_at: string | null
           smokes_cigarettes: string
           status: string | null
           updated_at: string
+          username: string | null
           uses_alcohol: string
           uses_drugs: string
           uses_marijuana: string
@@ -61,12 +63,14 @@ export type Database = {
           last_name: string
           linkedin?: string | null
           member_profile_name: string
+          password_hash?: string | null
           phone: string
           review_notes?: string | null
           reviewed_at?: string | null
           smokes_cigarettes: string
           status?: string | null
           updated_at?: string
+          username?: string | null
           uses_alcohol: string
           uses_drugs: string
           uses_marijuana: string
@@ -90,12 +94,14 @@ export type Database = {
           last_name?: string
           linkedin?: string | null
           member_profile_name?: string
+          password_hash?: string | null
           phone?: string
           review_notes?: string | null
           reviewed_at?: string | null
           smokes_cigarettes?: string
           status?: string | null
           updated_at?: string
+          username?: string | null
           uses_alcohol?: string
           uses_drugs?: string
           uses_marijuana?: string

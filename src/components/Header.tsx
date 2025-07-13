@@ -6,9 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { FullApplicationModal } from "@/components/FullApplicationModal";
 import { PhotoAccessRequests } from "@/components/PhotoAccessRequests";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const Header = () => {
-  const [isMember, setIsMember] = useState(false);
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [showAppModal, setShowAppModal] = useState(false);
   const [isFreeApplication, setIsFreeApplication] = useState(false);
@@ -19,9 +20,14 @@ export const Header = () => {
     navigate('/login');
   };
 
-  const handleSignOut = () => {
-    setIsMember(false);
-    toast.success("Signed out");
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      toast.success("Signed out");
+      navigate('/');
+    } catch (error) {
+      toast.error("Error signing out");
+    }
   };
 
   const handleApply = () => {
@@ -40,7 +46,7 @@ export const Header = () => {
           </span>
         </Link>
 
-        {isMember ? (
+        {user ? (
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               to="/profile-search"
@@ -131,7 +137,7 @@ export const Header = () => {
         )}
 
         <div className="flex items-center space-x-4">
-          {isMember ? (
+          {user ? (
             <Button 
               variant="ghost" 
               className="text-white/80 hover:text-white hover:bg-gray-800/60 font-medium tracking-wide" 

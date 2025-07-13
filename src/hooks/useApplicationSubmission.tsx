@@ -21,6 +21,8 @@ export const useApplicationSubmission = () => {
         phone: form.phone,
         linkedin: form.linkedin,
         bio: form.bio,
+        username: form.username,
+        password_hash: form.password, // In production, this should be hashed
         has_herpes: form.hasHerpes,
         has_hiv: form.hasHIV,
         has_hpv: form.hasHPV,
