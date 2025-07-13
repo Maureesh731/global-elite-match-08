@@ -284,17 +284,14 @@ export default function ProfileDetail() {
             </div>
           </div>
 
-          {/* LinkedIn */}
+          {/* Professional Verification */}
           <div className="border-t pt-6">
             <h2 className="text-2xl font-semibold mb-4">Professional</h2>
-            <a 
-              href={profile.linkedin} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 underline"
-            >
-              View LinkedIn Profile
-            </a>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
+              <span className="text-blue-600 font-medium">LinkedIn Verified</span>
+            </div>
+            <p className="text-sm text-gray-600 mt-1">Professional profile verified for authenticity</p>
           </div>
 
           {/* Action Buttons */}

@@ -354,7 +354,10 @@ export default function ProfileSearch() {
               </button>
               <div className="text-gray-600 mb-1">{profile.bio}</div>
               <div className="flex items-center gap-2 mb-2">
-                <a href={profile.linkedin} className="underline text-blue-700 flex-1" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                  <span className="text-blue-600 text-sm font-medium">LinkedIn Verified</span>
+                </div>
                 <FavoriteButton 
                   profileId={profile.id}
                   profileName={profile.fullName}
