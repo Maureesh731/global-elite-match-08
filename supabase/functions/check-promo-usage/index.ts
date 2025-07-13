@@ -19,7 +19,7 @@ serve(async (req) => {
       { auth: { persistSession: false } }
     );
 
-    // Check promo code usage count
+    // Check promo code usage count for ImUnvaxxed
     const { data, error } = await supabaseClient
       .from("promo_usage")
       .select("*")
@@ -34,6 +34,7 @@ serve(async (req) => {
     }
 
     const usageCount = data ? data.length : 0;
+    console.log(`ImUnvaxxed promo code usage count: ${usageCount}`);
 
     return new Response(JSON.stringify({ usageCount }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

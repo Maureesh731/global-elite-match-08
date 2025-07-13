@@ -13,29 +13,20 @@ serve(async (req) => {
 
   try {
     const { promoCode } = await req.json();
+    console.log(`Processing promo code: ${promoCode}`);
 
-    // Create Supabase client with service role key
+    // Create Supabase client with service role key for admin operations
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
       { auth: { persistSession: false } }
     );
 
-    // Get authenticated user
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(JSON.stringify({ error: "No authorization header" }), {
+    // Validate promo code (case insensitive)
+    if (promoCode.toLowerCase() !== "imunvaxxed") {
+      return new Response(JSON.stringify({ error: "Invalid promo code" }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 401,
-      });
-    }
-
-    const token = authHeader.replace("Bearer ", "");
-    const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
-    if (userError || !userData.user) {
-      return new Response(JSON.stringify({ error: "Invalid user" }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 401,
+        status: 400,
       });
     }
 
@@ -43,7 +34,7 @@ serve(async (req) => {
     const { data: usageData, error: usageError } = await supabaseClient
       .from("promo_usage")
       .select("*")
-      .eq("promo_code", promoCode);
+      .eq("promo_code", "ImUnvaxxed");
 
     if (usageError) {
       console.error("Error checking promo usage:", usageError);
@@ -54,6 +45,8 @@ serve(async (req) => {
     }
 
     const usageCount = usageData ? usageData.length : 0;
+    console.log(`Current usage count: ${usageCount}`);
+    
     if (usageCount >= 25) {
       return new Response(JSON.stringify({ error: "Promo code limit reached" }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -61,27 +54,18 @@ serve(async (req) => {
       });
     }
 
-    // Check if user already used this promo code
-    const { data: existingUsage } = await supabaseClient
-      .from("promo_usage")
-      .select("*")
-      .eq("promo_code", promoCode)
-      .eq("user_id", userData.user.id);
-
-    if (existingUsage && existingUsage.length > 0) {
-      return new Response(JSON.stringify({ error: "Promo code already used by this user" }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 400,
-      });
-    }
+    // For free applications, we don't require authentication yet
+    // Just record the usage with a temporary identifier
+    const tempUserId = crypto.randomUUID();
+    const tempEmail = `temp-${Date.now()}@temp.com`;
 
     // Record promo code usage
     const { error: insertError } = await supabaseClient
       .from("promo_usage")
       .insert({
-        promo_code: promoCode,
-        user_id: userData.user.id,
-        user_email: userData.user.email,
+        promo_code: "ImUnvaxxed",
+        user_id: tempUserId, // Will be updated when user actually registers
+        user_email: tempEmail,
         used_at: new Date().toISOString(),
       });
 
@@ -93,7 +77,13 @@ serve(async (req) => {
       });
     }
 
-    return new Response(JSON.stringify({ success: true }), {
+    console.log("Promo code usage recorded successfully");
+
+    return new Response(JSON.stringify({ 
+      success: true, 
+      message: "Promo code accepted! 1 year free access granted.",
+      freeYears: 1 
+    }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     });

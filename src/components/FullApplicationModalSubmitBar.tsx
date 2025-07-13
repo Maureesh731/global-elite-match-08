@@ -25,6 +25,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
     if (promoCode.toLowerCase() !== "imunvaxxed") {
       toast({
         title: "Invalid promo code",
+        description: "Please check your promo code and try again",
         variant: "destructive",
       });
       return false;
@@ -69,12 +70,15 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
     if (!agreed) return;
     
     setLoading(true);
+    console.log("Checking promo code:", promoCode);
+    
     const isValidPromo = await checkPromoCode();
     
     if (isValidPromo) {
       try {
+        console.log("Promo code valid, recording usage...");
         const { error } = await supabase.functions.invoke("use-promo-code", {
-          body: { promoCode }
+          body: { promoCode: promoCode }
         });
         
         if (error) {
@@ -88,10 +92,13 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
           return;
         }
         
+        console.log("Promo code used successfully, submitting application...");
         toast({
           title: "Success!",
-          description: "Free registration approved! Welcome to Untouchable Dating.",
+          description: "Free registration approved! You now have 1 year of free access.",
         });
+        
+        // Submit the application form
         handleSubmit(e);
       } catch (err) {
         console.error("Registration error:", err);
@@ -152,7 +159,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
         <div className="w-full">
           <Input
             type="text"
-            placeholder="Enter promo code"
+            placeholder="Enter promo code (ImUnvaxxed)"
             value={promoCode}
             onChange={(e) => setPromoCode(e.target.value)}
             className="mb-2"
@@ -164,7 +171,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
             disabled={!agreed || loading || !promoCode}
             onClick={onFreeApplication}
           >
-            {loading ? "Processing..." : "Submit Free Application"}
+            {loading ? "Processing..." : "Submit Free Application (1 Year)"}
           </Button>
         </div>
       )}
@@ -176,7 +183,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
           className="w-full text-sm"
           onClick={() => setShowPromoInput(true)}
         >
-          Have a promo code?
+          Have a promo code for 1 year free?
         </Button>
       )}
       
