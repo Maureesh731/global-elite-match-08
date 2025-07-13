@@ -15,13 +15,13 @@ export const Header = () => {
   const [showPhotoRequests, setShowPhotoRequests] = useState(false);
 
   const handleSignIn = () => {
-    setIsMember(true);
-    toast.success("Signed in (demo)");
+    // Navigate to login page instead of demo
+    navigate('/login');
   };
 
   const handleSignOut = () => {
     setIsMember(false);
-    toast.success("Signed out (demo)");
+    toast.success("Signed out");
   };
 
   const handleApply = () => {

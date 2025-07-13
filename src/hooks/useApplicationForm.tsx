@@ -10,6 +10,10 @@ export type ApplicationFormState = {
   linkedin: string;
   idFile: File | null;
   bio: string;
+  // Authentication credentials
+  username: string;
+  password: string;
+  confirmPassword: string;
   // Health disclosure questions
   hasHerpes: string;
   hasHIV: string;
@@ -37,6 +41,10 @@ const initialFormState: ApplicationFormState = {
   linkedin: "",
   idFile: null,
   bio: "",
+  // Authentication credentials
+  username: "",
+  password: "",
+  confirmPassword: "",
   // Health disclosure questions
   hasHerpes: "no",
   hasHIV: "no",
@@ -81,7 +89,10 @@ export const useApplicationForm = () => {
       form.email.trim(),
       form.phone.trim(),
       form.linkedin.trim(),
-      form.bio.trim()
+      form.bio.trim(),
+      form.username.trim(),
+      form.password.trim(),
+      form.confirmPassword.trim()
     ];
 
     const healthDisclosureFields = [
@@ -111,8 +122,14 @@ export const useApplicationForm = () => {
     
     // Check if age is at least 18
     const ageValid = parseInt(form.age) >= 18;
+    
+    // Check if passwords match
+    const passwordsMatch = form.password === form.confirmPassword;
+    
+    // Check password strength (minimum 8 characters)
+    const passwordValid = form.password.length >= 8;
 
-    return allFieldsFilled && allHealthQuestionsAnswered && idFileUploaded && ageValid && agreed;
+    return allFieldsFilled && allHealthQuestionsAnswered && idFileUploaded && ageValid && passwordsMatch && passwordValid && agreed;
   };
 
   const resetForm = () => {

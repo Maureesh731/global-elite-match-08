@@ -71,6 +71,34 @@ export const FullApplicationModalFormFields: React.FC<Props> = ({
         {form.bio.length}/2500 characters
       </div>
     </div>
+
+    {/* Authentication Credentials Section */}
+    <div className="border-t pt-4">
+      <h3 className="font-semibold text-lg mb-4">Account Setup</h3>
+      <p className="text-sm text-gray-600 mb-4">
+        Create your login credentials for accessing the platform after approval.
+      </p>
+      
+      <div className="space-y-4">
+        <div>
+          <Label htmlFor="username">Username</Label>
+          <Input name="username" id="username" value={form.username} onChange={handleInput} required />
+          <span className="text-xs text-gray-500">Choose a unique username for your account.</span>
+        </div>
+        <div>
+          <Label htmlFor="password">Password</Label>
+          <Input name="password" id="password" type="password" value={form.password} onChange={handleInput} required />
+          <span className="text-xs text-gray-500">Minimum 8 characters required.</span>
+        </div>
+        <div>
+          <Label htmlFor="confirmPassword">Confirm Password</Label>
+          <Input name="confirmPassword" id="confirmPassword" type="password" value={form.confirmPassword} onChange={handleInput} required />
+          {form.password !== form.confirmPassword && form.confirmPassword && (
+            <span className="text-xs text-red-500">Passwords do not match.</span>
+          )}
+        </div>
+      </div>
+    </div>
     {/* Health Disclosure Section */}
     <div className="border-t pt-4">
       <h3 className="font-semibold text-lg mb-4">Health Disclosure (Required)</h3>
