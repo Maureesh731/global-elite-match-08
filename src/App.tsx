@@ -17,6 +17,7 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCanceled from "./pages/PaymentCanceled";
 import LabPartnerPage from "./pages/LabPartner";
 import ProfileDetail from "./pages/ProfileDetail";
+import { ApplicationReview } from "./pages/ApplicationReview";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/donate-compensation" element={<DonateCompensation />} />
           <Route path="/referral-program" element={<ReferralProgram />} />
           <Route path="/lab-partner" element={<LabPartnerPage />} />
+          <Route path="/admin/applications" element={<ApplicationReview />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="/networking" element={<NetworkingPage />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />

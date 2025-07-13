@@ -1,0 +1,91 @@
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+}
+
+serve(async (req) => {
+  // Handle CORS preflight requests
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
+  }
+
+  try {
+    const { applicationId, status, message, applicantName, applicantEmail } = await req.json()
+    
+    // Create Supabase client
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!
+    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    const supabase = createClient(supabaseUrl, supabaseKey)
+    
+    // Update application status in database
+    const { error: updateError } = await supabase
+      .from('applications')
+      .update({ 
+        status: status,
+        review_notes: message,
+        reviewed_at: new Date().toISOString()
+      })
+      .eq('id', applicationId)
+    
+    if (updateError) {
+      throw new Error(`Failed to update application: ${updateError.message}`)
+    }
+
+    // Send email using Resend API
+    const emailData = {
+      from: 'noreply@yourdomain.com', // Replace with your verified domain
+      to: [applicantEmail],
+      subject: status === 'approved' ? 'Welcome to StartFF!' : 'Application Update - StartFF',
+      html: status === 'approved' ? `
+        <h2>Congratulations ${applicantName}!</h2>
+        <p>We're excited to inform you that your application has been approved!</p>
+        <p><strong>Message from our team:</strong></p>
+        <p>${message}</p>
+        <p>Welcome to the StartFF community. We'll be in touch soon with next steps.</p>
+        <p>Best regards,<br>The StartFF Team</p>
+      ` : `
+        <h2>Application Update</h2>
+        <p>Dear ${applicantName},</p>
+        <p>Thank you for your interest in StartFF. After careful review, we have decided not to move forward with your application at this time.</p>
+        <p><strong>Feedback:</strong></p>
+        <p>${message}</p>
+        <p>We appreciate the time you took to apply and wish you the best.</p>
+        <p>Best regards,<br>The StartFF Team</p>
+      `
+    }
+
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${Deno.env.get('RESEND_API_KEY')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(emailData),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Failed to send email: ${response.statusText}`)
+    }
+
+    return new Response(
+      JSON.stringify({ success: true, message: 'Application response sent successfully' }),
+      { 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 200 
+      }
+    )
+
+  } catch (error) {
+    console.error('Error sending application response:', error)
+    return new Response(
+      JSON.stringify({ error: error.message }),
+      { 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 500 
+      }
+    )
+  }
+})

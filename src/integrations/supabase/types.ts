@@ -14,7 +14,93 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      applications: {
+        Row: {
+          age: string
+          bio: string | null
+          covid_vaccinated: string
+          created_at: string
+          disclosure_authorization: string
+          email: string
+          full_name: string
+          has_chronic_diseases: string
+          has_herpes: string
+          has_hiv: string
+          has_hpv: string
+          has_other_stds: string
+          id: string
+          linkedin: string | null
+          member_profile_name: string
+          phone: string
+          review_notes: string | null
+          reviewed_at: string | null
+          smokes_cigarettes: string
+          status: string | null
+          updated_at: string
+          uses_alcohol: string
+          uses_drugs: string
+          uses_marijuana: string
+          uses_prescription_drugs: string
+          wants_optional_testing: string
+        }
+        Insert: {
+          age: string
+          bio?: string | null
+          covid_vaccinated: string
+          created_at?: string
+          disclosure_authorization: string
+          email: string
+          full_name: string
+          has_chronic_diseases: string
+          has_herpes: string
+          has_hiv: string
+          has_hpv: string
+          has_other_stds: string
+          id?: string
+          linkedin?: string | null
+          member_profile_name: string
+          phone: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          smokes_cigarettes: string
+          status?: string | null
+          updated_at?: string
+          uses_alcohol: string
+          uses_drugs: string
+          uses_marijuana: string
+          uses_prescription_drugs: string
+          wants_optional_testing: string
+        }
+        Update: {
+          age?: string
+          bio?: string | null
+          covid_vaccinated?: string
+          created_at?: string
+          disclosure_authorization?: string
+          email?: string
+          full_name?: string
+          has_chronic_diseases?: string
+          has_herpes?: string
+          has_hiv?: string
+          has_hpv?: string
+          has_other_stds?: string
+          id?: string
+          linkedin?: string | null
+          member_profile_name?: string
+          phone?: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          smokes_cigarettes?: string
+          status?: string | null
+          updated_at?: string
+          uses_alcohol?: string
+          uses_drugs?: string
+          uses_marijuana?: string
+          uses_prescription_drugs?: string
+          wants_optional_testing?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
