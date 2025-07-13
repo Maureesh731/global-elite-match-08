@@ -143,7 +143,7 @@ export const Footer = () => {
         
         <div className="border-t border-gray-800 pt-8 text-center">
           <p className="text-gray-500">
-            © 2024 Untouchable Dating. All rights reserved. | Premium Dating for Verified Professionals
+            © 2025 Untouchable Dating. All rights reserved. | Premium Dating for Verified Professionals
           </p>
         </div>
       </div>
