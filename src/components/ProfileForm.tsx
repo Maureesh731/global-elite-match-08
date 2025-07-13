@@ -74,16 +74,20 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ gender, onSave }) => {
         <Input name="age" id="age" type="number" min="18" value={form.age} onChange={handleInput} required />
       </div>
       <div>
-        <Label htmlFor="bio">Short Bio</Label>
+        <Label htmlFor="bio">Short Bio (up to 2500 characters)</Label>
         <textarea
           name="bio"
           id="bio"
           className="w-full border rounded p-2"
-          maxLength={300}
-          rows={3}
+          maxLength={2500}
+          rows={8}
           value={form.bio}
           onChange={handleInput}
+          placeholder="Tell us about yourself, your interests, lifestyle, and what makes you unique..."
         />
+        <div className="text-sm text-gray-500 mt-1">
+          {form.bio.length}/2500 characters
+        </div>
       </div>
       <div>
         <Label htmlFor="story">Member Story (Who you are & who you're seeking - up to 1500 characters)</Label>

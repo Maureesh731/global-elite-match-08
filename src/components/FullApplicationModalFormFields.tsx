@@ -76,16 +76,20 @@ export const FullApplicationModalFormFields: React.FC<Props> = ({
       />
     </div>
     <div>
-      <Label htmlFor="bio">Short Bio</Label>
+      <Label htmlFor="bio">Short Bio (up to 2500 characters)</Label>
       <textarea
         name="bio"
         id="bio"
-        maxLength={300}
-        rows={3}
+        maxLength={2500}
+        rows={8}
         className="w-full border rounded p-2"
         value={form.bio}
         onChange={handleInput}
+        placeholder="Tell us about yourself, your interests, lifestyle, and what makes you unique..."
       />
+      <div className="text-sm text-gray-500 mt-1">
+        {form.bio.length}/2500 characters
+      </div>
     </div>
     {/* Health Disclosure Section */}
     <div className="border-t pt-4">
