@@ -32,9 +32,22 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
     }
 
     try {
+      console.log("Calling check-promo-usage edge function...");
       const { data, error } = await supabase.functions.invoke("check-promo-usage");
-      if (error || !data) {
+      console.log("check-promo-usage response:", { data, error });
+      
+      if (error) {
         console.error("Promo check error:", error);
+        toast({
+          title: "Could not verify promo code",
+          description: "Please try again or contact support",
+          variant: "destructive",
+        });
+        return false;
+      }
+      
+      if (!data) {
+        console.error("No data returned from promo check");
         toast({
           title: "Could not verify promo code",
           description: "Please try again or contact support",
