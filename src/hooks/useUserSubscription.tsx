@@ -16,17 +16,19 @@ export const useUserSubscription = () => {
           return;
         }
 
-        const { data, error } = await (supabase as any)
-          .from('subscribers')
-          .select('subscribed')
+        // Check if user has used the promo code (free subscription)
+        const { data, error } = await supabase
+          .from('promo_usage')
+          .select('used_at')
           .eq('user_id', user.id)
-          .single();
+          .maybeSingle();
 
-        if (error && error.code !== 'PGRST116') {
+        if (error) {
           console.error('Error checking subscription:', error);
           setIsSubscribed(false);
         } else {
-          setIsSubscribed(data?.subscribed || false);
+          // If user has promo usage record, they have subscription
+          setIsSubscribed(!!data);
         }
       } catch (error) {
         console.error('Error checking subscription:', error);
