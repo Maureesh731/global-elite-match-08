@@ -56,7 +56,7 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
     if (isValidPromo) {
       try {
         const { error } = await supabase.functions.invoke("use-promo-code", {
-          body: { promoCode: "ImUnvaxxed" }
+          body: { promoCode }
         });
         
         if (error) {
