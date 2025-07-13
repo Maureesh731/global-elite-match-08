@@ -22,13 +22,14 @@ export type Database = {
           created_at: string
           disclosure_authorization: string
           email: string
-          full_name: string
+          first_name: string
           has_chronic_diseases: string
           has_herpes: string
           has_hiv: string
           has_hpv: string
           has_other_stds: string
           id: string
+          last_name: string
           linkedin: string | null
           member_profile_name: string
           phone: string
@@ -50,13 +51,14 @@ export type Database = {
           created_at?: string
           disclosure_authorization: string
           email: string
-          full_name: string
+          first_name: string
           has_chronic_diseases: string
           has_herpes: string
           has_hiv: string
           has_hpv: string
           has_other_stds: string
           id?: string
+          last_name: string
           linkedin?: string | null
           member_profile_name: string
           phone: string
@@ -78,13 +80,14 @@ export type Database = {
           created_at?: string
           disclosure_authorization?: string
           email?: string
-          full_name?: string
+          first_name?: string
           has_chronic_diseases?: string
           has_herpes?: string
           has_hiv?: string
           has_hpv?: string
           has_other_stds?: string
           id?: string
+          last_name?: string
           linkedin?: string | null
           member_profile_name?: string
           phone?: string

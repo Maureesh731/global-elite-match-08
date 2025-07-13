@@ -13,7 +13,8 @@ export const useApplicationSubmission = () => {
     try {
       // Transform form data to match database schema
       const applicationData = {
-        full_name: form.fullName,
+        first_name: form.firstName,
+        last_name: form.lastName,
         member_profile_name: form.memberProfileName,
         age: form.age,
         email: form.email,

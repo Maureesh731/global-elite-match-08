@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 export type ApplicationFormState = {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   memberProfileName: string;
   age: string;
   email: string;
@@ -27,7 +28,8 @@ export type ApplicationFormState = {
 };
 
 const initialFormState: ApplicationFormState = {
-  fullName: "",
+  firstName: "",
+  lastName: "",
   memberProfileName: "",
   age: "",
   email: "",
@@ -72,7 +74,8 @@ export const useApplicationForm = () => {
 
   const isFormValid = (agreed: boolean) => {
     const requiredFields = [
-      form.fullName.trim(),
+      form.firstName.trim(),
+      form.lastName.trim(),
       form.memberProfileName.trim(),
       form.age.trim(),
       form.email.trim(),

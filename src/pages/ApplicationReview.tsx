@@ -10,7 +10,8 @@ import { useNavigate } from 'react-router-dom';
 
 interface Application {
   id: string;
-  full_name: string;
+  first_name: string;
+  last_name: string;
   member_profile_name: string;
   age: string;
   email: string;
@@ -87,7 +88,7 @@ export const ApplicationReview: React.FC = () => {
           applicationId: selectedApp.id,
           status: status,
           message: responseMessage,
-          applicantName: selectedApp.full_name,
+          applicantName: `${selectedApp.first_name} ${selectedApp.last_name}`,
           applicantEmail: selectedApp.email
         }
       });
@@ -152,7 +153,7 @@ export const ApplicationReview: React.FC = () => {
           <CardHeader>
             <div className="flex justify-between items-start">
               <div>
-                <CardTitle className="text-2xl">{selectedApp.full_name}</CardTitle>
+                <CardTitle className="text-2xl">{selectedApp.first_name} {selectedApp.last_name}</CardTitle>
                 <p className="text-muted-foreground">Applied on {new Date(selectedApp.created_at).toLocaleDateString()}</p>
               </div>
               {getStatusBadge(selectedApp.status)}
@@ -274,7 +275,7 @@ export const ApplicationReview: React.FC = () => {
               <CardContent className="p-6">
                 <div className="flex justify-between items-start">
                   <div className="flex-1" onClick={() => setSelectedApp(app)}>
-                    <h3 className="text-lg font-semibold">{app.full_name}</h3>
+                    <h3 className="text-lg font-semibold">{app.first_name} {app.last_name}</h3>
                     <p className="text-sm text-muted-foreground mb-2">
                       Profile: {app.member_profile_name} • Age: {app.age}
                     </p>

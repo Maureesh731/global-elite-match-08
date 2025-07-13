@@ -19,8 +19,12 @@ export const FullApplicationModalFormFields: React.FC<Props> = ({
 }) => (
   <>
     <div>
-      <Label htmlFor="fullName">Full Name</Label>
-      <Input name="fullName" id="fullName" value={form.fullName} onChange={handleInput} required />
+      <Label htmlFor="firstName">First Name</Label>
+      <Input name="firstName" id="firstName" value={form.firstName} onChange={handleInput} required />
+    </div>
+    <div>
+      <Label htmlFor="lastName">Last Name</Label>
+      <Input name="lastName" id="lastName" value={form.lastName} onChange={handleInput} required />
     </div>
     <div>
       <Label htmlFor="memberProfileName">Member Profile Name</Label>
