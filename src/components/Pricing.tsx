@@ -2,16 +2,22 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Star, Crown } from "lucide-react";
+import { CheckCircle, Star, Crown, Coins } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import { CryptoPaymentModal } from "@/components/CryptoPaymentModal";
 
 export const Pricing = () => {
+  const { t } = useTranslation();
+  const [showCryptoModal, setShowCryptoModal] = useState(false);
+  
   const features = [
-    "Unlimited messaging with verified members",
-    "Advanced matching algorithm",
-    "Profile verification badge",
-    "Priority customer support",
-    "Monthly exclusive events",
-    "Relationship coaching sessions"
+    t('pricing.features.messaging'),
+    t('pricing.features.algorithm'),
+    t('pricing.features.verification'),
+    t('pricing.features.support'),
+    t('pricing.features.events'),
+    t('pricing.features.coaching')
   ];
 
   return (
@@ -20,16 +26,15 @@ export const Pricing = () => {
         <div className="max-w-3xl mx-auto text-center mb-20">
           <h2 className="text-5xl md:text-6xl font-bold mb-8">
             <span className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 bg-clip-text text-transparent">
-              Premium
+              {t('pricing.title')}
             </span>
             <br />
             <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              Membership
+              {t('pricing.subtitle')}
             </span>
           </h2>
           <p className="text-xl text-gray-300 leading-relaxed">
-            Investment in your future with access to the most exclusive dating community 
-            for verified professionals worldwide.
+            {t('pricing.description')}
           </p>
         </div>
         
@@ -39,21 +44,21 @@ export const Pricing = () => {
             <div className="absolute top-6 right-6">
               <Badge className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold px-4 py-2 shadow-lg">
                 <Crown className="w-4 h-4 mr-2" />
-                Exclusive
+                {t('pricing.exclusive')}
               </Badge>
             </div>
             
             <CardHeader className="text-center pb-8 pt-12">
               <CardTitle className="text-4xl font-bold text-white mb-4">
-                Untouchable Dating Membership
+                {t('pricing.membership_title')}
               </CardTitle>
               <CardDescription className="text-lg text-gray-300 mb-8">
-                For serious professionals seeking meaningful connections
+                {t('pricing.membership_description')}
               </CardDescription>
               
               <div className="mb-6">
                 <Badge className="bg-gradient-to-r from-red-600 to-purple-600 text-white px-6 py-3 text-base font-bold shadow-lg shadow-red-500/30">
-                  🚀 Launch Special: 50% OFF First 30 Days!
+                  {t('pricing.launch_special')}
                 </Badge>
               </div>
               
@@ -64,11 +69,11 @@ export const Pricing = () => {
                      <span className="text-6xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">$24</span>
                      <div className="text-left">
                        <div className="text-2xl font-bold text-yellow-500">.50</div>
-                       <div className="text-gray-400 text-sm">first month</div>
+                       <div className="text-gray-400 text-sm">{t('pricing.first_month')}</div>
                      </div>
                    </div>
                    <div className="text-center text-gray-400 mt-3 text-lg">
-                     Then $49.99/month
+                     {t('pricing.then_monthly')}
                   </div>
                 </div>
               </div>
@@ -84,16 +89,31 @@ export const Pricing = () => {
                 ))}
               </div>
               
-              <Button className="w-full bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white py-8 text-xl font-bold shadow-2xl shadow-red-500/30 border border-red-500/50 transform hover:scale-105 transition-all duration-300">
-                Begin Application Process
+              <Button className="w-full bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white py-8 text-xl font-bold shadow-2xl shadow-red-500/30 border border-red-500/50 transform hover:scale-105 transition-all duration-300 mb-4">
+                {t('pricing.cta_button')}
+              </Button>
+              
+              <Button 
+                onClick={() => setShowCryptoModal(true)}
+                className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-500 hover:to-orange-500 text-white py-6 text-lg font-bold shadow-2xl shadow-yellow-500/30 border border-yellow-500/50 transform hover:scale-105 transition-all duration-300"
+              >
+                <Coins className="w-5 h-5 mr-2" />
+                {t('pricing.pay_with_crypto')}
               </Button>
               
               <p className="text-center text-sm text-gray-500 mt-6">
-                *Membership requires successful completion of verification process
+                {t('pricing.disclaimer')}
               </p>
             </CardContent>
           </Card>
         </div>
+        
+        <CryptoPaymentModal
+          isOpen={showCryptoModal}
+          onClose={() => setShowCryptoModal(false)}
+          amount={24.50}
+          currency="USD"
+        />
       </div>
     </section>
   );
