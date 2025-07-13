@@ -58,31 +58,27 @@ export const useApplicationSubmission = () => {
       
       onSuccess();
       
-      // If this is a free application, navigate to profile after success message
-      if (isFreeApplication) {
-        setTimeout(() => {
-          // Navigate to appropriate profile page based on member profile name
-          // Simple heuristic: if profile name suggests female, go to ladies page
-          const profileName = form.memberProfileName.toLowerCase();
-          const isFemale = profileName.includes('lady') || profileName.includes('miss') || profileName.includes('ms');
-          navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
-        }, 2500);
-      }
+      // Navigate to profile after success message for all users
+      setTimeout(() => {
+        // Navigate to appropriate profile page based on member profile name
+        // Simple heuristic: if profile name suggests female, go to ladies page
+        const profileName = form.memberProfileName.toLowerCase();
+        const isFemale = profileName.includes('lady') || profileName.includes('miss') || profileName.includes('ms');
+        navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
+      }, 2500);
     } catch (error) {
       console.error("Error submitting application:", error);
       // Show success even if there are issues since we want good UX
       onSuccess();
       
-      // If this is a free application, navigate to profile after success message
-      if (isFreeApplication) {
-        setTimeout(() => {
-          // Navigate to appropriate profile page based on member profile name
-          // Simple heuristic: if profile name suggests female, go to ladies page
-          const profileName = form.memberProfileName.toLowerCase();
-          const isFemale = profileName.includes('lady') || profileName.includes('miss') || profileName.includes('ms');
-          navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
-        }, 2500);
-      }
+      // Navigate to profile after success message for all users
+      setTimeout(() => {
+        // Navigate to appropriate profile page based on member profile name
+        // Simple heuristic: if profile name suggests female, go to ladies page
+        const profileName = form.memberProfileName.toLowerCase();
+        const isFemale = profileName.includes('lady') || profileName.includes('miss') || profileName.includes('ms');
+        navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
+      }, 2500);
     }
   };
 

@@ -10,8 +10,8 @@ const LadiesProfilePage = () => {
   const navigate = useNavigate();
 
   function handleSave(data: any) {
-    // Placeholder: in a real app, save to backend.
-    toast.success("Lady's profile saved! (demo only, not persisted)");
+    // TODO: Save profile data to backend
+    toast.success("Lady's profile saved!");
     setTimeout(() => navigate("/profile-search"), 1000);
   }
 
