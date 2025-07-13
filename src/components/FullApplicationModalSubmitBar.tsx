@@ -32,31 +32,30 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
     }
 
     try {
-      console.log("Calling check-promo-usage edge function...");
-      const { data, error } = await supabase.functions.invoke("check-promo-usage");
-      console.log("check-promo-usage response:", { data, error });
+      console.log("Checking promo code usage directly from database...");
       
+      // Check current usage count directly from database
+      const { count, error } = await supabase
+        .from("promo_usage")
+        .select("*", { count: "exact", head: true })
+        .eq("promo_code", "ImUnvaxxed");
+
+      console.log("Promo usage check result:", { count, error });
+
       if (error) {
-        console.error("Promo check error:", error);
+        console.error("Database error:", error);
         toast({
           title: "Could not verify promo code",
-          description: "Please try again or contact support",
+          description: "Database error occurred",
           variant: "destructive",
         });
         return false;
       }
-      
-      if (!data) {
-        console.error("No data returned from promo check");
-        toast({
-          title: "Could not verify promo code",
-          description: "Please try again or contact support",
-          variant: "destructive",
-        });
-        return false;
-      }
-      
-      if (data.usageCount >= 25) {
+
+      const usageCount = count || 0;
+      console.log(`Current promo usage count: ${usageCount}`);
+
+      if (usageCount >= 25) {
         toast({
           title: "Promo code limit reached",
           description: "This promo code has reached its 25 use maximum",
@@ -89,23 +88,33 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
     
     if (isValidPromo) {
       try {
-        console.log("Promo code valid, recording usage...");
-        const { error } = await supabase.functions.invoke("use-promo-code", {
-          body: { promoCode: promoCode }
-        });
+        console.log("Promo code valid, recording usage directly...");
         
+        // Record promo code usage directly in database
+        const tempUserId = crypto.randomUUID();
+        const tempEmail = `temp-${Date.now()}@temp.com`;
+
+        const { error } = await supabase
+          .from("promo_usage")
+          .insert({
+            promo_code: "ImUnvaxxed",
+            user_id: tempUserId,
+            user_email: tempEmail,
+            used_at: new Date().toISOString(),
+          });
+
         if (error) {
-          console.error("Promo use error:", error);
+          console.error("Database insert error:", error);
           toast({
             title: "Could not process free registration",
-            description: "Please try again or contact support",
+            description: "Database error occurred",
             variant: "destructive",
           });
           setLoading(false);
           return;
         }
         
-        console.log("Promo code used successfully, submitting application...");
+        console.log("Promo code usage recorded successfully");
         toast({
           title: "Success!",
           description: "Free registration approved! You now have 1 year of free access.",
