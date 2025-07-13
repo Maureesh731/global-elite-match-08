@@ -1,35 +1,11 @@
 
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ApplicationFormState } from "@/hooks/useApplicationForm";
 
-type FormState = {
-  fullName: string;
-  memberProfileName: string;
-  age: string;
-  email: string;
-  phone: string;
-  linkedin: string;
-  idFile: File | null;
-  bio: string;
-  // Health disclosure questions
-  hasHerpes: string;
-  hasHIV: string;
-  hasHPV: string;
-  hasOtherSTDs: string;
-  hasChronicDiseases: string;
-  covidVaccinated: string;
-  usesAlcohol: string;
-  usesDrugs: string;
-  usesMarijuana: string;
-  smokesCigarettes: string;
-  usesPrescriptionDrugs: string;
-  disclosureAuthorization: string;
-  // Optional testing
-  wantsOptionalTesting: string;
-};
 type Props = {
-  form: FormState;
+  form: ApplicationFormState;
   handleInput: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleFileChange: (name: "idFile", e: React.ChangeEvent<HTMLInputElement>) => void;
   idInputRef: React.RefObject<HTMLInputElement>;

@@ -1,11 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { useNavigate } from "react-router-dom";
 import { FullApplicationModalHeader } from "./FullApplicationModalHeader";
 import { FullApplicationModalDisclaimer } from "./FullApplicationModalDisclaimer";
 import { FullApplicationModalFormFields } from "./FullApplicationModalFormFields";
 import { FullApplicationModalSubmitBar } from "./FullApplicationModalSubmitBar";
-import { supabase } from "@/integrations/supabase/client";
+import { ApplicationSuccessMessage } from "./ApplicationSuccessMessage";
+import { useApplicationForm } from "@/hooks/useApplicationForm";
+import { useApplicationSubmission } from "@/hooks/useApplicationSubmission";
 
 type FullApplicationModalProps = {
   open: boolean;
@@ -20,32 +21,9 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
   onSubmit,
   isFreeApplication = false,
 }) => {
-  const navigate = useNavigate();
-  const [form, setForm] = useState({
-    fullName: "",
-    memberProfileName: "",
-    age: "",
-    email: "",
-    phone: "",
-    linkedin: "",
-    idFile: null as File | null,
-    bio: "",
-    // Health disclosure questions
-    hasHerpes: "no",
-    hasHIV: "no",
-    hasHPV: "no",
-    hasOtherSTDs: "no",
-    hasChronicDiseases: "no",
-    covidVaccinated: "no",
-    usesAlcohol: "no",
-    usesDrugs: "no",
-    usesMarijuana: "no",
-    smokesCigarettes: "no",
-    usesPrescriptionDrugs: "no",
-    disclosureAuthorization: "no",
-    // Optional testing
-    wantsOptionalTesting: "no",
-  });
+  const { form, handleInput, handleFileChange, isFormValid, resetForm } = useApplicationForm();
+  const { submitApplication } = useApplicationSubmission();
+  
   const [agreed, setAgreed] = useState(false);
   const [showSubmitSuccess, setShowSubmitSuccess] = useState(false);
   const [isProcessingFreeApp, setIsProcessingFreeApp] = useState(false);
@@ -59,157 +37,32 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
     }
   }, [open]);
 
-  const handleInput = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target as HTMLInputElement;
-    setForm((f) => ({ ...f, [name]: value }));
-  };
-
-  const handleFileChange = (
-    name: "idFile",
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0] ?? null;
-    setForm((f) => ({ ...f, [name]: file }));
-  };
-
   const handleModalClose = () => {
     setShowSubmitSuccess(false);
     onOpenChange(false);
   };
 
-  const isFormValid = () => {
-    const requiredFields = [
-      form.fullName.trim(),
-      form.memberProfileName.trim(),
-      form.age.trim(),
-      form.email.trim(),
-      form.phone.trim(),
-      form.linkedin.trim(),
-      form.bio.trim()
-    ];
-
-    const healthDisclosureFields = [
-      form.hasHerpes,
-      form.hasHIV,
-      form.hasHPV,
-      form.hasOtherSTDs,
-      form.hasChronicDiseases,
-      form.covidVaccinated,
-      form.usesAlcohol,
-      form.usesDrugs,
-      form.usesMarijuana,
-      form.smokesCigarettes,
-      form.usesPrescriptionDrugs,
-      form.disclosureAuthorization,
-      form.wantsOptionalTesting
-    ];
-
-    // Check if all required text fields are filled
-    const allFieldsFilled = requiredFields.every(field => field !== "");
-    
-    // Check if all health disclosure questions are answered (not default "no")
-    const allHealthQuestionsAnswered = healthDisclosureFields.every(field => field !== "");
-    
-    // Check if ID file is uploaded
-    const idFileUploaded = form.idFile !== null;
-    
-    // Check if age is at least 18
-    const ageValid = parseInt(form.age) >= 18;
-
-    return allFieldsFilled && allHealthQuestionsAnswered && idFileUploaded && ageValid && agreed;
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isFormValid()) return;
+    if (!isFormValid(agreed)) return;
     
-    try {
-      // Transform form data to match database schema
-      const applicationData = {
-        full_name: form.fullName,
-        member_profile_name: form.memberProfileName,
-        age: form.age,
-        email: form.email,
-        phone: form.phone,
-        linkedin: form.linkedin,
-        bio: form.bio,
-        has_herpes: form.hasHerpes,
-        has_hiv: form.hasHIV,
-        has_hpv: form.hasHPV,
-        has_other_stds: form.hasOtherSTDs,
-        has_chronic_diseases: form.hasChronicDiseases,
-        covid_vaccinated: form.covidVaccinated,
-        uses_alcohol: form.usesAlcohol,
-        uses_drugs: form.usesDrugs,
-        uses_marijuana: form.usesMarijuana,
-        smokes_cigarettes: form.smokesCigarettes,
-        uses_prescription_drugs: form.usesPrescriptionDrugs,
-        disclosure_authorization: form.disclosureAuthorization,
-        wants_optional_testing: form.wantsOptionalTesting
-      };
-
-      // Save application to database
-      const { error: dbError } = await supabase
-        .from('applications')
-        .insert([applicationData]);
-      
-      if (dbError) {
-        console.error("Error saving application to database:", dbError);
-        return;
-      }
-
-      // Send application data to email
-      const { error: emailError } = await supabase.functions.invoke("send-application", {
-        body: { applicationData: form }
-      });
-      
-      if (emailError) {
-        console.error("Error sending application email:", emailError);
-        // Continue even if email fails since data is saved
-      }
-      
+    const currentIsFreeApplication = isFreeApplication || isProcessingFreeApp;
+    
+    await submitApplication(form, currentIsFreeApplication, () => {
       if (onSubmit) onSubmit(form);
       setShowSubmitSuccess(true);
       
-      // If this is a free application, navigate to profile after success message
-      if (isFreeApplication || isProcessingFreeApp) {
+      // Handle modal close timing
+      if (currentIsFreeApplication) {
         setTimeout(() => {
           handleModalClose();
-          // Navigate to appropriate profile page based on member profile name
-          // Simple heuristic: if profile name suggests female, go to ladies page
-          const profileName = form.memberProfileName.toLowerCase();
-          const isFemale = profileName.includes('lady') || profileName.includes('miss') || profileName.includes('ms');
-          navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
         }, 2500);
       } else {
         setTimeout(() => {
           handleModalClose();
         }, 1200);
       }
-    } catch (error) {
-      console.error("Error submitting application:", error);
-      // Show success even if there are issues since we want good UX
-      if (onSubmit) onSubmit(form);
-      setShowSubmitSuccess(true);
-      
-      // If this is a free application, navigate to profile after success message
-      if (isFreeApplication || isProcessingFreeApp) {
-        setTimeout(() => {
-          handleModalClose();
-          // Navigate to appropriate profile page based on member profile name
-          // Simple heuristic: if profile name suggests female, go to ladies page
-          const profileName = form.memberProfileName.toLowerCase();
-          const isFemale = profileName.includes('lady') || profileName.includes('miss') || profileName.includes('ms');
-          navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
-        }, 2500);
-      } else {
-        setTimeout(() => {
-          handleModalClose();
-        }, 1200);
-      }
-    }
+    });
   };
 
   return (
@@ -222,23 +75,9 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
           tabIndex={-1}
         >
           {showSubmitSuccess ? (
-            <div className="p-6 text-center">
-              <div className="text-green-700 font-semibold mb-2">
-                Application submitted!
-              </div>
-              <div className="text-xs text-gray-500 mb-2">
-                {(isFreeApplication || isProcessingFreeApp) ? (
-                  <>Approvals usually take 24 hours for a decision. You can start building your profile now!</>
-                ) : (
-                  <>You will be contacted via email or phone after review.</>
-                )}
-              </div>
-              {(isFreeApplication || isProcessingFreeApp) && (
-                <div className="text-xs text-blue-600">
-                  Redirecting to profile builder...
-                </div>
-              )}
-            </div>
+            <ApplicationSuccessMessage 
+              isFreeApplication={isFreeApplication || isProcessingFreeApp}
+            />
           ) : (
             <form className="space-y-4" onSubmit={handleSubmit}>
               <FullApplicationModalFormFields
@@ -258,7 +97,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
                 onFreeApplicationStart={() => {
                   setIsProcessingFreeApp(true);
                 }}
-                isFormValid={isFormValid()}
+                isFormValid={isFormValid(agreed)}
               />
             </form>
           )}
