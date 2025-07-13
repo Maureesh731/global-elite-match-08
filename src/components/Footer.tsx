@@ -95,6 +95,12 @@ export const Footer = () => {
                   Lab Partnership
                 </Link>
               </li>
+              <li>
+                <a href="#" className="hover:text-purple-400 transition-colors">Crypto Education</a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-purple-400 transition-colors">Wealth Creation Courses</a>
+              </li>
             </ul>
           </div>
           
