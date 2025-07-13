@@ -74,29 +74,39 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
   };
 
   return (
-    <DialogFooter className="pt-4 space-y-3">
-      <div className="w-full text-center mb-4">
-        <p className="text-sm text-gray-600 mb-2">Choose your payment method:</p>
+    <DialogFooter className="pt-4 space-y-3 bg-gray-900">
+      <div className="w-full space-y-3">
+        <div className="text-center">
+          <h4 className="text-white font-semibold mb-2">Complete Your Application</h4>
+          <p className="text-sm text-gray-300 mb-4">Choose your preferred payment method</p>
+        </div>
+        
+        <div className="grid grid-cols-1 gap-3">
+          <Button
+            type="button"
+            className="w-full py-4 text-base font-semibold bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white border-0 shadow-lg transform hover:scale-105 transition-all duration-200"
+            disabled={!agreed || loading || !isFormValid}
+            onClick={() => setShowCryptoModal(true)}
+          >
+            Pay with USDC or Cryptocurrency
+            <span className="block text-sm font-normal opacity-90">$24.50</span>
+          </Button>
+          
+          <Button
+            type="button"
+            className="w-full py-4 text-base font-semibold bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border-0 shadow-lg transform hover:scale-105 transition-all duration-200"
+            disabled={!agreed || loading || !isFormValid}
+            onClick={onPaidApplication}
+          >
+            {loading ? "Redirecting to Payment..." : (
+              <>
+                Pay via Stripe
+                <span className="block text-sm font-normal opacity-90">$24.50</span>
+              </>
+            )}
+          </Button>
+        </div>
       </div>
-      
-      <Button
-        type="button"
-        variant="outline"
-        className="w-full text-lg border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
-        disabled={!agreed || loading || !isFormValid}
-        onClick={() => setShowCryptoModal(true)}
-      >
-        Pay with USDC or Cryptocurrency ($24.50)
-      </Button>
-      
-      <Button
-        type="button"
-        className="w-full text-lg bg-blue-900 hover:bg-blue-800"
-        disabled={!agreed || loading || !isFormValid}
-        onClick={onPaidApplication}
-      >
-        {loading ? "Redirecting to Payment..." : "Pay via Stripe ($24.50)"}
-      </Button>
       
       <CryptoPaymentModal
         isOpen={showCryptoModal}

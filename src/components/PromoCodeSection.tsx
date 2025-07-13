@@ -166,12 +166,12 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
   };
 
   return (
-    <Card className="mb-6 border-yellow-200 bg-yellow-50/80">
+    <Card className="mb-6 border-yellow-400/30 bg-gray-800/50 backdrop-blur-sm">
       <CardContent className="p-4">
         <div className="space-y-4">
           <div className="text-center">
-            <h3 className="font-semibold text-gray-900 mb-2">Have a Promo Code?</h3>
-            <p className="text-sm text-gray-600">Enter your promo code to get 1 year of free access</p>
+            <h3 className="font-semibold text-white mb-2">Have a Promo Code?</h3>
+            <p className="text-sm text-gray-300">Enter your promo code to get 1 year of free access</p>
           </div>
           
           <div className="flex gap-2">
@@ -180,7 +180,7 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
               placeholder="Enter promo code (IamUnvaccinated)"
               value={promoCode}
               onChange={(e) => setPromoCode(e.target.value)}
-              className="flex-1"
+              className="flex-1 bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-yellow-400"
               disabled={isValidPromo}
             />
             <Button
@@ -188,13 +188,14 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
               variant="outline"
               onClick={checkPromoCode}
               disabled={loading || !promoCode.trim() || isValidPromo}
+              className="border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black"
             >
               {loading ? "Checking..." : "Check"}
             </Button>
           </div>
 
           {checked && (
-            <div className={`flex items-center gap-2 text-sm ${isValidPromo ? 'text-green-600' : 'text-red-600'}`}>
+            <div className={`flex items-center gap-2 text-sm ${isValidPromo ? 'text-green-400' : 'text-red-400'}`}>
               {isValidPromo ? (
                 <>
                   <Check className="w-4 h-4" />
@@ -212,7 +213,7 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
           {isValidPromo && (
             <Button
               type="button"
-              className="w-full bg-green-600 hover:bg-green-700 text-white"
+              className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white font-semibold py-3 shadow-lg transform hover:scale-105 transition-all duration-200"
               disabled={!agreed || loading || !isFormValid}
               onClick={submitFreeApplication}
             >

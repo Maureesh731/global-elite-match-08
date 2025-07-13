@@ -69,11 +69,11 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg p-0">
+      <DialogContent className="max-w-lg p-0 bg-gray-900 border-gray-700">
         <FullApplicationModalHeader onClose={handleModalClose} />
         <div
           ref={scrollContentRef}
-          className="overflow-y-auto max-h-[calc(80vh-64px)] px-6 pt-2"
+          className="overflow-y-auto max-h-[calc(80vh-64px)] px-6 pt-2 bg-gray-900 text-white"
           tabIndex={-1}
         >
           {showSubmitSuccess ? (
