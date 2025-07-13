@@ -101,6 +101,33 @@ export type Database = {
         }
         Relationships: []
       }
+      promo_usage: {
+        Row: {
+          created_at: string
+          id: string
+          promo_code: string
+          used_at: string
+          user_email: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          promo_code: string
+          used_at?: string
+          user_email: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          promo_code?: string
+          used_at?: string
+          user_email?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
