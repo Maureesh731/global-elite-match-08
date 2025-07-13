@@ -76,6 +76,13 @@ export const Header = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-red-600/10 to-purple-600/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -m-2"></div>
             </Link>
             <Link
+              to="/messages"
+              className="text-white/90 hover:text-purple-400 transition-all duration-300 font-semibold text-sm tracking-wide uppercase hover:scale-105 relative group"
+            >
+              <span className="relative z-10">Messages</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-red-600/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -m-2"></div>
+            </Link>
+            <Link
               to="/lab-partner"
               className="text-white/90 hover:text-white transition-all duration-300 font-semibold text-sm tracking-wide uppercase hover:scale-105 relative group"
             >

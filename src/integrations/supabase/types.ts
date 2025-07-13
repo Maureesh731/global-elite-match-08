@@ -131,6 +131,42 @@ export type Database = {
         }
         Relationships: []
       }
+      messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          read_at: string | null
+          recipient_id: string
+          recipient_name: string
+          sender_id: string
+          sender_name: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          recipient_id: string
+          recipient_name: string
+          sender_id: string
+          sender_name: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          recipient_id?: string
+          recipient_name?: string
+          sender_id?: string
+          sender_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       promo_usage: {
         Row: {
           created_at: string

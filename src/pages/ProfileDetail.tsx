@@ -5,6 +5,7 @@ import { BackToHomeButton } from "@/components/BackToHomeButton";
 import { ArrowLeft, Lock, Unlock, Camera } from "lucide-react";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VerificationBadge } from "@/components/VerificationBadge";
+import { MessagingModal } from "@/components/MessagingModal";
 
 // Mock data - in a real app this would come from an API
 const mockProfiles = [
@@ -103,6 +104,7 @@ export default function ProfileDetail() {
   const navigate = useNavigate();
   const [unlockedPhotos, setUnlockedPhotos] = useState<number[]>([]);
   const [requestedPhotos, setRequestedPhotos] = useState<number[]>([]);
+  const [isMessagingOpen, setIsMessagingOpen] = useState(false);
 
   const profile = mockProfiles.find(p => p.id === id);
 
@@ -304,7 +306,11 @@ export default function ProfileDetail() {
           {/* Action Buttons */}
           <div className="border-t pt-6 mt-8">
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+              <Button 
+                size="lg" 
+                className="bg-blue-600 hover:bg-blue-700"
+                onClick={() => setIsMessagingOpen(true)}
+              >
                 Send Message
               </Button>
               <FavoriteButton 
@@ -319,6 +325,13 @@ export default function ProfileDetail() {
           </div>
         </div>
       </div>
+
+      <MessagingModal
+        isOpen={isMessagingOpen}
+        onClose={() => setIsMessagingOpen(false)}
+        recipientId={profile.id}
+        recipientName={profile.fullName}
+      />
     </div>
   );
 }
