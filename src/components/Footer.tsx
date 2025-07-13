@@ -1,8 +1,12 @@
-import { Heart, Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { Heart, Facebook, Instagram, Linkedin, Twitter, Youtube, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MemberCounter } from "@/components/MemberCounter";
+import { FeedbackModal } from "@/components/FeedbackModal";
+import { useState } from "react";
 
 export const Footer = () => {
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+
   return (
     <footer className="bg-black border-t border-purple-900/30 text-white py-20">
       <div className="container mx-auto px-4">
@@ -106,6 +110,15 @@ export const Footer = () => {
                   Referral Program
                 </Link>
               </li>
+              <li>
+                <button
+                  onClick={() => setIsFeedbackModalOpen(true)}
+                  className="flex items-center gap-2 hover:text-red-400 text-purple-300 transition-colors font-semibold"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  Send Feedback
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -134,6 +147,11 @@ export const Footer = () => {
           </p>
         </div>
       </div>
+
+      <FeedbackModal
+        isOpen={isFeedbackModalOpen}
+        onClose={() => setIsFeedbackModalOpen(false)}
+      />
     </footer>
   );
 };
