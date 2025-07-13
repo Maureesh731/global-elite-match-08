@@ -3,7 +3,7 @@ import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 
 type Props = {
   agreed: boolean;
@@ -18,29 +18,47 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
   const [loading, setLoading] = useState(false);
   const [promoCode, setPromoCode] = useState("");
   const [showPromoInput, setShowPromoInput] = useState(false);
+  const { toast } = useToast();
 
   // Check promo code validity
   const checkPromoCode = async () => {
     if (promoCode.toLowerCase() !== "imunvaxxed") {
-      toast.error("Invalid promo code");
+      toast({
+        title: "Invalid promo code",
+        variant: "destructive",
+      });
       return false;
     }
 
     try {
       const { data, error } = await supabase.functions.invoke("check-promo-usage");
       if (error || !data) {
-        toast.error("Could not verify promo code");
+        console.error("Promo check error:", error);
+        toast({
+          title: "Could not verify promo code",
+          description: "Please try again or contact support",
+          variant: "destructive",
+        });
         return false;
       }
       
       if (data.usageCount >= 25) {
-        toast.error("Promo code limit reached (25 uses maximum)");
+        toast({
+          title: "Promo code limit reached",
+          description: "This promo code has reached its 25 use maximum",
+          variant: "destructive",
+        });
         return false;
       }
 
       return true;
     } catch (err) {
-      toast.error("Error checking promo code");
+      console.error("Promo check exception:", err);
+      toast({
+        title: "Error checking promo code",
+        description: "Please try again",
+        variant: "destructive",
+      });
       return false;
     }
   };
@@ -60,15 +78,28 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
         });
         
         if (error) {
-          toast.error("Could not process free registration");
+          console.error("Promo use error:", error);
+          toast({
+            title: "Could not process free registration",
+            description: "Please try again or contact support",
+            variant: "destructive",
+          });
           setLoading(false);
           return;
         }
         
-        toast.success("Free registration approved! Welcome to Untouchable Dating.");
+        toast({
+          title: "Success!",
+          description: "Free registration approved! Welcome to Untouchable Dating.",
+        });
         handleSubmit(e);
       } catch (err) {
-        toast.error("Registration failed. Please try again.");
+        console.error("Registration error:", err);
+        toast({
+          title: "Registration failed",
+          description: "Please try again",
+          variant: "destructive",
+        });
       }
     }
     setLoading(false);
@@ -79,19 +110,37 @@ export const FullApplicationModalSubmitBar: React.FC<Props> = ({
     e.preventDefault();
     if (!agreed) return;
     setLoading(true);
-    toast.info("Creating secure payment session...");
+    
+    toast({
+      title: "Creating payment session...",
+      description: "Please wait while we set up your payment",
+    });
+    
     try {
       const { data, error } = await supabase.functions.invoke("create-checkout");
       if (error || !data?.url) {
-        toast.error("Could not start payment session. Try again.");
+        console.error("Checkout error:", error);
+        toast({
+          title: "Payment Error",
+          description: "Could not start payment session. Try again.",
+          variant: "destructive",
+        });
         setLoading(false);
         return;
       }
       // Open Stripe checkout in a new tab (recommended for Stripe security)
       window.open(data.url, "_blank");
-      toast.success("Payment page opened. Complete your subscription in Stripe.");
+      toast({
+        title: "Payment page opened",
+        description: "Complete your subscription in the new tab",
+      });
     } catch (err) {
-      toast.error("Something went wrong. Please refresh and try again.");
+      console.error("Payment exception:", err);
+      toast({
+        title: "Something went wrong",
+        description: "Please refresh and try again",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
