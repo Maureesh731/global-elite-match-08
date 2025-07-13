@@ -96,10 +96,10 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-purple-400 transition-colors">Crypto Education</a>
+                <a href="https://startff.com" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400 transition-colors">Crypto Education</a>
               </li>
               <li>
-                <a href="#" className="hover:text-purple-400 transition-colors">Wealth Creation Courses</a>
+                <a href="https://startff.com" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400 transition-colors">Wealth Creation Courses</a>
               </li>
             </ul>
           </div>
