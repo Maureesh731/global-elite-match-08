@@ -38,7 +38,7 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
       return;
     }
 
-    if (promoCode.toLowerCase() !== "imunvaxxed") {
+    if (promoCode.toLowerCase() !== "iamunvaccinated") {
       toast({
         title: "Invalid promo code",
         description: "Please check your promo code and try again",
@@ -57,7 +57,7 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
       const { count, error } = await supabase
         .from("promo_usage")
         .select("*", { count: "exact", head: true })
-        .eq("promo_code", "ImUnvaxxed");
+        .eq("promo_code", "IamUnvaccinated");
 
       if (error) {
         console.error("Database error:", error);
@@ -126,7 +126,7 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
       const { error } = await supabase
         .from("promo_usage")
         .insert({
-          promo_code: "ImUnvaxxed",
+          promo_code: "IamUnvaccinated",
           user_id: tempUserId,
           user_email: tempEmail,
           used_at: new Date().toISOString(),
@@ -177,7 +177,7 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
           <div className="flex gap-2">
             <Input
               type="text"
-              placeholder="Enter promo code"
+              placeholder="Enter promo code (IamUnvaccinated)"
               value={promoCode}
               onChange={(e) => setPromoCode(e.target.value)}
               className="flex-1"
