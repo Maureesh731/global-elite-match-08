@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { MemberCounter } from "@/components/MemberCounter";
 import { FeedbackModal } from "@/components/FeedbackModal";
 import { CryptoEducationModal } from "@/components/CryptoEducationModal";
+import { WealthCreationModal } from "@/components/WealthCreationModal";
 import { useState } from "react";
 
 export const Footer = () => {
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const [isCryptoModalOpen, setIsCryptoModalOpen] = useState(false);
+  const [isWealthModalOpen, setIsWealthModalOpen] = useState(false);
 
   return (
     <footer className="bg-black border-t border-purple-900/30 text-white py-20">
@@ -107,7 +109,7 @@ export const Footer = () => {
               </li>
               <li>
                 <button 
-                  onClick={() => setIsCryptoModalOpen(true)}
+                  onClick={() => setIsWealthModalOpen(true)}
                   className="hover:text-purple-400 transition-colors text-left"
                 >
                   Wealth Creation Courses
@@ -174,6 +176,11 @@ export const Footer = () => {
       <CryptoEducationModal
         isOpen={isCryptoModalOpen}
         onClose={() => setIsCryptoModalOpen(false)}
+      />
+      
+      <WealthCreationModal
+        isOpen={isWealthModalOpen}
+        onClose={() => setIsWealthModalOpen(false)}
       />
     </footer>
   );
