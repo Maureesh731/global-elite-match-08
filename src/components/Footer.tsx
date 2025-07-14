@@ -2,10 +2,12 @@ import { Heart, Facebook, Instagram, Linkedin, Twitter, Youtube, MessageSquare }
 import { Link } from "react-router-dom";
 import { MemberCounter } from "@/components/MemberCounter";
 import { FeedbackModal } from "@/components/FeedbackModal";
+import { CryptoEducationModal } from "@/components/CryptoEducationModal";
 import { useState } from "react";
 
 export const Footer = () => {
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+  const [isCryptoModalOpen, setIsCryptoModalOpen] = useState(false);
 
   return (
     <footer className="bg-black border-t border-purple-900/30 text-white py-20">
@@ -96,10 +98,20 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="https://startff.com" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400 transition-colors">Crypto Education</a>
+                <button 
+                  onClick={() => setIsCryptoModalOpen(true)}
+                  className="hover:text-purple-400 transition-colors text-left"
+                >
+                  Crypto Education
+                </button>
               </li>
               <li>
-                <a href="https://startff.com" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400 transition-colors">Wealth Creation Courses</a>
+                <button 
+                  onClick={() => setIsCryptoModalOpen(true)}
+                  className="hover:text-purple-400 transition-colors text-left"
+                >
+                  Wealth Creation Courses
+                </button>
               </li>
             </ul>
           </div>
@@ -157,6 +169,11 @@ export const Footer = () => {
       <FeedbackModal
         isOpen={isFeedbackModalOpen}
         onClose={() => setIsFeedbackModalOpen(false)}
+      />
+      
+      <CryptoEducationModal
+        isOpen={isCryptoModalOpen}
+        onClose={() => setIsCryptoModalOpen(false)}
       />
     </footer>
   );
