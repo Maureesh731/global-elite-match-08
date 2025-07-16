@@ -855,5 +855,31 @@ export const clinicsByCountry: Record<string, ClinicInfo[]> = {
       accreditation: "MINSA Certified",
       contact: "+507 503 9000"
     }
+  ],
+  "Iceland": [
+    {
+      name: "Icelandic Blood Bank",
+      location: "Reykjavik",
+      services: ['blood'],
+      website: "blodbank.is",
+      accreditation: "Icelandic Medicines Agency",
+      contact: "+354 543 1000"
+    },
+    {
+      name: "Landspitali University Hospital",
+      location: "Reykjavik",
+      services: ['blood', 'sperm', 'eggs'],
+      website: "landspitali.is",
+      accreditation: "Icelandic Health Authorities",
+      contact: "+354 543 1000"
+    },
+    {
+      name: "Akureyri Hospital",
+      location: "Akureyri",
+      services: ['blood'],
+      website: "sjukrahusid.is",
+      accreditation: "Icelandic Health Authorities",
+      contact: "+354 463 0100"
+    }
   ]
 };
