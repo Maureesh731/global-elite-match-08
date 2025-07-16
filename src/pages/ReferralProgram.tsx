@@ -23,9 +23,18 @@ export default function ReferralProgram() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white">
-      <Header />
-      <main className="flex-1 py-12">
+    <div className="min-h-screen flex flex-col relative bg-gradient-to-b from-slate-50 to-white">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('https://tffxaagmecmsgiltdjzv.supabase.co/storage/v1/object/sign/untouchabledatingphotos/istockphotoUntouchable.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTdlNTY1NC0yYjMyLTQxN2EtYTQ5Zi0xYWM5YThkMzc4ZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ1bnRvdWNoYWJsZWRhdGluZ3Bob3Rvcy9pc3RvY2twaG90b1VudG91Y2hhYmxlLmpwZyIsImlhdCI6MTc1MjY3NzQyMywiZXhwIjoxNzg0MjEzNDIzfQ.DngrH2Rv01uOit_9zt9SKXvlfDl3XOV4-IEzWlGVdY0')`
+        }}
+      ></div>
+      <div className="absolute inset-0 bg-white/80"></div>
+      <div className="relative z-10">
+        <Header />
+      </div>
+      <main className="flex-1 py-12 relative z-10">
         <div className="container max-w-lg mx-auto px-4">
           <BackToHomeButton />
           <h1 className="text-4xl font-bold text-center mb-6 text-blue-900">Referral Program</h1>
@@ -105,7 +114,9 @@ export default function ReferralProgram() {
           </Card>
         </div>
       </main>
-      <Footer />
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </div>
   );
 }
