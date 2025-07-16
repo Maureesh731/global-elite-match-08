@@ -105,7 +105,12 @@
     "russian": "Русский",
     "chinese": "中文",
     "japanese": "日本語",
-    "arabic": "العربية"
+    "arabic": "العربية",
+    "korean": "한국어",
+    "hindi": "हिंदी",
+    "dutch": "Nederlands",
+    "polish": "Polski",
+    "turkish": "Türkçe"
   },
   "common": {
     "loading": "Laden...",

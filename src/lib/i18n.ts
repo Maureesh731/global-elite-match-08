@@ -13,6 +13,11 @@ import ruTranslations from '@/locales/ru.json';
 import zhTranslations from '@/locales/zh.json';
 import jaTranslations from '@/locales/ja.json';
 import arTranslations from '@/locales/ar.json';
+import koTranslations from '@/locales/ko.json';
+import hiTranslations from '@/locales/hi.json';
+import nlTranslations from '@/locales/nl.json';
+import plTranslations from '@/locales/pl.json';
+import trTranslations from '@/locales/tr.json';
 
 const resources = {
   en: { translation: enTranslations },
@@ -25,6 +30,11 @@ const resources = {
   zh: { translation: zhTranslations },
   ja: { translation: jaTranslations },
   ar: { translation: arTranslations },
+  ko: { translation: koTranslations },
+  hi: { translation: hiTranslations },
+  nl: { translation: nlTranslations },
+  pl: { translation: plTranslations },
+  tr: { translation: trTranslations },
 };
 
 i18n

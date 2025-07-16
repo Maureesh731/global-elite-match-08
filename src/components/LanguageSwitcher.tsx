@@ -19,6 +19,11 @@ const languages = [
   { code: 'zh', name: '中文' },
   { code: 'ja', name: '日本語' },
   { code: 'ar', name: 'العربية' },
+  { code: 'ko', name: '한국어' },
+  { code: 'hi', name: 'हिंदी' },
+  { code: 'nl', name: 'Nederlands' },
+  { code: 'pl', name: 'Polski' },
+  { code: 'tr', name: 'Türkçe' },
 ];
 
 export const LanguageSwitcher = () => {

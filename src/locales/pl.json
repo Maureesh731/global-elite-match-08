@@ -1,0 +1,106 @@
+{
+  "navigation": {
+    "search_profiles": "Szukaj Profili",
+    "gentlemen_profile": "Profil Dżentelmena",
+    "ladies_profile": "Profil Damy",
+    "testimonials": "Opinie",
+    "favorites": "Moje Ulubione",
+    "messages": "Wiadomości",
+    "lab_partner": "Partner Lab",
+    "photo_requests": "Prośby o Zdjęcia",
+    "sign_in": "Zaloguj się",
+    "sign_out": "Wyloguj się",
+    "apply_now": "Aplikuj Teraz"
+  },
+  "hero": {
+    "title": "Ekskluzywne Randki dla",
+    "title_highlight": "Społeczności Świadomej Zdrowia",
+    "subtitle": "Społeczność tylko na zaproszenie dla zweryfikowanych singli, którzy stawiają na pierwszym miejscu zdrowie, naturalną odporność i autentyczne związki.",
+    "cta_button": "Aplikuj o Członkostwo",
+    "members_count": "Członków na całym świecie"
+  },
+  "why": {
+    "title": "Dlaczego UntouchableDating.com?",
+    "subtitle": "Przyszłość randek zorientowanych na zdrowie",
+    "aligned_values": {
+      "title": "Wspólne Wartości",
+      "description": "Połącz się z podobnie myślącymi osobami, które priorytetowo traktują naturalne zdrowie i dobre samopoczucie."
+    },
+    "curated_community": {
+      "title": "Wyselekcjonowana Społeczność",
+      "description": "Wszyscy członkowie są starannie sprawdzani, aby zapewnić wysokiej jakości dopasowania."
+    },
+    "safety_privacy": {
+      "title": "Bezpieczeństwo i Prywatność",
+      "description": "Twoje informacje zdrowotne i dane osobowe są chronione najwyższym poziomem bezpieczeństwa."
+    }
+  },
+  "features": {
+    "title": "Funkcje Premium",
+    "subtitle": "Ekskluzywne doświadczenie randkowe",
+    "verification": {
+      "title": "Weryfikacja Tożsamości",
+      "description": "Wszyscy członkowie są dokładnie weryfikowani, aby zapewnić autentyczność i bezpieczeństwo."
+    },
+    "matching": {
+      "title": "Zaawansowane Dopasowywanie",
+      "description": "Wyrafinowane algorytmy dopasowywania oparte na preferencjach zdrowotnych i stylu życia."
+    },
+    "privacy": {
+      "title": "Kompletna Prywatność",
+      "description": "Twoje informacje zdrowotne pozostają prywatne i są udostępniane tylko za Twoją zgodą."
+    },
+    "community": {
+      "title": "Ekskluzywna Społeczność",
+      "description": "Uzyskaj dostęp do wydarzeń i dyskusji zorientowanych na wellness."
+    }
+  },
+  "pricing": {
+    "title": "Ekskluzywne Członkostwo",
+    "subtitle": "Zainwestuj w premium doświadczenie randkowe",
+    "monthly_plan": "Plan Miesięczny",
+    "price": "$49.99/miesięcznie",
+    "first_month": "50% zniżki pierwszy miesiąc",
+    "features": {
+      "unlimited_matches": "Nieograniczone dopasowania",
+      "verified_profiles": "Tylko zweryfikowane profile",
+      "priority_support": "Wsparcie priorytetowe",
+      "exclusive_events": "Ekskluzywne wydarzenia"
+    },
+    "cta_button": "Rozpocznij Członkostwo"
+  },
+  "footer": {
+    "platform": "Platforma",
+    "company": "Firma",
+    "legal": "Prawne",
+    "about": "O Nas",
+    "privacy": "Polityka Prywatności",
+    "terms": "Warunki Usługi"
+  },
+  "language": {
+    "select": "Wybierz Język",
+    "english": "English",
+    "spanish": "Español",
+    "french": "Français",
+    "german": "Deutsch",
+    "portuguese": "Português",
+    "italian": "Italiano",
+    "russian": "Русский",
+    "chinese": "中文",
+    "japanese": "日本語",
+    "arabic": "العربية",
+    "korean": "한국어",
+    "hindi": "हिंदी",
+    "dutch": "Nederlands",
+    "polish": "Polski"
+  },
+  "common": {
+    "loading": "Ładowanie...",
+    "error": "Błąd",
+    "success": "Sukces",
+    "confirm": "Potwierdź",
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "close": "Zamknij"
+  }
+}

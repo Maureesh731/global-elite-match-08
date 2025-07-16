@@ -1,0 +1,103 @@
+{
+  "navigation": {
+    "search_profiles": "프로필 검색",
+    "gentlemen_profile": "신사 프로필",
+    "ladies_profile": "숙녀 프로필",
+    "testimonials": "후기",
+    "favorites": "내 즐겨찾기",
+    "messages": "메시지",
+    "lab_partner": "랩 파트너",
+    "photo_requests": "사진 요청",
+    "sign_in": "로그인",
+    "sign_out": "로그아웃",
+    "apply_now": "지금 신청"
+  },
+  "hero": {
+    "title": "독점적인 데이트",
+    "title_highlight": "웰니스 의식 커뮤니티",
+    "subtitle": "건강, 자연 면역 및 진정한 연결을 우선시하는 검증된 싱글을 위한 초대 전용 커뮤니티입니다.",
+    "cta_button": "멤버십 신청",
+    "members_count": "전 세계 회원"
+  },
+  "why": {
+    "title": "왜 UntouchableDating.com인가?",
+    "subtitle": "건강 중심 데이트의 미래",
+    "aligned_values": {
+      "title": "일치하는 가치관",
+      "description": "자연 건강과 웰니스를 우선시하는 같은 생각을 가진 개인들과 연결하세요."
+    },
+    "curated_community": {
+      "title": "엄선된 커뮤니티",
+      "description": "모든 회원은 신중하게 심사되어 높은 품질의 매치를 보장합니다."
+    },
+    "safety_privacy": {
+      "title": "안전 및 개인정보 보호",
+      "description": "귀하의 건강 정보와 개인 데이터가 최고 수준의 보안으로 보호됩니다."
+    }
+  },
+  "features": {
+    "title": "프리미엄 기능",
+    "subtitle": "독점적인 데이트 경험",
+    "verification": {
+      "title": "신원 확인",
+      "description": "모든 회원은 진정성과 안전을 보장하기 위해 철저히 검증됩니다."
+    },
+    "matching": {
+      "title": "고급 매칭",
+      "description": "건강 선호도와 라이프스타일을 기반으로 한 정교한 매칭 알고리즘."
+    },
+    "privacy": {
+      "title": "완전한 개인정보 보호",
+      "description": "귀하의 건강 정보는 비공개로 유지되며 귀하의 동의 하에만 공유됩니다."
+    },
+    "community": {
+      "title": "독점 커뮤니티",
+      "description": "웰니스 중심 이벤트와 토론에 액세스하세요."
+    }
+  },
+  "pricing": {
+    "title": "독점 멤버십",
+    "subtitle": "프리미엄 데이트 경험에 투자하세요",
+    "monthly_plan": "월간 플랜",
+    "price": "$49.99/월",
+    "first_month": "첫 달 50% 할인",
+    "features": {
+      "unlimited_matches": "무제한 매치",
+      "verified_profiles": "검증된 프로필만",
+      "priority_support": "우선 지원",
+      "exclusive_events": "독점 이벤트"
+    },
+    "cta_button": "멤버십 시작"
+  },
+  "footer": {
+    "platform": "플랫폼",
+    "company": "회사",
+    "legal": "법적 고지",
+    "about": "소개",
+    "privacy": "개인정보 처리방침",
+    "terms": "서비스 약관"
+  },
+  "language": {
+    "select": "언어 선택",
+    "english": "English",
+    "spanish": "Español",
+    "french": "Français",
+    "german": "Deutsch",
+    "portuguese": "Português",
+    "italian": "Italiano",
+    "russian": "Русский",
+    "chinese": "中文",
+    "japanese": "日本語",
+    "arabic": "العربية",
+    "korean": "한국어"
+  },
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류",
+    "success": "성공",
+    "confirm": "확인",
+    "cancel": "취소",
+    "save": "저장",
+    "close": "닫기"
+  }
+}

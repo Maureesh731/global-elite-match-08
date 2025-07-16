@@ -1,0 +1,107 @@
+{
+  "navigation": {
+    "search_profiles": "Profil Ara",
+    "gentlemen_profile": "Beyefendi Profili",
+    "ladies_profile": "Bayan Profili",
+    "testimonials": "Referanslar",
+    "favorites": "Favorilerim",
+    "messages": "Mesajlar",
+    "lab_partner": "Lab Ortağı",
+    "photo_requests": "Fotoğraf İstekleri",
+    "sign_in": "Giriş Yap",
+    "sign_out": "Çıkış Yap",
+    "apply_now": "Şimdi Başvur"
+  },
+  "hero": {
+    "title": "Özel Tanışma",
+    "title_highlight": "Sağlık Bilinçli Topluluk",
+    "subtitle": "Sağlığı, doğal bağışıklığı ve özgün bağlantıları önceliklendiren doğrulanmış bekarlar için sadece davetiye ile topluluk.",
+    "cta_button": "Üyelik İçin Başvur",
+    "members_count": "Dünya çapında üyeler"
+  },
+  "why": {
+    "title": "Neden UntouchableDating.com?",
+    "subtitle": "Sağlık odaklı tanışmanın geleceği",
+    "aligned_values": {
+      "title": "Uyumlu Değerler",
+      "description": "Doğal sağlık ve zindeliği önceliklendiren benzer düşünceli bireylerle bağlantı kurun."
+    },
+    "curated_community": {
+      "title": "Özenle Seçilmiş Topluluk",
+      "description": "Tüm üyeler yüksek kaliteli eşleşmeleri garanti etmek için dikkatli bir şekilde taranır."
+    },
+    "safety_privacy": {
+      "title": "Güvenlik ve Gizlilik",
+      "description": "Sağlık bilgileriniz ve kişisel verileriniz en yüksek düzeyde güvenlikle korunur."
+    }
+  },
+  "features": {
+    "title": "Premium Özellikler",
+    "subtitle": "Özel tanışma deneyimi",
+    "verification": {
+      "title": "Kimlik Doğrulama",
+      "description": "Tüm üyeler özgünlük ve güvenliği garanti etmek için kapsamlı bir şekilde doğrulanır."
+    },
+    "matching": {
+      "title": "Gelişmiş Eşleştirme",
+      "description": "Sağlık tercihleri ve yaşam tarzına dayalı sofistike eşleştirme algoritmaları."
+    },
+    "privacy": {
+      "title": "Tam Gizlilik",
+      "description": "Sağlık bilgileriniz gizli kalır ve sadece onayınızla paylaşılır."
+    },
+    "community": {
+      "title": "Özel Topluluk",
+      "description": "Zindelik odaklı etkinliklere ve tartışmalara erişim sağlayın."
+    }
+  },
+  "pricing": {
+    "title": "Özel Üyelik",
+    "subtitle": "Premium tanışma deneyimine yatırım yapın",
+    "monthly_plan": "Aylık Plan",
+    "price": "$49.99/ay",
+    "first_month": "İlk ay %50 indirim",
+    "features": {
+      "unlimited_matches": "Sınırsız eşleşme",
+      "verified_profiles": "Sadece doğrulanmış profiller",
+      "priority_support": "Öncelikli destek",
+      "exclusive_events": "Özel etkinlikler"
+    },
+    "cta_button": "Üyeliği Başlat"
+  },
+  "footer": {
+    "platform": "Platform",
+    "company": "Şirket",
+    "legal": "Yasal",
+    "about": "Hakkımızda",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Hizmet Şartları"
+  },
+  "language": {
+    "select": "Dil Seçin",
+    "english": "English",
+    "spanish": "Español",
+    "french": "Français",
+    "german": "Deutsch",
+    "portuguese": "Português",
+    "italian": "Italiano",
+    "russian": "Русский",
+    "chinese": "中文",
+    "japanese": "日本語",
+    "arabic": "العربية",
+    "korean": "한국어",
+    "hindi": "हिंदी",
+    "dutch": "Nederlands",
+    "polish": "Polski",
+    "turkish": "Türkçe"
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "confirm": "Onayla",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "close": "Kapat"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "navigation": {
+    "search_profiles": "Profielen Zoeken",
+    "gentlemen_profile": "Heren Profiel",
+    "ladies_profile": "Dames Profiel",
+    "testimonials": "Getuigenissen",
+    "favorites": "Mijn Favorieten",
+    "messages": "Berichten",
+    "lab_partner": "Lab Partner",
+    "photo_requests": "Foto Verzoeken",
+    "sign_in": "Inloggen",
+    "sign_out": "Uitloggen",
+    "apply_now": "Nu Aanmelden"
+  },
+  "hero": {
+    "title": "Exclusieve Dating voor de",
+    "title_highlight": "Wellness-Bewuste Gemeenschap",
+    "subtitle": "Een uitsluitend op uitnodiging gebaseerde gemeenschap voor geverifieerde alleenstaanden die gezondheid, natuurlijke immuniteit en authentieke verbindingen prioriteit geven.",
+    "cta_button": "Aanmelden voor Lidmaatschap",
+    "members_count": "Leden wereldwijd"
+  },
+  "why": {
+    "title": "Waarom UntouchableDating.com?",
+    "subtitle": "De toekomst van gezondheidsgerichte dating",
+    "aligned_values": {
+      "title": "Gelijksoortige Waarden",
+      "description": "Verbind met gelijkgestemde individuen die prioriteit geven aan natuurlijke gezondheid en welzijn."
+    },
+    "curated_community": {
+      "title": "Samengestelde Gemeenschap",
+      "description": "Alle leden worden zorgvuldig gescreend om hoogwaardige matches te garanderen."
+    },
+    "safety_privacy": {
+      "title": "Veiligheid & Privacy",
+      "description": "Uw gezondheidsinformatie en persoonlijke gegevens zijn beschermd met het hoogste niveau van beveiliging."
+    }
+  },
+  "features": {
+    "title": "Premium Functies",
+    "subtitle": "Exclusieve dating ervaring",
+    "verification": {
+      "title": "Identiteitsverificatie",
+      "description": "Alle leden worden grondig geverifieerd om authenticiteit en veiligheid te garanderen."
+    },
+    "matching": {
+      "title": "Geavanceerde Matching",
+      "description": "Geavanceerde matching algoritmes gebaseerd op gezondheidsvoorkeuren en levensstijl."
+    },
+    "privacy": {
+      "title": "Complete Privacy",
+      "description": "Uw gezondheidsinformatie blijft privé en wordt alleen gedeeld met uw toestemming."
+    },
+    "community": {
+      "title": "Exclusieve Gemeenschap",
+      "description": "Krijg toegang tot wellness-gerichte evenementen en discussies."
+    }
+  },
+  "pricing": {
+    "title": "Exclusief Lidmaatschap",
+    "subtitle": "Investeer in een premium dating ervaring",
+    "monthly_plan": "Maandelijks Abonnement",
+    "price": "$49.99/maand",
+    "first_month": "50% korting eerste maand",
+    "features": {
+      "unlimited_matches": "Onbeperkte matches",
+      "verified_profiles": "Alleen geverifieerde profielen",
+      "priority_support": "Prioritaire ondersteuning",
+      "exclusive_events": "Exclusieve evenementen"
+    },
+    "cta_button": "Start Lidmaatschap"
+  },
+  "footer": {
+    "platform": "Platform",
+    "company": "Bedrijf",
+    "legal": "Juridisch",
+    "about": "Over Ons",
+    "privacy": "Privacybeleid",
+    "terms": "Servicevoorwaarden"
+  },
+  "language": {
+    "select": "Taal Selecteren",
+    "english": "English",
+    "spanish": "Español",
+    "french": "Français",
+    "german": "Deutsch",
+    "portuguese": "Português",
+    "italian": "Italiano",
+    "russian": "Русский",
+    "chinese": "中文",
+    "japanese": "日本語",
+    "arabic": "العربية",
+    "korean": "한국어",
+    "hindi": "हिंदी",
+    "dutch": "Nederlands"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fout",
+    "success": "Succes",
+    "confirm": "Bevestigen",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "close": "Sluiten"
+  }
+}

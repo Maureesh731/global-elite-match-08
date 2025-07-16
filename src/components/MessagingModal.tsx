@@ -5,7 +5,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useMessages } from '@/hooks/useMessages';
-import { ArrowLeft, Send } from 'lucide-react';
+import { useMessageTranslation } from '@/hooks/useMessageTranslation';
+import { ArrowLeft, Send, Languages, Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface MessagingModalProps {
   isOpen: boolean;
@@ -19,6 +21,11 @@ export function MessagingModal({ isOpen, onClose, recipientId, recipientName }: 
   const [selectedUserId, setSelectedUserId] = useState<string>('');
   const [selectedUserName, setSelectedUserName] = useState<string>('');
   const [messageContent, setMessageContent] = useState('');
+  const [showTranslations, setShowTranslations] = useState<{[key: string]: boolean}>({});
+  const [translatedMessages, setTranslatedMessages] = useState<{[key: string]: string}>({});
+  
+  const { i18n } = useTranslation();
+  const { translateMessage, getLanguageFlag, isTranslating } = useMessageTranslation();
   
   const { 
     conversations, 
@@ -56,6 +63,27 @@ export function MessagingModal({ isOpen, onClose, recipientId, recipientName }: 
     setView('conversations');
     setSelectedUserId('');
     setSelectedUserName('');
+  };
+
+  const handleTranslateMessage = async (messageId: string, content: string) => {
+    if (translatedMessages[messageId]) {
+      // Toggle translation view
+      setShowTranslations(prev => ({
+        ...prev,
+        [messageId]: !prev[messageId]
+      }));
+    } else {
+      // Translate message
+      const translated = await translateMessage(content);
+      setTranslatedMessages(prev => ({
+        ...prev,
+        [messageId]: translated
+      }));
+      setShowTranslations(prev => ({
+        ...prev,
+        [messageId]: true
+      }));
+    }
   };
 
   const formatTime = (dateString: string) => {
@@ -144,6 +172,10 @@ export function MessagingModal({ isOpen, onClose, recipientId, recipientName }: 
                 <div className="space-y-4">
                   {currentConversation.map((message) => {
                     const isCurrentUser = message.sender_id !== selectedUserId;
+                    const messageId = message.id;
+                    const showTranslation = showTranslations[messageId];
+                    const hasTranslation = translatedMessages[messageId];
+                    
                     return (
                       <div
                         key={message.id}
@@ -156,7 +188,39 @@ export function MessagingModal({ isOpen, onClose, recipientId, recipientName }: 
                               : 'bg-muted'
                           }`}
                         >
-                          <p className="text-sm">{message.content}</p>
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex-1">
+                              <p className="text-sm">
+                                {showTranslation && hasTranslation 
+                                  ? translatedMessages[messageId] 
+                                  : message.content}
+                              </p>
+                              {showTranslation && hasTranslation && (
+                                <p className="text-xs opacity-60 mt-1 italic border-t border-current/20 pt-1">
+                                  Original: {message.content}
+                                </p>
+                              )}
+                            </div>
+                            {!isCurrentUser && i18n.language !== 'en' && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className={`p-1 h-6 w-6 ${
+                                  isCurrentUser 
+                                    ? 'text-primary-foreground/70 hover:text-primary-foreground' 
+                                    : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                                onClick={() => handleTranslateMessage(messageId, message.content)}
+                                disabled={isTranslating}
+                              >
+                                {hasTranslation ? (
+                                  showTranslation ? <Globe className="h-3 w-3" /> : <Languages className="h-3 w-3" />
+                                ) : (
+                                  <Languages className="h-3 w-3" />
+                                )}
+                              </Button>
+                            )}
+                          </div>
                           <p className="text-xs opacity-70 mt-1">
                             {formatTime(message.created_at)}
                           </p>
