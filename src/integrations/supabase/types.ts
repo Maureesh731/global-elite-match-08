@@ -110,6 +110,92 @@ export type Database = {
         }
         Relationships: []
       }
+      auction_bids: {
+        Row: {
+          auction_id: string
+          bid_amount: number
+          bidder_id: string
+          bidder_name: string
+          created_at: string
+          id: string
+          message: string | null
+          updated_at: string
+        }
+        Insert: {
+          auction_id: string
+          bid_amount: number
+          bidder_id: string
+          bidder_name: string
+          created_at?: string
+          id?: string
+          message?: string | null
+          updated_at?: string
+        }
+        Update: {
+          auction_id?: string
+          bid_amount?: number
+          bidder_id?: string
+          bidder_name?: string
+          created_at?: string
+          id?: string
+          message?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "auction_bids_auction_id_fkey"
+            columns: ["auction_id"]
+            isOneToOne: false
+            referencedRelation: "donation_auctions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      donation_auctions: {
+        Row: {
+          bio: string
+          completed_at: string | null
+          created_at: string
+          current_highest_bid: number | null
+          donation_type: string
+          donor_name: string
+          id: string
+          photo_url: string | null
+          starting_bid_amount: number
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          bio: string
+          completed_at?: string | null
+          created_at?: string
+          current_highest_bid?: number | null
+          donation_type: string
+          donor_name: string
+          id?: string
+          photo_url?: string | null
+          starting_bid_amount: number
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          bio?: string
+          completed_at?: string | null
+          created_at?: string
+          current_highest_bid?: number | null
+          donation_type?: string
+          donor_name?: string
+          id?: string
+          photo_url?: string | null
+          starting_bid_amount?: number
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       favorites: {
         Row: {
           created_at: string

@@ -21,6 +21,7 @@ import FavoritesPage from "./pages/FavoritesPage";
 import MessagesPage from "./pages/MessagesPage";
 import { ApplicationReview } from "./pages/ApplicationReview";
 import Login from "./pages/Login";
+import DonationAuctions from "./pages/DonationAuctions";
 import { AuthProvider } from "./contexts/AuthContext";
 
 const queryClient = new QueryClient();
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="/referral-program" element={<ReferralProgram />} />
             <Route path="/lab-partner" element={<LabPartnerPage />} />
             <Route path="/admin/applications" element={<ApplicationReview />} />
+            <Route path="/donation-auctions" element={<DonationAuctions />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="/networking" element={<NetworkingPage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />

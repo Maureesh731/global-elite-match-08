@@ -98,6 +98,13 @@ export const Header = () => {
               <span className="relative z-10">Lab Partner</span>
               <div className="absolute inset-0 bg-gradient-to-r from-gray-600/10 to-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -m-2"></div>
             </Link>
+            <Link
+              to="/donation-auctions"
+              className="text-white/90 hover:text-green-400 transition-all duration-300 font-semibold text-sm tracking-wide uppercase hover:scale-105 relative group"
+            >
+              <span className="relative z-10">Donation Auctions</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-green-600/10 to-blue-600/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -m-2"></div>
+            </Link>
             <Button
               variant="ghost"
               size="sm"
