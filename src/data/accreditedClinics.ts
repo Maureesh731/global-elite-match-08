@@ -599,5 +599,261 @@ export const clinicsByCountry: Record<string, ClinicInfo[]> = {
       accreditation: "KFDA Approved",
       contact: "+82 2 2072 2114"
     }
+  ],
+  "Sweden": [
+    {
+      name: "Blodcentralen",
+      location: "Stockholm",
+      services: ['blood'],
+      website: "geblod.nu",
+      accreditation: "Socialstyrelsen Certified",
+      contact: "+46 8 123 456 78"
+    },
+    {
+      name: "Karolinska University Hospital",
+      location: "Stockholm",
+      services: ['eggs', 'sperm'],
+      website: "karolinska.se",
+      accreditation: "Socialstyrelsen Licensed",
+      contact: "+46 8 517 700 00"
+    },
+    {
+      name: "Gothenburg Fertility Centre",
+      location: "Gothenburg",
+      services: ['sperm', 'eggs'],
+      website: "fertilitetscentrum.se",
+      accreditation: "Socialstyrelsen Approved",
+      contact: "+46 31 123 45 67"
+    },
+    {
+      name: "Swedish Blood Service",
+      location: "Nationwide",
+      services: ['blood'],
+      website: "geblod.nu",
+      accreditation: "Socialstyrelsen Certified",
+      contact: "+46 8 123 456 78"
+    }
+  ],
+  "Switzerland": [
+    {
+      name: "Swiss Red Cross Blood Donation Service",
+      location: "Nationwide",
+      services: ['blood'],
+      website: "blutspende.ch",
+      accreditation: "Swissmedic Approved",
+      contact: "+41 31 380 81 81"
+    },
+    {
+      name: "Kinderwunschzentrum Baden",
+      location: "Baden",
+      services: ['eggs', 'sperm'],
+      website: "kinderwunsch-baden.ch",
+      accreditation: "Swissmedic Licensed",
+      contact: "+41 56 203 03 03"
+    },
+    {
+      name: "CHUV Fertility Center",
+      location: "Lausanne",
+      services: ['sperm', 'eggs'],
+      website: "chuv.ch",
+      accreditation: "Swissmedic Certified",
+      contact: "+41 21 314 11 11"
+    },
+    {
+      name: "University Hospital Zurich",
+      location: "Zurich",
+      services: ['eggs', 'sperm'],
+      website: "usz.ch",
+      accreditation: "Swissmedic Licensed",
+      contact: "+41 44 255 11 11"
+    }
+  ],
+  "Singapore": [
+    {
+      name: "Health Sciences Authority Blood Service",
+      location: "Singapore",
+      services: ['blood'],
+      website: "hsa.gov.sg",
+      accreditation: "HSA Certified",
+      contact: "+65 6213 3777"
+    },
+    {
+      name: "KK Women's and Children's Hospital",
+      location: "Singapore",
+      services: ['eggs', 'sperm'],
+      website: "kkh.com.sg",
+      accreditation: "MOH Licensed",
+      contact: "+65 6225 5554"
+    },
+    {
+      name: "Singapore General Hospital",
+      location: "Singapore",
+      services: ['sperm', 'eggs'],
+      website: "sgh.com.sg",
+      accreditation: "MOH Approved",
+      contact: "+65 6222 3322"
+    },
+    {
+      name: "National University Hospital",
+      location: "Singapore",
+      services: ['eggs', 'sperm'],
+      website: "nuh.com.sg",
+      accreditation: "MOH Licensed",
+      contact: "+65 6779 5555"
+    }
+  ],
+  "Thailand": [
+    {
+      name: "Thai Red Cross Society",
+      location: "Bangkok",
+      services: ['blood'],
+      website: "redcross.or.th",
+      accreditation: "FDA Thailand Certified",
+      contact: "+66 2 256 4031"
+    },
+    {
+      name: "Bumrungrad International Hospital",
+      location: "Bangkok",
+      services: ['eggs', 'sperm'],
+      website: "bumrungrad.com",
+      accreditation: "FDA Thailand Licensed",
+      contact: "+66 2 066 8888"
+    },
+    {
+      name: "Jetanin Institute",
+      location: "Bangkok",
+      services: ['sperm', 'eggs'],
+      website: "jetanin.com",
+      accreditation: "FDA Thailand Approved",
+      contact: "+66 2 253 7777"
+    },
+    {
+      name: "Superior A.R.T.",
+      location: "Bangkok",
+      services: ['eggs', 'sperm'],
+      website: "superiorart.net",
+      accreditation: "FDA Thailand Licensed",
+      contact: "+66 2 022 0000"
+    }
+  ],
+  "Philippines": [
+    {
+      name: "Philippine Red Cross",
+      location: "Manila",
+      services: ['blood'],
+      website: "redcross.org.ph",
+      accreditation: "FDA Philippines Certified",
+      contact: "+63 2 8790 2300"
+    },
+    {
+      name: "Asian Hospital and Medical Center",
+      location: "Manila",
+      services: ['eggs', 'sperm'],
+      website: "asianhospital.com",
+      accreditation: "FDA Philippines Licensed",
+      contact: "+63 2 8771 9000"
+    },
+    {
+      name: "St. Luke's Medical Center",
+      location: "Manila",
+      services: ['sperm', 'eggs'],
+      website: "stluke.com.ph",
+      accreditation: "FDA Philippines Approved",
+      contact: "+63 2 8789 7700"
+    },
+    {
+      name: "Makati Medical Center",
+      location: "Manila",
+      services: ['eggs', 'sperm'],
+      website: "makatimed.net.ph",
+      accreditation: "FDA Philippines Licensed",
+      contact: "+63 2 8888 8999"
+    }
+  ],
+  "Dominican Republic": [
+    {
+      name: "Cruz Roja Dominicana",
+      location: "Santo Domingo",
+      services: ['blood'],
+      website: "cruzrojadom.org",
+      accreditation: "DIGEMAPS Certified",
+      contact: "+1 809 682 4545"
+    },
+    {
+      name: "PROFAMILIA",
+      location: "Santo Domingo",
+      services: ['eggs', 'sperm'],
+      website: "profamilia.org.do",
+      accreditation: "DIGEMAPS Licensed",
+      contact: "+1 809 689 0141"
+    },
+    {
+      name: "Hospital General de la Plaza",
+      location: "Santo Domingo",
+      services: ['sperm', 'eggs'],
+      website: "hgps.gob.do",
+      accreditation: "DIGEMAPS Approved",
+      contact: "+1 809 221 2171"
+    }
+  ],
+  "Belize": [
+    {
+      name: "Belize Red Cross Society",
+      location: "Belize City",
+      services: ['blood'],
+      website: "belizeredcross.org",
+      accreditation: "Ministry of Health Certified",
+      contact: "+501 223 1681"
+    },
+    {
+      name: "Karl Heusner Memorial Hospital",
+      location: "Belize City",
+      services: ['blood'],
+      website: "khmh.bz",
+      accreditation: "Ministry of Health Licensed",
+      contact: "+501 223 1548"
+    },
+    {
+      name: "Belize Healthcare Partners",
+      location: "Belize City",
+      services: ['sperm', 'eggs'],
+      website: "belizehealthcare.com",
+      accreditation: "Ministry of Health Approved",
+      contact: "+501 223 0302"
+    }
+  ],
+  "Panama": [
+    {
+      name: "Cruz Roja Panameña",
+      location: "Panama City",
+      services: ['blood'],
+      website: "cruzroja.org.pa",
+      accreditation: "MINSA Certified",
+      contact: "+507 315 1388"
+    },
+    {
+      name: "Hospital Punta Pacifica",
+      location: "Panama City",
+      services: ['eggs', 'sperm'],
+      website: "hospitalpuntapacifica.com",
+      accreditation: "MINSA Licensed",
+      contact: "+507 204 8000"
+    },
+    {
+      name: "Centro de Especialidades Médicas",
+      location: "Panama City",
+      services: ['sperm', 'eggs'],
+      website: "cemepanama.com",
+      accreditation: "MINSA Approved",
+      contact: "+507 203 7500"
+    },
+    {
+      name: "Complejo Hospitalario Caja de Seguro Social",
+      location: "Panama City",
+      services: ['blood'],
+      website: "css.gob.pa",
+      accreditation: "MINSA Certified",
+      contact: "+507 503 9000"
+    }
   ]
 };
