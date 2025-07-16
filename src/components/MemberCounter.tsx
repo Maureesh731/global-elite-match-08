@@ -5,14 +5,14 @@ import { useUserSubscription } from "@/hooks/useUserSubscription";
 
 export const MemberCounter = () => {
   const { subscriberCount, loading: countLoading } = useSubscriberCount();
-  const { isSubscribed, loading: subLoading } = useUserSubscription();
+  const { subscribed, loading: subLoading } = useUserSubscription();
 
   const formatMemberCount = (count: number) => {
     return count.toLocaleString();
   };
 
   // Only show to subscribed users
-  if (subLoading || !isSubscribed) {
+  if (subLoading || !subscribed) {
     return null;
   }
 

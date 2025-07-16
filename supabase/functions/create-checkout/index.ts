@@ -40,7 +40,27 @@ serve(async (req) => {
       customerId = customers.data[0].id;
     }
 
-    // Create monthly subscription checkout session ($49.95 USD)
+    // Check user's subscription status to determine pricing
+    const supabaseService = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
+      { auth: { persistSession: false } }
+    );
+
+    const { data: subscriber } = await supabaseService
+      .from("subscribers")
+      .select("*")
+      .eq("email", user.email)
+      .maybeSingle();
+
+    // Determine pricing: $24.50 for first month (50% off), $49.99 for subsequent months
+    const isFirstMonth = !subscriber || subscriber.is_first_month;
+    const unitAmount = isFirstMonth ? 2450 : 4999; // $24.50 or $49.99 in cents
+    const productName = isFirstMonth ? 
+      "Untouchable Dating Membership (50% Off First Month)" : 
+      "Untouchable Dating Membership";
+
+    // Create monthly subscription checkout session
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_email: customerId ? undefined : user.email,
@@ -48,8 +68,8 @@ serve(async (req) => {
         {
           price_data: {
             currency: "usd",
-            product_data: { name: "Untouchable Dating Membership" },
-            unit_amount: 2450, // $24.50/mo (in cents)
+            product_data: { name: productName },
+            unit_amount: unitAmount,
             recurring: { interval: "month" },
           },
           quantity: 1,

@@ -239,6 +239,84 @@ export type Database = {
         }
         Relationships: []
       }
+      referrals: {
+        Row: {
+          approved_at: string | null
+          created_at: string
+          id: string
+          referred_email: string
+          referred_user_id: string | null
+          referrer_email: string
+          referrer_id: string
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          approved_at?: string | null
+          created_at?: string
+          id?: string
+          referred_email: string
+          referred_user_id?: string | null
+          referrer_email: string
+          referrer_id: string
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          approved_at?: string | null
+          created_at?: string
+          id?: string
+          referred_email?: string
+          referred_user_id?: string | null
+          referrer_email?: string
+          referrer_id?: string
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          is_first_month: boolean | null
+          referral_credits: number | null
+          stripe_customer_id: string | null
+          subscribed: boolean
+          subscription_end: string | null
+          subscription_tier: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          is_first_month?: boolean | null
+          referral_credits?: number | null
+          stripe_customer_id?: string | null
+          subscribed?: boolean
+          subscription_end?: string | null
+          subscription_tier?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          is_first_month?: boolean | null
+          referral_credits?: number | null
+          stripe_customer_id?: string | null
+          subscribed?: boolean
+          subscription_end?: string | null
+          subscription_tier?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
