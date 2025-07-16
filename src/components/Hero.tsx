@@ -9,7 +9,14 @@ export const Hero = () => {
   
   return (
     <section className="py-32 bg-gradient-to-br from-black via-gray-900 to-purple-900/20 text-white relative overflow-hidden">
-      <div className="absolute inset-0 opacity-10">
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('https://tffxaagmecmsgiltdjzv.supabase.co/storage/v1/object/sign/untouchabledatingphotos/istockphotoUntouchable.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTdlNTY1NC0yYjMyLTQxN2EtYTQ5Zi0xYWM5YThkMzc4ZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ1bnRvdWNoYWJsZWRhdGluZ3Bob3Rvcy9pc3RvY2twaG90b1VudG91Y2hhYmxlLmpwZyIsImlhdCI6MTc1MjY3NjgwMSwiZXhwIjoxNzg0MjEyODAxfQ.WYurRUnzPCDdnmc9LgVwx_ELTO65Vae38p7oTZ_PR-8')`
+        }}
+      ></div>
+      <div className="absolute inset-0 bg-black/60"></div>
+      <div className="absolute inset-0 opacity-20">
         <div className="w-full h-full" style={{
           backgroundImage: `radial-gradient(circle at 25% 25%, rgba(139, 0, 139, 0.3) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(220, 20, 60, 0.3) 0%, transparent 50%)`,
         }}></div>
