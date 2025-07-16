@@ -185,7 +185,8 @@ export default function DonationAuctions() {
               <ul className="text-sm text-blue-800 space-y-2">
                 <li>• All donations must be completed at licensed medical facilities</li>
                 <li>• Untouchable Dating facilitates auctions but does not handle medical procedures</li>
-                <li>• A 10% platform fee applies to completed auctions</li>
+                <li>• <strong>10% platform fee is automatically deducted from winning bid amounts</strong></li>
+                <li>• Example: $5,000 winning bid = $4,500 to donor + $500 platform fee</li>
                 <li>• Bidding increments: $100 for bids under $1,000, $500 for higher amounts</li>
                 <li>• Auctions remain active until the donor accepts a bid</li>
                 <li>• Always verify legal and medical requirements before proceeding</li>

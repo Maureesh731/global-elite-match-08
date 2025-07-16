@@ -5,7 +5,9 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { DonationAuction } from '@/hooks/useDonationAuctions';
 import { BiddingModal } from './BiddingModal';
-import { Clock, DollarSign, User } from 'lucide-react';
+import { AuctionManagementModal } from './AuctionManagementModal';
+import { useAuth } from '@/contexts/AuthContext';
+import { Clock, DollarSign, User, Settings } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
 interface DonationAuctionCardProps {
@@ -15,6 +17,8 @@ interface DonationAuctionCardProps {
 
 export const DonationAuctionCard = ({ auction, onBidPlaced }: DonationAuctionCardProps) => {
   const [showBiddingModal, setShowBiddingModal] = useState(false);
+  const [showManagementModal, setShowManagementModal] = useState(false);
+  const { user } = useAuth();
 
   const getDonationTypeColor = (type: string) => {
     switch (type) {
@@ -90,12 +94,25 @@ export const DonationAuctionCard = ({ auction, onBidPlaced }: DonationAuctionCar
               </div>
             </div>
             
-            <Button 
-              onClick={() => setShowBiddingModal(true)}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-            >
-              Place Bid
-            </Button>
+            <div className="flex items-center gap-2">
+              {user?.id === auction.user_id ? (
+                <Button 
+                  onClick={() => setShowManagementModal(true)}
+                  variant="outline"
+                  className="flex items-center gap-2"
+                >
+                  <Settings className="h-4 w-4" />
+                  Manage
+                </Button>
+              ) : (
+                <Button 
+                  onClick={() => setShowBiddingModal(true)}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                >
+                  Place Bid
+                </Button>
+              )}
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -105,6 +122,13 @@ export const DonationAuctionCard = ({ auction, onBidPlaced }: DonationAuctionCar
         open={showBiddingModal}
         onOpenChange={setShowBiddingModal}
         onBidSuccess={handleBidSuccess}
+      />
+
+      <AuctionManagementModal
+        auction={auction}
+        open={showManagementModal}
+        onOpenChange={setShowManagementModal}
+        onAuctionCompleted={handleBidSuccess}
       />
     </>
   );

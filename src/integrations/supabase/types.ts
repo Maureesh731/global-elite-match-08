@@ -151,6 +151,56 @@ export type Database = {
           },
         ]
       }
+      auction_payments: {
+        Row: {
+          auction_id: string
+          created_at: string
+          donor_id: string
+          donor_payout_amount: number
+          id: string
+          payment_status: string
+          platform_fee_amount: number
+          processed_at: string | null
+          updated_at: string
+          winner_id: string
+          winning_bid_amount: number
+        }
+        Insert: {
+          auction_id: string
+          created_at?: string
+          donor_id: string
+          donor_payout_amount: number
+          id?: string
+          payment_status?: string
+          platform_fee_amount: number
+          processed_at?: string | null
+          updated_at?: string
+          winner_id: string
+          winning_bid_amount: number
+        }
+        Update: {
+          auction_id?: string
+          created_at?: string
+          donor_id?: string
+          donor_payout_amount?: number
+          id?: string
+          payment_status?: string
+          platform_fee_amount?: number
+          processed_at?: string | null
+          updated_at?: string
+          winner_id?: string
+          winning_bid_amount?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "auction_payments_auction_id_fkey"
+            columns: ["auction_id"]
+            isOneToOne: false
+            referencedRelation: "donation_auctions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       donation_auctions: {
         Row: {
           bio: string
@@ -408,7 +458,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      complete_auction_with_fees: {
+        Args: { auction_id_param: string; winning_bid_id_param: string }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never

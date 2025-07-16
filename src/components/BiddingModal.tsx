@@ -133,6 +133,29 @@ export const BiddingModal = ({ auction, open, onOpenChange, onBidSuccess }: Bidd
               <p className="text-sm text-gray-600">
                 Minimum bid: ${getMinimumBid().toLocaleString()} (${auction.current_highest_bid >= 100000 ? '500' : '100'} increments)
               </p>
+              
+              {/* Fee Breakdown */}
+              {bidAmount > 0 && (
+                <Card className="bg-yellow-50 border-yellow-200 mt-3">
+                  <CardContent className="p-3">
+                    <h5 className="font-medium text-yellow-900 mb-2">If you win this auction:</h5>
+                    <div className="space-y-1 text-sm">
+                      <div className="flex justify-between">
+                        <span>Your bid:</span>
+                        <span className="font-semibold">${bidAmount.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between text-red-600">
+                        <span>Platform fee (10%):</span>
+                        <span>-${Math.round(bidAmount * 0.10).toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between text-green-600 font-semibold border-t pt-1">
+                        <span>Donor receives:</span>
+                        <span>${(bidAmount - Math.round(bidAmount * 0.10)).toLocaleString()}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
 
             <div className="space-y-2">

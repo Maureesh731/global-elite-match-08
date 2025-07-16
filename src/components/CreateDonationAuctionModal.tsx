@@ -143,7 +143,8 @@ export const CreateDonationAuctionModal = ({ open, onOpenChange }: CreateDonatio
               <h4 className="font-semibold text-blue-900 mb-2">Important Information</h4>
               <ul className="text-sm text-blue-800 space-y-1">
                 <li>• All donations must be completed at licensed medical facilities</li>
-                <li>• Untouchable Dating takes a 10% fee from completed auctions</li>
+                <li>• <strong>10% platform fee is automatically deducted from winning bid amounts</strong></li>
+                <li>• You'll receive 90% of the final winning bid amount</li>
                 <li>• Auctions remain active until you accept a bid</li>
                 <li>• You can communicate with bidders through the platform</li>
               </ul>

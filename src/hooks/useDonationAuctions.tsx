@@ -28,6 +28,19 @@ export interface AuctionBid {
   created_at: string;
 }
 
+export interface AuctionPayment {
+  id: string;
+  auction_id: string;
+  winning_bid_amount: number;
+  platform_fee_amount: number;
+  donor_payout_amount: number;
+  donor_id: string;
+  winner_id: string;
+  payment_status: 'pending' | 'processed' | 'failed';
+  processed_at?: string;
+  created_at: string;
+}
+
 export const useDonationAuctions = () => {
   const [auctions, setAuctions] = useState<DonationAuction[]>([]);
   const [loading, setLoading] = useState(true);
@@ -81,26 +94,34 @@ export const useDonationAuctions = () => {
     }
   };
 
-  const completeAuction = async (auctionId: string) => {
+  const completeAuction = async (auctionId: string, winningBidId: string) => {
     try {
-      const { error } = await supabase
-        .from('donation_auctions')
-        .update({
-          status: 'completed',
-          completed_at: new Date().toISOString()
-        })
-        .eq('id', auctionId)
-        .eq('user_id', user?.id);
+      const { data, error } = await supabase.rpc('complete_auction_with_fees', {
+        auction_id_param: auctionId,
+        winning_bid_id_param: winningBidId
+      });
 
       if (error) throw error;
       
-      toast.success('Auction completed successfully');
+      const result = data as { success: boolean; error?: string; payment_id?: string; winning_bid_amount?: number; platform_fee?: number; donor_payout?: number };
+      
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to complete auction');
+      }
+      
+      toast.success(`Auction completed! You'll receive ${new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format((result.donor_payout || 0) / 100)} (after 10% platform fee)`);
+      
       await fetchAuctions();
-      return true;
+      return result;
     } catch (error) {
       console.error('Error completing auction:', error);
       toast.error('Failed to complete auction');
-      return false;
+      return null;
     }
   };
 
