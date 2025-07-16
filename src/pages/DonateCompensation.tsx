@@ -2,7 +2,10 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { BackToHomeButton } from "@/components/BackToHomeButton";
+import { Link } from "react-router-dom";
+import { Heart, ArrowRight } from "lucide-react";
 
 export default function DonateCompensation() {
   return (
@@ -13,12 +16,22 @@ export default function DonateCompensation() {
           <BackToHomeButton />
           <h1 className="text-4xl font-bold mb-8 text-center text-slate-900">
             Donate, Bid, and Get Compensated
-          </h1>
-          <p className="mb-8 text-center text-lg text-slate-700">
-            Untouchable Dating connects generous donors and recipients for blood, sperm, and egg donations. 
-            Members can offer their donation services and receive bids. All payments are handled directly between members; Untouchable Dating simply facilitates the auction and takes a 10% fee.{" "}
-            All physical donations must be performed at a registered 3rd-party clinic or service.
-          </p>
+            </h1>
+            <p className="mb-6 text-center text-lg text-slate-700">
+              Untouchable Dating connects generous donors and recipients for blood, sperm, and egg donations. 
+              Members can offer their donation services and receive bids. All payments are handled directly between members; Untouchable Dating simply facilitates the auction and takes a 10% fee.{" "}
+              All physical donations must be performed at a registered 3rd-party clinic or service.
+            </p>
+            
+            <div className="text-center mb-8">
+              <Link to="/donation-profile-setup">
+                <Button className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold shadow-lg">
+                  <Heart className="w-5 h-5 mr-2" />
+                  Apply Now to Join Auction Platform
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+            </div>
           <Card>
             <CardHeader>
               <CardTitle>How Does the Donation Auction Work?</CardTitle>
