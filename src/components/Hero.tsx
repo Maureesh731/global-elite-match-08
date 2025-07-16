@@ -12,7 +12,7 @@ export const Hero = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('https://tffxaagmecmsgiltdjzv.supabase.co/storage/v1/object/sign/untouchabledatingphotos/istockphotoUntouchable.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTdlNTY1NC0yYjMyLTQxN2EtYTQ5Zi0xYWM5YThkMzc4ZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ1bnRvdWNoYWJsZWRhdGluZ3Bob3Rvcy9pc3RvY2twaG90b1VudG91Y2hhYmxlLmpwZyIsImlhdCI6MTc1MjY3NjgwMSwiZXhwIjoxNzg0MjEyODAxfQ.WYurRUnzPCDdnmc9LgVwx_ELTO65Vae38p7oTZ_PR-8')`
+          backgroundImage: `url('https://tffxaagmecmsgiltdjzv.supabase.co/storage/v1/object/sign/untouchabledatingphotos/Untouchable%20Photo2.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTdlNTY1NC0yYjMyLTQxN2EtYTQ5Zi0xYWM5YThkMzc4ZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ1bnRvdWNoYWJsZWRhdGluZ3Bob3Rvcy9VbnRvdWNoYWJsZSBQaG90bzIuanBnIiwiaWF0IjoxNzUyNjc2OTIxLCJleHAiOjE3ODQyMTI5MjF9.MY2-izQcQpkIocxNiVFUp3GnyYON4UXzMPsP63Vz51s')`
         }}
       ></div>
       <div className="absolute inset-0 bg-black/60"></div>
