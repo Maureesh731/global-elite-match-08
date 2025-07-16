@@ -146,7 +146,7 @@ export const Footer = () => {
             <h3 className="font-bold text-white mb-6 text-lg">Lab Partner</h3>
             <div className="space-y-4">
               <p className="text-gray-400 text-sm leading-relaxed">
-                Find a local Quest Diagnostics lab to complete your required drug, STD, and disease screenings.
+                Find a local Quest Diagnostics lab to complete your optional but recommended drug, STD, and disease screenings.
               </p>
               <a
                 href="https://www.questdiagnostics.com/"
