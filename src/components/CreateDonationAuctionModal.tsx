@@ -146,7 +146,7 @@ export const CreateDonationAuctionModal = ({ open, onOpenChange }: CreateDonatio
                 <li>• <strong>10% platform fee is automatically deducted from winning bid amounts</strong></li>
                 <li>• You'll receive 90% of the final winning bid amount</li>
                 <li>• Auctions remain active until you accept a bid</li>
-                <li>• You can communicate with bidders through the platform</li>
+                <li>• <a href="/accredited-clinics" target="_blank" className="underline hover:text-blue-600">View accredited clinics worldwide</a></li>
               </ul>
             </CardContent>
           </Card>

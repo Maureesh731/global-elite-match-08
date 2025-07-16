@@ -11,6 +11,7 @@ import { useDonationAuctions } from '@/hooks/useDonationAuctions';
 import { useUserSubscription } from '@/hooks/useUserSubscription';
 import { useAuth } from '@/contexts/AuthContext';
 import { BackToHomeButton } from '@/components/BackToHomeButton';
+import { Link } from 'react-router-dom';
 import { Plus, Heart, Droplets, Dna } from 'lucide-react';
 
 export default function DonationAuctions() {
@@ -183,7 +184,7 @@ export default function DonationAuctions() {
             <CardContent className="p-6">
               <h3 className="font-semibold text-blue-900 mb-3">Important Information</h3>
               <ul className="text-sm text-blue-800 space-y-2">
-                <li>• All donations must be completed at licensed medical facilities</li>
+                <li>• All donations must be completed at <Link to="/accredited-clinics" className="underline hover:text-blue-600">licensed medical facilities</Link></li>
                 <li>• Untouchable Dating facilitates auctions but does not handle medical procedures</li>
                 <li>• <strong>10% platform fee is automatically deducted from winning bid amounts</strong></li>
                 <li>• Example: $5,000 winning bid = $4,500 to donor + $500 platform fee</li>

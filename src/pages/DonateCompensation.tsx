@@ -54,7 +54,7 @@ export default function DonateCompensation() {
                   <span className="font-semibold">Untouchable Dating automatically deducts a 10% platform fee</span> from the winning bid amount (e.g., if the winning bid is $5,000, the donor receives $4,500 and Untouchable Dating receives $500).
                 </li>
                 <li>
-                  All actual donation services (blood, sperm, egg) are arranged and completed by <span className="font-semibold">3rd-party accredited clinics or agencies</span>. Untouchable Dating <span className="text-red-700 font-semibold">does not handle the medical process</span>.
+                  All actual donation services (blood, sperm, egg) are arranged and completed by <span className="font-semibold">3rd-party accredited clinics or agencies</span>. Untouchable Dating <span className="text-red-700 font-semibold">does not handle the medical process</span>. <Link to="/accredited-clinics" className="text-blue-600 hover:underline">View accredited clinics worldwide</Link>.
                 </li>
               </ul>
               <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded mt-2 text-slate-800 text-sm">
@@ -79,6 +79,10 @@ export default function DonateCompensation() {
           </Card>
           <p className="mt-12 text-xs text-slate-500 text-center">
             * All information is for educational purposes. Always consult a medical professional and use accredited donation services.
+            <br />
+            <Link to="/accredited-clinics" className="text-blue-600 hover:underline">
+              View verified clinics worldwide →
+            </Link>
           </p>
         </div>
       </main>
