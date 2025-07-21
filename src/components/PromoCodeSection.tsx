@@ -113,46 +113,43 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
     setLoading(true);
     
     try {
-      console.log("Recording promo code usage...");
+      console.log("Processing free application with promo code...");
       
       if (onFreeApplicationStart) {
         onFreeApplicationStart();
       }
-      
-      // Record promo code usage
-      const tempUserId = crypto.randomUUID();
-      const tempEmail = `temp-${Date.now()}@temp.com`;
 
-      const { error } = await supabase
-        .from("promo_usage")
-        .insert({
-          promo_code: "IamUnvaccinated",
-          user_id: tempUserId,
-          user_email: tempEmail,
-          used_at: new Date().toISOString(),
-        });
+      // Call the use-promo-code edge function to record usage
+      const { data, error } = await supabase.functions.invoke("use-promo-code", {
+        body: { promoCode: "IamUnvaccinated" }
+      });
 
-      if (error) {
-        console.error("Database insert error:", error);
+      if (error || !data?.success) {
+        console.error("Promo code usage error:", error);
         toast({
-          title: "Could not process free registration",
-          description: "Database error occurred",
+          title: "Could not process promo code",
+          description: error?.message || "Please try again",
           variant: "destructive",
         });
         setLoading(false);
         return;
       }
       
-      console.log("Promo code usage recorded successfully");
+      console.log("Promo code accepted, redirecting to welcome page");
       toast({
         title: "Success!",
-        description: "Free registration approved! You now have 1 year of free access.",
+        description: "Promo code accepted! Redirecting to set up your account...",
       });
       
+      // Store application form data and redirect to welcome page
+      // The form data will be retrieved from the parent component
       if (onFreeApplicationSuccess) {
         onFreeApplicationSuccess();
       }
+      
+      // Redirect will be handled by the parent component
       handleSubmit(e);
+      
     } catch (err) {
       console.error("Registration error:", err);
       toast({

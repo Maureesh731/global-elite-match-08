@@ -21,6 +21,7 @@ import FavoritesPage from "./pages/FavoritesPage";
 import MessagesPage from "./pages/MessagesPage";
 import { ApplicationReview } from "./pages/ApplicationReview";
 import Login from "./pages/Login";
+import Welcome from "./pages/Welcome";
 import DonationAuctions from "./pages/DonationAuctions";
 import DonationProfileSetup from "./pages/DonationProfileSetup";
 import AccreditedClinics from "./pages/AccreditedClinics";
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/messages" element={<MessagesPage />} />
             <Route path="/profile/:id" element={<ProfileDetail />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/welcome" element={<Welcome />} />
             <Route path="/testimonials" element={<TestimonialsPage />} />
             <Route path="/donate-compensation" element={<DonateCompensation />} />
             <Route path="/referral-program" element={<ReferralProgram />} />
