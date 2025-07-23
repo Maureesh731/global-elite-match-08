@@ -174,7 +174,7 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
           <div className="flex gap-2">
             <Input
               type="text"
-              placeholder="Enter promo code (IamUnvaccinated)"
+              placeholder="Enter promo code"
               value={promoCode}
               onChange={(e) => setPromoCode(e.target.value)}
               className="flex-1 bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-yellow-400"
