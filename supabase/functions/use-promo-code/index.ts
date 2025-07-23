@@ -23,7 +23,7 @@ serve(async (req) => {
     );
 
     // Validate promo code (case insensitive)
-    if (promoCode.toLowerCase() !== "imunvaxxed") {
+    if (promoCode.toLowerCase() !== "iamunvaccinated") {
       return new Response(JSON.stringify({ error: "Invalid promo code" }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 400,
@@ -34,7 +34,7 @@ serve(async (req) => {
     const { data: usageData, error: usageError } = await supabaseClient
       .from("promo_usage")
       .select("*")
-      .eq("promo_code", "ImUnvaxxed");
+      .eq("promo_code", "IamUnvaccinated");
 
     if (usageError) {
       console.error("Error checking promo usage:", usageError);
@@ -63,7 +63,7 @@ serve(async (req) => {
     const { error: insertError } = await supabaseClient
       .from("promo_usage")
       .insert({
-        promo_code: "ImUnvaxxed",
+        promo_code: "IamUnvaccinated",
         user_id: tempUserId, // Will be updated when user actually registers
         user_email: tempEmail,
         used_at: new Date().toISOString(),

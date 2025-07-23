@@ -121,7 +121,7 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
 
       // Call the use-promo-code edge function to record usage
       const { data, error } = await supabase.functions.invoke("use-promo-code", {
-        body: { promoCode: "IamUnvaccinated" }
+        body: { promoCode: promoCode.trim() }
       });
 
       if (error || !data?.success) {
