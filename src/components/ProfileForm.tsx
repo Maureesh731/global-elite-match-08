@@ -7,15 +7,21 @@ import { Label } from "@/components/ui/label";
 type ProfileFormProps = {
   gender: "Gentleman" | "Lady";
   onSave: (data: any) => void;
+  initialData?: {
+    fullName?: string;
+    age?: string;
+    bio?: string;
+    linkedin?: string;
+  };
 };
 
-export const ProfileForm: React.FC<ProfileFormProps> = ({ gender, onSave }) => {
+export const ProfileForm: React.FC<ProfileFormProps> = ({ gender, onSave, initialData }) => {
   const [form, setForm] = useState({
-    fullName: "",
-    age: "",
-    bio: "",
+    fullName: initialData?.fullName || "",
+    age: initialData?.age || "",
+    bio: initialData?.bio || "",
     story: "",
-    linkedin: "",
+    linkedin: initialData?.linkedin || "",
     healthStatus: "",
     covidVaccinated: "no"
   });

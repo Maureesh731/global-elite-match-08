@@ -92,7 +92,7 @@ serve(async (req) => {
     `;
 
     const emailResponse = await resend.emails.send({
-      from: 'Untouchable Dating <noreply@yourdomain.com>', // You'll need to configure this with your verified domain
+      from: 'Untouchable Dating <onboarding@resend.dev>',
       to: ['ceo@startff.com'],
       subject: `🔥 New Member Application: ${applicationData.first_name} ${applicationData.last_name}`,
       html: htmlContent,
