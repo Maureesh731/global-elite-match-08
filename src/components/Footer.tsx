@@ -139,6 +139,11 @@ export const Footer = () => {
                   Send Feedback
                 </button>
               </li>
+              <li>
+                <Link to="/admin/login" className="hover:text-red-400 text-purple-300 transition-colors font-semibold">
+                  Admin Portal
+                </Link>
+              </li>
             </ul>
           </div>
 

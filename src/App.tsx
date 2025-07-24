@@ -25,6 +25,8 @@ import Welcome from "./pages/Welcome";
 import DonationAuctions from "./pages/DonationAuctions";
 import DonationProfileSetup from "./pages/DonationProfileSetup";
 import AccreditedClinics from "./pages/AccreditedClinics";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
 import { AuthProvider } from "./contexts/AuthContext";
 
 const queryClient = new QueryClient();
@@ -51,6 +53,8 @@ const App = () => (
             <Route path="/referral-program" element={<ReferralProgram />} />
             <Route path="/lab-partner" element={<LabPartnerPage />} />
             <Route path="/admin/applications" element={<ApplicationReview />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/donation-auctions" element={<DonationAuctions />} />
             <Route path="/donation-profile-setup" element={<DonationProfileSetup />} />
             <Route path="/accredited-clinics" element={<AccreditedClinics />} />
