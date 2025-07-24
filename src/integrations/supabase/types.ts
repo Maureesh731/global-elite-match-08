@@ -348,6 +348,68 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          age: number
+          application_id: string | null
+          bio: string | null
+          covid_vaccinated: boolean | null
+          created_at: string
+          full_name: string
+          gender: string
+          health_status: string | null
+          id: string
+          linkedin: string | null
+          photo_privacy: Json | null
+          photos: Json | null
+          status: string
+          story: string | null
+          updated_at: string
+        }
+        Insert: {
+          age: number
+          application_id?: string | null
+          bio?: string | null
+          covid_vaccinated?: boolean | null
+          created_at?: string
+          full_name: string
+          gender: string
+          health_status?: string | null
+          id?: string
+          linkedin?: string | null
+          photo_privacy?: Json | null
+          photos?: Json | null
+          status?: string
+          story?: string | null
+          updated_at?: string
+        }
+        Update: {
+          age?: number
+          application_id?: string | null
+          bio?: string | null
+          covid_vaccinated?: boolean | null
+          created_at?: string
+          full_name?: string
+          gender?: string
+          health_status?: string | null
+          id?: string
+          linkedin?: string | null
+          photo_privacy?: Json | null
+          photos?: Json | null
+          status?: string
+          story?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       promo_usage: {
         Row: {
           created_at: string

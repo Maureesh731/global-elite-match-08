@@ -25,7 +25,8 @@ const GentlemenProfilePage = () => {
 
   async function handleSave(data: any) {
     try {
-      // Create a profiles entry linked to the application
+      // For now, store profile data with the application data
+      // This will be updated once the admin approves the profile
       const profileData = {
         full_name: data.fullName,
         age: parseInt(data.age),
@@ -37,18 +38,12 @@ const GentlemenProfilePage = () => {
         photos: data.photos,
         photo_privacy: data.photoPrivacy,
         gender: 'Gentleman',
-        status: 'pending_approval' // Profile pending admin approval
+        status: 'pending_approval'
       };
 
-      // Save to profiles table (you may need to create this table)
-      const { error } = await supabase
-        .from('profiles')
-        .insert([profileData]);
-
-      if (error) {
-        throw error;
-      }
-
+      // Store profile data in localStorage for now
+      localStorage.setItem('pendingProfile', JSON.stringify(profileData));
+      
       // Clear stored application data
       localStorage.removeItem('pendingApplication');
       
