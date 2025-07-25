@@ -32,7 +32,7 @@ export type Database = {
           last_name: string
           linkedin: string | null
           member_profile_name: string
-          password_hash: string | null
+          password_hash: string
           phone: string
           review_notes: string | null
           reviewed_at: string | null
@@ -63,7 +63,7 @@ export type Database = {
           last_name: string
           linkedin?: string | null
           member_profile_name: string
-          password_hash?: string | null
+          password_hash: string
           phone: string
           review_notes?: string | null
           reviewed_at?: string | null
@@ -94,7 +94,7 @@ export type Database = {
           last_name?: string
           linkedin?: string | null
           member_profile_name?: string
-          password_hash?: string | null
+          password_hash?: string
           phone?: string
           review_notes?: string | null
           reviewed_at?: string | null
@@ -515,6 +515,27 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -524,9 +545,24 @@ export type Database = {
         Args: { auction_id_param: string; winning_bid_id_param: string }
         Returns: Json
       }
+      get_current_user_role: {
+        Args: Record<PropertyKey, never>
+        Returns: Database["public"]["Enums"]["app_role"]
+      }
+      has_role: {
+        Args: {
+          _user_id: string
+          _role: Database["public"]["Enums"]["app_role"]
+        }
+        Returns: boolean
+      }
+      validate_user_password: {
+        Args: { input_username: string; input_password: string }
+        Returns: Json
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -653,6 +689,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
