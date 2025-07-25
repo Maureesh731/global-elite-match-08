@@ -103,18 +103,33 @@ const AdminDashboard = () => {
 
   const handleApplicationAction = async (applicationId: string, action: 'approved' | 'denied') => {
     try {
-      const { error } = await supabase
-        .from('applications')
-        .update({ status: action, reviewed_at: new Date().toISOString() })
-        .eq('id', applicationId);
+      // Find the application to get applicant details
+      const application = applications.find(app => app.id === applicationId);
+      if (!application) {
+        toast.error('Application not found');
+        return;
+      }
+
+      // Send application response email and update database
+      const { error } = await supabase.functions.invoke('send-application-response', {
+        body: {
+          applicationId,
+          status: action,
+          message: action === 'approved' 
+            ? 'Congratulations! Your application has been approved. Welcome to our community!'
+            : 'Thank you for your application. After careful review, we have decided not to move forward at this time.',
+          applicantName: `${application.first_name} ${application.last_name}`,
+          applicantEmail: application.email
+        }
+      });
 
       if (error) throw error;
       
-      toast.success(`Application ${action} successfully`);
+      toast.success(`Application ${action} successfully and email sent`);
       fetchData();
     } catch (error) {
       console.error('Error updating application:', error);
-      toast.error('Failed to update application');
+      toast.error('Failed to update application or send email');
     }
   };
 
