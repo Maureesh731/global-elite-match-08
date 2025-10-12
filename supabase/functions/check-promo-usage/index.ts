@@ -19,11 +19,11 @@ serve(async (req) => {
       { auth: { persistSession: false } }
     );
 
-    // Check promo code usage count for ImUnvaxxed
-    const { data, error } = await supabaseClient
+    // Check promo code usage count for IamUnvaccinated
+    const { count, error } = await supabaseClient
       .from("promo_usage")
-      .select("*")
-      .eq("promo_code", "ImUnvaxxed");
+      .select("*", { count: "exact", head: true })
+      .eq("promo_code", "IamUnvaccinated");
 
     if (error) {
       console.error("Error checking promo usage:", error);
@@ -33,8 +33,8 @@ serve(async (req) => {
       });
     }
 
-    const usageCount = data ? data.length : 0;
-    console.log(`ImUnvaxxed promo code usage count: ${usageCount}`);
+    const usageCount = count || 0;
+    console.log(`IamUnvaccinated promo code usage count: ${usageCount}`);
 
     return new Response(JSON.stringify({ usageCount }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

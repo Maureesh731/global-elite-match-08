@@ -31,9 +31,9 @@ serve(async (req) => {
     }
 
     // Check current usage count
-    const { data: usageData, error: usageError } = await supabaseClient
+    const { count, error: usageError } = await supabaseClient
       .from("promo_usage")
-      .select("*")
+      .select("*", { count: "exact", head: true })
       .eq("promo_code", "IamUnvaccinated");
 
     if (usageError) {
@@ -44,7 +44,7 @@ serve(async (req) => {
       });
     }
 
-    const usageCount = usageData ? usageData.length : 0;
+    const usageCount = count || 0;
     console.log(`Current usage count: ${usageCount}`);
     
     if (usageCount >= 25) {
