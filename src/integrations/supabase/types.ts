@@ -38,6 +38,7 @@ export type Database = {
           reviewed_at: string | null
           smokes_cigarettes: string
           status: string
+          user_id: string | null
           username: string
           uses_alcohol: string
           uses_drugs: string
@@ -68,6 +69,7 @@ export type Database = {
           reviewed_at?: string | null
           smokes_cigarettes: string
           status?: string
+          user_id?: string | null
           username: string
           uses_alcohol: string
           uses_drugs: string
@@ -98,6 +100,7 @@ export type Database = {
           reviewed_at?: string | null
           smokes_cigarettes?: string
           status?: string
+          user_id?: string | null
           username?: string
           uses_alcohol?: string
           uses_drugs?: string
@@ -300,6 +303,87 @@ export type Database = {
         }
         Relationships: []
       }
+      photo_access_requests: {
+        Row: {
+          created_at: string
+          id: string
+          message: string | null
+          photo_index: number
+          profile_owner_id: string
+          profile_owner_name: string
+          requester_id: string
+          requester_name: string
+          responded_at: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          photo_index: number
+          profile_owner_id: string
+          profile_owner_name: string
+          requester_id: string
+          requester_name: string
+          responded_at?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          photo_index?: number
+          profile_owner_id?: string
+          profile_owner_name?: string
+          requester_id?: string
+          requester_name?: string
+          responded_at?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          age: string
+          bio: string | null
+          created_at: string
+          full_name: string
+          gender: string
+          health_status: string | null
+          id: string
+          photo_urls: string[] | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          age: string
+          bio?: string | null
+          created_at?: string
+          full_name: string
+          gender: string
+          health_status?: string | null
+          id?: string
+          photo_urls?: string[] | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          age?: string
+          bio?: string | null
+          created_at?: string
+          full_name?: string
+          gender?: string
+          health_status?: string | null
+          id?: string
+          photo_urls?: string[] | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       promo_usage: {
         Row: {
           created_at: string
@@ -354,15 +438,53 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      complete_auction_with_fees: {
+        Args: { _auction_id: string; _winning_bid_id: string }
+        Returns: {
+          donor_payout: number
+          error: string
+          payment_id: string
+          platform_fee: number
+          success: boolean
+          winning_bid_amount: number
+        }[]
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -489,6 +611,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
