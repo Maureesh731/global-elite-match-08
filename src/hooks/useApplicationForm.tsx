@@ -8,7 +8,6 @@ export type ApplicationFormState = {
   email: string;
   phone: string;
   linkedin: string;
-  idFile: File | null;
   bio: string;
   // Authentication credentials
   username: string;
@@ -39,7 +38,6 @@ const initialFormState: ApplicationFormState = {
   email: "",
   phone: "",
   linkedin: "",
-  idFile: null,
   bio: "",
   // Authentication credentials
   username: "",
@@ -70,14 +68,6 @@ export const useApplicationForm = () => {
   ) => {
     const { name, value } = e.target as HTMLInputElement;
     setForm((f) => ({ ...f, [name]: value }));
-  };
-
-  const handleFileChange = (
-    name: "idFile",
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0] ?? null;
-    setForm((f) => ({ ...f, [name]: file }));
   };
 
   const isFormValid = (agreed: boolean) => {
@@ -117,9 +107,6 @@ export const useApplicationForm = () => {
     // Check if all health disclosure questions are answered (not default "no")
     const allHealthQuestionsAnswered = healthDisclosureFields.every(field => field !== "");
     
-    // Check if ID file is uploaded
-    const idFileUploaded = form.idFile !== null;
-    
     // Check if age is at least 18
     const ageValid = parseInt(form.age) >= 18;
     
@@ -129,7 +116,7 @@ export const useApplicationForm = () => {
     // Check password strength (minimum 8 characters)
     const passwordValid = form.password.length >= 8;
 
-    return allFieldsFilled && allHealthQuestionsAnswered && idFileUploaded && ageValid && passwordsMatch && passwordValid && agreed;
+    return allFieldsFilled && allHealthQuestionsAnswered && ageValid && passwordsMatch && passwordValid && agreed;
   };
 
   const resetForm = () => {
@@ -139,7 +126,6 @@ export const useApplicationForm = () => {
   return {
     form,
     handleInput,
-    handleFileChange,
     isFormValid,
     resetForm
   };

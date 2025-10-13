@@ -7,15 +7,11 @@ import { ApplicationFormState } from "@/hooks/useApplicationForm";
 type Props = {
   form: ApplicationFormState;
   handleInput: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleFileChange: (name: "idFile", e: React.ChangeEvent<HTMLInputElement>) => void;
-  idInputRef: React.RefObject<HTMLInputElement>;
 };
 
 export const FullApplicationModalFormFields: React.FC<Props> = ({
   form,
-  handleInput,
-  handleFileChange,
-  idInputRef
+  handleInput
 }) => (
   <>
     <div>
@@ -534,17 +530,5 @@ export const FullApplicationModalFormFields: React.FC<Props> = ({
       )}
     </div>
 
-    <div>
-      <Label className="text-white">ID Upload (Government-issued)</Label>
-      <Input
-        type="file"
-        accept="image/*,application/pdf"
-        onChange={(e) => handleFileChange("idFile", e)}
-        ref={idInputRef}
-        required
-        className="bg-gray-700 border-gray-600 text-white file:bg-gray-600 file:text-white file:border-0 file:rounded file:px-3 file:py-1"
-      />
-      <span className="text-xs text-gray-400">Please upload a clear photo or scan of your government-issued ID.</span>
-    </div>
   </>
 );
