@@ -5,26 +5,59 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Lock } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const AdminLogin = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // Hardcoded password check
-    if (password === 'Kobe19') {
-      localStorage.setItem('adminLoggedIn', 'true');
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        toast.error('Invalid credentials');
+        setLoading(false);
+        return;
+      }
+
+      // Check if user has admin role
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast.error('Authentication failed');
+        setLoading(false);
+        return;
+      }
+
+      const { data: roles } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id)
+        .eq('role', 'admin')
+        .single();
+
+      if (!roles) {
+        await supabase.auth.signOut();
+        toast.error('Access denied - Admin role required');
+        setLoading(false);
+        return;
+      }
+
       toast.success('Admin login successful');
       navigate('/admin/dashboard');
-    } else {
-      toast.error('Invalid password');
+    } catch (error) {
+      toast.error('Login failed');
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
   return (
@@ -43,8 +76,18 @@ const AdminLogin = () => {
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <Input
+                type="email"
+                placeholder="Admin email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="bg-gray-800 border-gray-700 text-white"
+                required
+              />
+            </div>
+            <div>
+              <Input
                 type="password"
-                placeholder="Enter admin password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="bg-gray-800 border-gray-700 text-white"

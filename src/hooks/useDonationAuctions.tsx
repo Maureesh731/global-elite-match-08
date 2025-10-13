@@ -97,16 +97,16 @@ export const useDonationAuctions = () => {
   const completeAuction = async (auctionId: string, winningBidId: string) => {
     try {
       const { data, error } = await supabase.rpc('complete_auction_with_fees', {
-        auction_id_param: auctionId,
-        winning_bid_id_param: winningBidId
+        _auction_id: auctionId,
+        _winning_bid_id: winningBidId
       });
 
       if (error) throw error;
       
-      const result = data as { success: boolean; error?: string; payment_id?: string; winning_bid_amount?: number; platform_fee?: number; donor_payout?: number };
+      const result = (data && data.length > 0 ? data[0] : null) as { success: boolean; error?: string; payment_id?: string; winning_bid_amount?: number; platform_fee?: number; donor_payout?: number } | null;
       
-      if (!result.success) {
-        throw new Error(result.error || 'Failed to complete auction');
+      if (!result || !result.success) {
+        throw new Error(result?.error || 'Failed to complete auction');
       }
       
       toast.success(`Auction completed! You'll receive ${new Intl.NumberFormat('en-US', {

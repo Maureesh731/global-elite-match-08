@@ -40,16 +40,16 @@ interface Application {
 
 interface Profile {
   id: string;
+  user_id: string;
   full_name: string;
-  age: number;
+  age: string;
   gender: string;
-  bio: string;
-  story: string;
-  linkedin: string;
-  health_status: string;
-  covid_vaccinated: boolean;
+  bio: string | null;
+  health_status: string | null;
+  photo_urls: string[] | null;
   status: string;
   created_at: string;
+  updated_at: string;
 }
 
 const AdminDashboard = () => {
@@ -64,14 +64,29 @@ const AdminDashboard = () => {
   const [sendingEmail, setSendingEmail] = useState(false);
 
   useEffect(() => {
-    // Check admin authentication
-    const isAdminLoggedIn = localStorage.getItem('adminLoggedIn');
-    if (!isAdminLoggedIn) {
-      navigate('/admin/login');
-      return;
-    }
+    const checkAdminAccess = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        navigate('/admin/login');
+        return;
+      }
 
-    fetchData();
+      const { data: roles } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id)
+        .eq('role', 'admin')
+        .single();
+
+      if (!roles) {
+        navigate('/admin/login');
+        return;
+      }
+
+      fetchData();
+    };
+
+    checkAdminAccess();
   }, [navigate]);
 
   const fetchData = async () => {
@@ -180,8 +195,8 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminLoggedIn');
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     navigate('/');
   };
 
@@ -365,10 +380,8 @@ const AdminDashboard = () => {
                                 <div>
                                   <p><strong>Age:</strong> {profile.age}</p>
                                   <p><strong>Gender:</strong> {profile.gender}</p>
-                                  <p><strong>COVID Vaccinated:</strong> {profile.covid_vaccinated ? 'Yes' : 'No'}</p>
                                 </div>
                                 <div>
-                                  <p><strong>LinkedIn:</strong> {profile.linkedin || 'Not provided'}</p>
                                   <p><strong>Health Status:</strong> {profile.health_status || 'Not provided'}</p>
                                   <p><strong>Status:</strong> {getStatusBadge(profile.status)}</p>
                                 </div>
@@ -377,12 +390,6 @@ const AdminDashboard = () => {
                                 <div>
                                   <p><strong>Bio:</strong></p>
                                   <p className="text-gray-300">{profile.bio}</p>
-                                </div>
-                              )}
-                              {profile.story && (
-                                <div>
-                                  <p><strong>Story:</strong></p>
-                                  <p className="text-gray-300">{profile.story}</p>
                                 </div>
                               )}
                             </div>

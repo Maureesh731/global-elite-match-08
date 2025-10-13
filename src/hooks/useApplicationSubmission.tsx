@@ -11,8 +11,32 @@ export const useApplicationSubmission = () => {
     onSuccess: () => void
   ) => {
     try {
+      // Create Supabase auth user first
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: form.email,
+        password: form.password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+          data: {
+            first_name: form.firstName,
+            last_name: form.lastName
+          }
+        }
+      });
+
+      if (authError) {
+        console.error('Auth error:', authError);
+        return;
+      }
+
+      if (!authData.user) {
+        console.error('No user returned from signup');
+        return;
+      }
+
       // Transform form data to match database schema
       const applicationData = {
+        user_id: authData.user.id,
         first_name: form.firstName,
         last_name: form.lastName,
         member_profile_name: form.memberProfileName,
@@ -22,7 +46,7 @@ export const useApplicationSubmission = () => {
         linkedin: form.linkedin,
         bio: form.bio,
         username: form.username,
-        password_hash: form.password, // In production, this should be hashed
+        password_hash: form.password,
         has_herpes: form.hasHerpes,
         has_hiv: form.hasHIV,
         has_hpv: form.hasHPV,

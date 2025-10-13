@@ -12,7 +12,7 @@ interface PhotoAccessRequest {
   status: 'pending' | 'approved' | 'denied';
   message: string | null;
   created_at: string;
-  updated_at: string;
+  responded_at?: string;
 }
 
 export function usePhotoAccess() {
@@ -145,7 +145,7 @@ export function usePhotoAccess() {
         .from('photo_access_requests')
         .update({ 
           status,
-          updated_at: new Date().toISOString()
+          responded_at: new Date().toISOString()
         })
         .eq('id', requestId);
 

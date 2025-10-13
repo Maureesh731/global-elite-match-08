@@ -35,24 +35,14 @@ const Login = () => {
         return;
       }
 
-      // For now, we'll do a simple password comparison
-      // In production, you'd hash the password and compare hashes
-      if (application.password_hash !== password) {
-        toast.error("Invalid username or password");
-        return;
-      }
-
-      // Create Supabase auth user if login is successful
-      const { data: authData, error: authError } = await supabase.auth.signUp({
+      // Use Supabase Auth for secure authentication
+      const { error: authError } = await supabase.auth.signInWithPassword({
         email: application.email,
-        password: password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/`
-        }
+        password: password
       });
 
       if (authError) {
-        toast.error("Login failed");
+        toast.error("Invalid username or password");
         return;
       }
 
