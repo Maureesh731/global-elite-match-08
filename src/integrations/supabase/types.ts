@@ -14,6 +14,292 @@ export type Database = {
   }
   public: {
     Tables: {
+      applications: {
+        Row: {
+          age: string
+          bio: string | null
+          covid_vaccinated: string
+          created_at: string
+          disclosure_authorization: string
+          email: string
+          first_name: string
+          has_chronic_diseases: string
+          has_herpes: string
+          has_hiv: string
+          has_hpv: string
+          has_other_stds: string
+          id: string
+          last_name: string
+          linkedin: string | null
+          member_profile_name: string
+          password_hash: string
+          phone: string
+          review_notes: string | null
+          reviewed_at: string | null
+          smokes_cigarettes: string
+          status: string
+          username: string
+          uses_alcohol: string
+          uses_drugs: string
+          uses_marijuana: string
+          uses_prescription_drugs: string
+          wants_optional_testing: string
+        }
+        Insert: {
+          age: string
+          bio?: string | null
+          covid_vaccinated: string
+          created_at?: string
+          disclosure_authorization: string
+          email: string
+          first_name: string
+          has_chronic_diseases: string
+          has_herpes: string
+          has_hiv: string
+          has_hpv: string
+          has_other_stds: string
+          id?: string
+          last_name: string
+          linkedin?: string | null
+          member_profile_name: string
+          password_hash: string
+          phone: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          smokes_cigarettes: string
+          status?: string
+          username: string
+          uses_alcohol: string
+          uses_drugs: string
+          uses_marijuana: string
+          uses_prescription_drugs: string
+          wants_optional_testing: string
+        }
+        Update: {
+          age?: string
+          bio?: string | null
+          covid_vaccinated?: string
+          created_at?: string
+          disclosure_authorization?: string
+          email?: string
+          first_name?: string
+          has_chronic_diseases?: string
+          has_herpes?: string
+          has_hiv?: string
+          has_hpv?: string
+          has_other_stds?: string
+          id?: string
+          last_name?: string
+          linkedin?: string | null
+          member_profile_name?: string
+          password_hash?: string
+          phone?: string
+          review_notes?: string | null
+          reviewed_at?: string | null
+          smokes_cigarettes?: string
+          status?: string
+          username?: string
+          uses_alcohol?: string
+          uses_drugs?: string
+          uses_marijuana?: string
+          uses_prescription_drugs?: string
+          wants_optional_testing?: string
+        }
+        Relationships: []
+      }
+      auction_bids: {
+        Row: {
+          auction_id: string
+          bid_amount: number
+          bidder_id: string
+          bidder_name: string
+          created_at: string
+          id: string
+          message: string | null
+        }
+        Insert: {
+          auction_id: string
+          bid_amount: number
+          bidder_id: string
+          bidder_name: string
+          created_at?: string
+          id?: string
+          message?: string | null
+        }
+        Update: {
+          auction_id?: string
+          bid_amount?: number
+          bidder_id?: string
+          bidder_name?: string
+          created_at?: string
+          id?: string
+          message?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "auction_bids_auction_id_fkey"
+            columns: ["auction_id"]
+            isOneToOne: false
+            referencedRelation: "donation_auctions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      auction_payments: {
+        Row: {
+          auction_id: string
+          created_at: string
+          donor_id: string
+          donor_payout_amount: number
+          id: string
+          payment_status: string
+          platform_fee_amount: number
+          processed_at: string | null
+          winner_id: string
+          winning_bid_amount: number
+        }
+        Insert: {
+          auction_id: string
+          created_at?: string
+          donor_id: string
+          donor_payout_amount: number
+          id?: string
+          payment_status?: string
+          platform_fee_amount: number
+          processed_at?: string | null
+          winner_id: string
+          winning_bid_amount: number
+        }
+        Update: {
+          auction_id?: string
+          created_at?: string
+          donor_id?: string
+          donor_payout_amount?: number
+          id?: string
+          payment_status?: string
+          platform_fee_amount?: number
+          processed_at?: string | null
+          winner_id?: string
+          winning_bid_amount?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "auction_payments_auction_id_fkey"
+            columns: ["auction_id"]
+            isOneToOne: false
+            referencedRelation: "donation_auctions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      donation_auctions: {
+        Row: {
+          bio: string
+          completed_at: string | null
+          created_at: string
+          current_highest_bid: number
+          donation_type: string
+          donor_name: string
+          id: string
+          photo_url: string | null
+          starting_bid_amount: number
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          bio: string
+          completed_at?: string | null
+          created_at?: string
+          current_highest_bid?: number
+          donation_type: string
+          donor_name: string
+          id?: string
+          photo_url?: string | null
+          starting_bid_amount: number
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          bio?: string
+          completed_at?: string | null
+          created_at?: string
+          current_highest_bid?: number
+          donation_type?: string
+          donor_name?: string
+          id?: string
+          photo_url?: string | null
+          starting_bid_amount?: number
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      favorites: {
+        Row: {
+          created_at: string
+          favorited_at: string
+          favorited_profile_id: string
+          favorited_profile_name: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          favorited_at?: string
+          favorited_profile_id: string
+          favorited_profile_name: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          favorited_at?: string
+          favorited_profile_id?: string
+          favorited_profile_name?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          read_at: string | null
+          recipient_id: string
+          recipient_name: string
+          sender_id: string
+          sender_name: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          recipient_id: string
+          recipient_name: string
+          sender_id: string
+          sender_name: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          recipient_id?: string
+          recipient_name?: string
+          sender_id?: string
+          sender_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       promo_usage: {
         Row: {
           created_at: string
@@ -38,6 +324,33 @@ export type Database = {
           used_at?: string
           user_email?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      referrals: {
+        Row: {
+          created_at: string
+          id: string
+          referred_email: string
+          referrer_email: string
+          referrer_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          referred_email: string
+          referrer_email: string
+          referrer_id: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          referred_email?: string
+          referrer_email?: string
+          referrer_id?: string
+          status?: string
         }
         Relationships: []
       }
