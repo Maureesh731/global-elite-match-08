@@ -107,6 +107,10 @@ export const useApplicationForm = () => {
     // Check if all health disclosure questions are answered (not default "no")
     const allHealthQuestionsAnswered = healthDisclosureFields.every(field => field !== "");
     
+    // Validate LinkedIn URL format
+    const linkedinRegex = /^https:\/\/(www\.)?linkedin\.com\/in\/[\w-]+\/?$/;
+    const linkedinValid = linkedinRegex.test(form.linkedin.trim());
+    
     // Check if age is at least 18
     const ageValid = parseInt(form.age) >= 18;
     
@@ -116,7 +120,7 @@ export const useApplicationForm = () => {
     // Check password strength (minimum 8 characters)
     const passwordValid = form.password.length >= 8;
 
-    return allFieldsFilled && allHealthQuestionsAnswered && ageValid && passwordsMatch && passwordValid && agreed;
+    return allFieldsFilled && allHealthQuestionsAnswered && linkedinValid && ageValid && passwordsMatch && passwordValid && agreed;
   };
 
   const resetForm = () => {

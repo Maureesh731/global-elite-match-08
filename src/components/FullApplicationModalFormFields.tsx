@@ -90,13 +90,21 @@ export const FullApplicationModalFormFields: React.FC<Props> = ({
         name="linkedin"
         id="linkedin"
         type="url"
-        pattern="https://.*"
+        pattern="https://(www\.)?linkedin\.com/in/[\w-]+/?"
         value={form.linkedin}
         onChange={handleInput}
         placeholder="https://linkedin.com/in/your-name"
         required
         className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
       />
+      <span className="text-xs text-gray-400">
+        Must be a valid LinkedIn profile URL (e.g., https://linkedin.com/in/yourname)
+      </span>
+      {form.linkedin && !/^https:\/\/(www\.)?linkedin\.com\/in\/[\w-]+\/?$/.test(form.linkedin.trim()) && (
+        <span className="text-xs text-red-400 block mt-1">
+          Invalid LinkedIn URL format
+        </span>
+      )}
     </div>
     <div>
       <Label htmlFor="bio" className="text-white">Short Bio (up to 2500 characters)</Label>
