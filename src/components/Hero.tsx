@@ -4,13 +4,21 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, Shield, Users, Crown } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import heroHealth1 from "@/assets/hero-health-1.jpg";
+import heroHealth2 from "@/assets/hero-health-2.jpg";
+import heroHealth3 from "@/assets/hero-health-3.jpg";
+import heroHealth4 from "@/assets/hero-health-4.jpg";
+import heroHealth5 from "@/assets/hero-health-5.jpg";
 
 export const Hero = () => {
   const { t } = useTranslation();
   
   const backgroundImages = [
-    'https://tffxaagmecmsgiltdjzv.supabase.co/storage/v1/object/sign/untouchabledatingphotos/Untouchable%20Photo2.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTdlNTY1NC0yYjMyLTQxN2EtYTQ5Zi0xYWM5YThkMzc4ZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ1bnRvdWNoYWJsZWRhdGluZ3Bob3Rvcy9VbnRvdWNoYWJsZSBQaG90bzIuanBnIiwiaWF0IjoxNzUyNjc2OTIxLCJleHAiOjE3ODQyMTI5MjF9.MY2-izQcQpkIocxNiVFUp3GnyYON4UXzMPsP63Vz51s',
-    'https://tffxaagmecmsgiltdjzv.supabase.co/storage/v1/object/sign/untouchabledatingphotos/istockphotoUntouchable.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81OTdlNTY1NC0yYjMyLTQxN2EtYTQ5Zi0xYWM5YThkMzc4ZTQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ1bnRvdWNoYWJsZWRhdGluZ3Bob3Rvcy9pc3RvY2twaG90b1VudG91Y2hhYmxlLmpwZyIsImlhdCI6MTc1MjY3NzQyMywiZXhwIjoxNzg0MjEzNDIzfQ.DngrH2Rv01uOit_9zt9SKXvlfDl3XOV4-IEzWlGVdY0'
+    heroHealth1,
+    heroHealth2,
+    heroHealth3,
+    heroHealth4,
+    heroHealth5
   ];
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
