@@ -133,7 +133,7 @@ export const Pricing = () => {
         <FullApplicationModal
           open={showAppModal}
           onOpenChange={setShowAppModal}
-          isFreeApplication={false}
+          isFreeProfile={false}
         />
       </div>
     </section>

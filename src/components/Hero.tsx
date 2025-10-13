@@ -1,9 +1,9 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, Shield, Users, Crown } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { FullApplicationModal } from "@/components/FullApplicationModal";
 import heroHealth1 from "@/assets/hero-health-1.jpg";
 import heroHealth2 from "@/assets/hero-health-2.jpg";
 import heroHealth3 from "@/assets/hero-health-3.jpg";
@@ -90,12 +90,16 @@ export const Hero = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button size="lg" className="bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white px-12 py-6 text-xl font-bold shadow-2xl shadow-red-500/30 border border-red-500/50 transform hover:scale-105 transition-all duration-300">
-              {t('hero.cta_button')}
-            </Button>
-            <Button size="lg" className="bg-gradient-to-r from-purple-800/80 to-red-800/80 hover:from-purple-700 hover:to-red-700 text-white border-2 border-purple-400/50 hover:border-red-400/60 px-12 py-6 text-xl font-semibold backdrop-blur-sm transform hover:scale-105 transition-all duration-300 shadow-2xl shadow-purple-500/30" variant="outline">
-              Discover More
-            </Button>
+            <FullApplicationModal>
+              <Button size="lg" className="bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white px-12 py-6 text-xl font-bold shadow-2xl shadow-red-500/30 border border-red-500/50 transform hover:scale-105 transition-all duration-300">
+                {t('hero.cta_button')}
+              </Button>
+            </FullApplicationModal>
+            <FullApplicationModal isFreeProfile={true}>
+              <Button size="lg" className="bg-white/10 backdrop-blur-sm border-2 border-white/30 hover:bg-white/20 text-white px-12 py-6 text-xl font-semibold transform hover:scale-105 transition-all duration-300 shadow-2xl shadow-purple-500/30" variant="outline">
+                Create Free Profile
+              </Button>
+            </FullApplicationModal>
           </div>
         </div>
       </div>

@@ -32,6 +32,7 @@ export type Database = {
           last_name: string
           linkedin: string | null
           member_profile_name: string
+          membership_type: string
           password_hash: string
           phone: string
           review_notes: string | null
@@ -63,6 +64,7 @@ export type Database = {
           last_name: string
           linkedin?: string | null
           member_profile_name: string
+          membership_type?: string
           password_hash: string
           phone: string
           review_notes?: string | null
@@ -94,6 +96,7 @@ export type Database = {
           last_name?: string
           linkedin?: string | null
           member_profile_name?: string
+          membership_type?: string
           password_hash?: string
           phone?: string
           review_notes?: string | null
@@ -267,6 +270,33 @@ export type Database = {
         }
         Relationships: []
       }
+      message_restrictions: {
+        Row: {
+          can_send_messages: boolean
+          created_at: string
+          id: string
+          messages_sent_count: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          can_send_messages?: boolean
+          created_at?: string
+          id?: string
+          messages_sent_count?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          can_send_messages?: boolean
+          created_at?: string
+          id?: string
+          messages_sent_count?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           content: string
@@ -351,6 +381,7 @@ export type Database = {
           gender: string
           health_status: string | null
           id: string
+          membership_type: string
           photo_urls: string[] | null
           status: string
           updated_at: string
@@ -364,6 +395,7 @@ export type Database = {
           gender: string
           health_status?: string | null
           id?: string
+          membership_type?: string
           photo_urls?: string[] | null
           status?: string
           updated_at?: string
@@ -377,6 +409,7 @@ export type Database = {
           gender?: string
           health_status?: string | null
           id?: string
+          membership_type?: string
           photo_urls?: string[] | null
           status?: string
           updated_at?: string
@@ -464,6 +497,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_user_send_messages: {
+        Args: { _user_id: string }
+        Returns: boolean
+      }
       complete_auction_with_fees: {
         Args: { _auction_id: string; _winning_bid_id: string }
         Returns: {

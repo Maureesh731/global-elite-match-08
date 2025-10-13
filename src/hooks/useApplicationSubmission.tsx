@@ -59,7 +59,8 @@ export const useApplicationSubmission = () => {
         smokes_cigarettes: form.smokesCigarettes,
         uses_prescription_drugs: form.usesPrescriptionDrugs,
         disclosure_authorization: form.disclosureAuthorization,
-        wants_optional_testing: form.wantsOptionalTesting
+        wants_optional_testing: form.wantsOptionalTesting,
+        membership_type: isFreeApplication ? 'free' : 'paid'
       };
 
       // Save application to database
@@ -70,6 +71,16 @@ export const useApplicationSubmission = () => {
       if (dbError) {
         console.error("Error saving application to database:", dbError);
         return;
+      }
+
+      // Create message restriction record for free users
+      if (isFreeApplication && authData.user) {
+        await supabase
+          .from('message_restrictions')
+          .insert([{
+            user_id: authData.user.id,
+            can_send_messages: false
+          }]);
       }
 
       // Send application data to email

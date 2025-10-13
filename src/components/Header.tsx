@@ -172,7 +172,7 @@ export const Header = () => {
               <FullApplicationModal
                 open={showAppModal}
                 onOpenChange={setShowAppModal}
-                isFreeApplication={isFreeApplication}
+                isFreeProfile={isFreeApplication}
               />
             </>
           )}

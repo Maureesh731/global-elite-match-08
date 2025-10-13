@@ -6,6 +6,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useMessages } from '@/hooks/useMessages';
 import { useMessageTranslation } from '@/hooks/useMessageTranslation';
+import { useMessagingGate } from '@/hooks/useMessagingGate';
+import { PaymentGateModal } from '@/components/PaymentGateModal';
 import { ArrowLeft, Send, Languages, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -23,9 +25,11 @@ export function MessagingModal({ isOpen, onClose, recipientId, recipientName }: 
   const [messageContent, setMessageContent] = useState('');
   const [showTranslations, setShowTranslations] = useState<{[key: string]: boolean}>({});
   const [translatedMessages, setTranslatedMessages] = useState<{[key: string]: string}>({});
+  const [showPaymentGate, setShowPaymentGate] = useState(false);
   
   const { i18n } = useTranslation();
   const { translateMessage, getLanguageFlag, isTranslating } = useMessageTranslation();
+  const { canSendMessages, loading: permissionsLoading } = useMessagingGate();
   
   const { 
     conversations, 
@@ -54,6 +58,12 @@ export function MessagingModal({ isOpen, onClose, recipientId, recipientName }: 
 
   const handleSendMessage = async () => {
     if (!messageContent.trim() || !selectedUserId) return;
+    
+    // Check if user can send messages
+    if (!canSendMessages) {
+      setShowPaymentGate(true);
+      return;
+    }
     
     await sendMessage(selectedUserId, selectedUserName, messageContent);
     setMessageContent('');
@@ -256,6 +266,12 @@ export function MessagingModal({ isOpen, onClose, recipientId, recipientName }: 
           </>
         )}
       </DialogContent>
+      
+      <PaymentGateModal
+        open={showPaymentGate}
+        onOpenChange={setShowPaymentGate}
+        feature="messaging"
+      />
     </Dialog>
   );
 }
