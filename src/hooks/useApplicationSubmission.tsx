@@ -25,12 +25,10 @@ export const useApplicationSubmission = () => {
       });
 
       if (authError) {
-        console.error('Auth error:', authError);
         return;
       }
 
       if (!authData.user) {
-        console.error('No user returned from signup');
         return;
       }
 
@@ -69,7 +67,6 @@ export const useApplicationSubmission = () => {
         .insert([applicationData]);
       
       if (dbError) {
-        console.error("Error saving application to database:", dbError);
         return;
       }
 
@@ -89,7 +86,6 @@ export const useApplicationSubmission = () => {
       });
       
       if (emailError) {
-        console.error("Error sending application email:", emailError);
         // Continue even if email fails since data is saved
       }
       
@@ -104,7 +100,6 @@ export const useApplicationSubmission = () => {
         navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
       }, 2500);
     } catch (error) {
-      console.error("Error submitting application:", error);
       // Show success even if there are issues since we want good UX
       onSuccess();
       

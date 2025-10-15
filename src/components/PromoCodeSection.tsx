@@ -52,15 +52,12 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
 
     setLoading(true);
     try {
-      console.log("Checking promo code usage...");
-      
       const { count, error } = await supabase
         .from("promo_usage")
         .select("*", { count: "exact", head: true })
         .eq("promo_code", "IamUnvaccinated");
 
       if (error) {
-        console.error("Database error:", error);
         toast({
           title: "Could not verify promo code",
           description: "Database error occurred",
@@ -71,7 +68,6 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
       }
 
       const usageCount = count || 0;
-      console.log(`Current promo usage count: ${usageCount}`);
 
       if (usageCount >= 25) {
         toast({
@@ -92,7 +88,6 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
         onValidPromoCode(true);
       }
     } catch (err) {
-      console.error("Promo check exception:", err);
       toast({
         title: "Error checking promo code",
         description: "Please try again",
@@ -113,15 +108,12 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
     setLoading(true);
     
     try {
-      console.log("Processing free application with promo code...");
-      
       // Call the use-promo-code edge function to record usage
       const { data, error } = await supabase.functions.invoke("use-promo-code", {
         body: { promoCode: promoCode.trim() }
       });
 
       if (error || !data?.success) {
-        console.error("Promo code usage error:", error);
         toast({
           title: "Could not process promo code",
           description: error?.message || "Please try again",
@@ -130,8 +122,6 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
         setLoading(false);
         return;
       }
-      
-      console.log("Promo code accepted, triggering application redirect");
       
       // Mark as free application before submitting
       if (onFreeApplicationStart) {
@@ -144,7 +134,6 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
       }, 100);
       
     } catch (err) {
-      console.error("Registration error:", err);
       toast({
         title: "Registration failed",
         description: "Please try again",

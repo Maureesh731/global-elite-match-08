@@ -109,7 +109,6 @@ const AdminDashboard = () => {
       if (profilesError) throw profilesError;
       setProfiles(profilesData || []);
     } catch (error) {
-      console.error('Error fetching data:', error);
       toast.error('Failed to fetch data');
     } finally {
       setLoading(false);

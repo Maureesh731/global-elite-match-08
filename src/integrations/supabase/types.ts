@@ -39,7 +39,7 @@ export type Database = {
           reviewed_at: string | null
           smokes_cigarettes: string
           status: string
-          user_id: string | null
+          user_id: string
           username: string
           uses_alcohol: string
           uses_drugs: string
@@ -71,7 +71,7 @@ export type Database = {
           reviewed_at?: string | null
           smokes_cigarettes: string
           status?: string
-          user_id?: string | null
+          user_id: string
           username: string
           uses_alcohol: string
           uses_drugs: string
@@ -103,7 +103,7 @@ export type Database = {
           reviewed_at?: string | null
           smokes_cigarettes?: string
           status?: string
-          user_id?: string | null
+          user_id?: string
           username?: string
           uses_alcohol?: string
           uses_drugs?: string

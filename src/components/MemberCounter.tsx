@@ -11,9 +11,6 @@ export const MemberCounter = () => {
     return count.toLocaleString();
   };
 
-  // Debug log to verify variables are correct
-  console.log('MemberCounter - subscribed:', subscribed, 'subLoading:', subLoading);
-
   // Only show to subscribed users
   if (subLoading || !subscribed) {
     return null;
