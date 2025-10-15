@@ -414,11 +414,48 @@ export type Database = {
         }
         Relationships: []
       }
+      promo_codes: {
+        Row: {
+          benefits_years: number
+          code: string
+          created_at: string
+          current_uses: number
+          expires_at: string | null
+          id: string
+          is_active: boolean
+          max_uses: number
+          updated_at: string
+        }
+        Insert: {
+          benefits_years?: number
+          code: string
+          created_at?: string
+          current_uses?: number
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          max_uses?: number
+          updated_at?: string
+        }
+        Update: {
+          benefits_years?: number
+          code?: string
+          created_at?: string
+          current_uses?: number
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          max_uses?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       promo_usage: {
         Row: {
           created_at: string
           id: string
           promo_code: string
+          promo_code_id: string | null
           used_at: string
           user_email: string | null
           user_id: string | null
@@ -427,6 +464,7 @@ export type Database = {
           created_at?: string
           id?: string
           promo_code: string
+          promo_code_id?: string | null
           used_at?: string
           user_email?: string | null
           user_id?: string | null
@@ -435,11 +473,20 @@ export type Database = {
           created_at?: string
           id?: string
           promo_code?: string
+          promo_code_id?: string | null
           used_at?: string
           user_email?: string | null
           user_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "promo_usage_promo_code_id_fkey"
+            columns: ["promo_code_id"]
+            isOneToOne: false
+            referencedRelation: "promo_codes"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       referrals: {
         Row: {

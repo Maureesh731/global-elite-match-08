@@ -22,9 +22,25 @@ serve(async (req) => {
       { auth: { persistSession: false } }
     );
 
-    // Validate promo code (case insensitive)
-    if (promoCode.toLowerCase() !== "iamunvaccinated") {
+    // Validate promo code from database (case insensitive)
+    const { data: promoCodeData, error: promoError } = await supabaseClient
+      .from("promo_codes")
+      .select("*")
+      .ilike("code", promoCode)
+      .eq("is_active", true)
+      .single();
+
+    if (promoError || !promoCodeData) {
+      console.log("Invalid promo code:", promoCode);
       return new Response(JSON.stringify({ error: "Invalid promo code" }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 400,
+      });
+    }
+
+    // Check if code has expired
+    if (promoCodeData.expires_at && new Date(promoCodeData.expires_at) < new Date()) {
+      return new Response(JSON.stringify({ error: "Promo code has expired" }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 400,
       });
@@ -34,7 +50,7 @@ serve(async (req) => {
     const { count, error: usageError } = await supabaseClient
       .from("promo_usage")
       .select("*", { count: "exact", head: true })
-      .eq("promo_code", "IamUnvaccinated");
+      .eq("promo_code", promoCodeData.code);
 
     if (usageError) {
       console.error("Error checking promo usage:", usageError);
@@ -45,9 +61,9 @@ serve(async (req) => {
     }
 
     const usageCount = count || 0;
-    console.log(`Current usage count: ${usageCount}`);
+    console.log(`Current usage count: ${usageCount}/${promoCodeData.max_uses}`);
     
-    if (usageCount >= 25) {
+    if (usageCount >= promoCodeData.max_uses) {
       return new Response(JSON.stringify({ error: "Promo code limit reached" }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 400,
@@ -63,7 +79,8 @@ serve(async (req) => {
     const { error: insertError } = await supabaseClient
       .from("promo_usage")
       .insert({
-        promo_code: "IamUnvaccinated",
+        promo_code: promoCodeData.code,
+        promo_code_id: promoCodeData.id,
         user_id: tempUserId, // Will be updated when user actually registers
         user_email: tempEmail,
         used_at: new Date().toISOString(),
@@ -81,8 +98,8 @@ serve(async (req) => {
 
     return new Response(JSON.stringify({ 
       success: true, 
-      message: "Promo code accepted! 1 year free access granted.",
-      freeYears: 1 
+      message: `Promo code accepted! ${promoCodeData.benefits_years} year${promoCodeData.benefits_years > 1 ? 's' : ''} free access granted.`,
+      freeYears: promoCodeData.benefits_years 
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,

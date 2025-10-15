@@ -1,6 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { ApplicationFormState } from "./useApplicationForm";
+import { z } from 'zod';
+import { toast } from 'sonner';
+
+const applicationSchema = z.object({
+  firstName: z.string().trim().min(1, 'First name required').max(50),
+  lastName: z.string().trim().min(1, 'Last name required').max(50),
+  age: z.string().regex(/^\d{2,3}$/, 'Age must be a valid number').refine(val => {
+    const age = parseInt(val);
+    return age >= 18 && age <= 120;
+  }, 'Age must be between 18 and 120'),
+  phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, 'Invalid phone number format'),
+  email: z.string().email('Invalid email address').max(255),
+  bio: z.string().trim().max(2000, 'Bio must be less than 2000 characters'),
+  linkedin: z.string().url('Invalid LinkedIn URL').optional().or(z.literal('')),
+  username: z.string().regex(/^[a-zA-Z0-9_]{3,20}$/, 'Username must be 3-20 characters (letters, numbers, underscore only)')
+});
 
 export const useApplicationSubmission = () => {
   const navigate = useNavigate();
@@ -11,6 +27,26 @@ export const useApplicationSubmission = () => {
     onSuccess: () => void
   ) => {
     try {
+      // Validate application data
+      const validation = applicationSchema.safeParse({
+        firstName: form.firstName,
+        lastName: form.lastName,
+        age: form.age,
+        phone: form.phone,
+        email: form.email,
+        bio: form.bio,
+        linkedin: form.linkedin,
+        username: form.username
+      });
+
+      if (!validation.success) {
+        const errorMessage = validation.error.errors[0].message;
+        console.error("Validation error:", errorMessage);
+        toast.error(errorMessage);
+        return;
+      }
+
+
       // Create Supabase auth user first
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: form.email,
