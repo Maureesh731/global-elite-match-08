@@ -56,9 +56,8 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
     
     const currentIsFreeApplication = isFreeProfile || isProcessingFreeApp;
     
-    // If this is a free application (promo code used), store data and redirect to welcome page
-    if (currentIsFreeApplication) {
-      // Store application data in localStorage for the welcome page
+    // For promo code applications, store data and redirect to welcome page
+    if (currentIsFreeApplication && isProcessingFreeApp) {
       const applicationData = {
         first_name: form.firstName,
         last_name: form.lastName,
@@ -80,7 +79,9 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
         smokes_cigarettes: form.smokesCigarettes,
         uses_prescription_drugs: form.usesPrescriptionDrugs,
         disclosure_authorization: form.disclosureAuthorization,
-        wants_optional_testing: form.wantsOptionalTesting
+        wants_optional_testing: form.wantsOptionalTesting,
+        username: form.username,
+        password: form.password
       };
       
       localStorage.setItem('pendingApplication', JSON.stringify(applicationData));
@@ -90,16 +91,16 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
       handleModalClose();
       setTimeout(() => {
         window.location.href = '/welcome';
-      }, 500);
+      }, 100);
       return;
     }
     
-    // Regular paid application flow
+    // All other applications go through normal submission (no payments during application)
     await submitApplication(form, currentIsFreeApplication, () => {
       if (onSubmit) onSubmit(form);
       setShowSubmitSuccess(true);
+      resetForm();
       
-      // Handle modal close timing
       setTimeout(() => {
         handleModalClose();
       }, 1200);

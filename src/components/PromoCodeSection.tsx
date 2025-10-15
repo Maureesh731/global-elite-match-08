@@ -115,10 +115,6 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
     try {
       console.log("Processing free application with promo code...");
       
-      if (onFreeApplicationStart) {
-        onFreeApplicationStart();
-      }
-
       // Call the use-promo-code edge function to record usage
       const { data, error } = await supabase.functions.invoke("use-promo-code", {
         body: { promoCode: promoCode.trim() }
@@ -135,19 +131,18 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
         return;
       }
       
-      console.log("Promo code accepted, redirecting to welcome page");
+      console.log("Promo code accepted, preparing application submission");
       toast({
         title: "Success!",
-        description: "Promo code accepted! Redirecting to set up your account...",
+        description: "Promo code accepted! Completing your application...",
       });
       
-      // Store application form data and redirect to welcome page
-      // The form data will be retrieved from the parent component
-      if (onFreeApplicationSuccess) {
-        onFreeApplicationSuccess();
+      // Mark as free application before submitting
+      if (onFreeApplicationStart) {
+        onFreeApplicationStart();
       }
       
-      // Redirect will be handled by the parent component
+      // Submit the form through parent handler
       handleSubmit(e);
       
     } catch (err) {
@@ -157,7 +152,6 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
         description: "Please try again",
         variant: "destructive",
       });
-    } finally {
       setLoading(false);
     }
   };
