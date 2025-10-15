@@ -131,19 +131,17 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
         return;
       }
       
-      console.log("Promo code accepted, preparing application submission");
-      toast({
-        title: "Success!",
-        description: "Promo code accepted! Completing your application...",
-      });
+      console.log("Promo code accepted, triggering application redirect");
       
       // Mark as free application before submitting
       if (onFreeApplicationStart) {
         onFreeApplicationStart();
       }
       
-      // Submit the form through parent handler
-      handleSubmit(e);
+      // Small delay to ensure state updates, then submit
+      setTimeout(() => {
+        handleSubmit(e);
+      }, 100);
       
     } catch (err) {
       console.error("Registration error:", err);
