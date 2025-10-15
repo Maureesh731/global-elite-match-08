@@ -132,13 +132,9 @@ export const useApplicationSubmission = () => {
       
       onSuccess();
       
-      // Navigate to profile after success message for all users
+      // Navigate to welcome page after success message
       setTimeout(() => {
-        // Navigate to appropriate profile page based on member profile name
-        // Simple heuristic: if profile name suggests female, go to ladies page
-        const profileName = form.memberProfileName.toLowerCase();
-        const isFemale = profileName.includes('lady') || profileName.includes('miss') || profileName.includes('ms');
-        navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
+        navigate('/welcome');
       }, 2500);
     } catch (error) {
       console.error("Application submission error:", error);

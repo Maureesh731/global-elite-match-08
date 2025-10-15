@@ -55,6 +55,8 @@ export default function ProfileSearch() {
   const [profiles, setProfiles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [filteredProfiles, setFilteredProfiles] = useState<any[]>([]);
+  const [isApproved, setIsApproved] = useState(false);
+  const [checkingApproval, setCheckingApproval] = useState(true);
 
   // Filter state
   const [ageRange, setAgeRange] = useState({ min: 18, max: 50 });
@@ -67,6 +69,40 @@ export default function ProfileSearch() {
   const [petOwner, setPetOwner] = useState<string>("any");
   const [unvaccinatedOnly, setUnvaccinatedOnly] = useState(false);
   const [bloodTestOnly, setBloodTestOnly] = useState(false);
+
+  // Check if current user is approved
+  useEffect(() => {
+    const checkUserApproval = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        if (!user) {
+          setIsApproved(false);
+          setCheckingApproval(false);
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from('applications')
+          .select('status')
+          .eq('user_id', user.id)
+          .single();
+
+        if (error || !data) {
+          setIsApproved(false);
+        } else {
+          setIsApproved(data.status === 'approved');
+        }
+      } catch (error) {
+        console.error('Error checking approval:', error);
+        setIsApproved(false);
+      } finally {
+        setCheckingApproval(false);
+      }
+    };
+
+    checkUserApproval();
+  }, []);
 
   // Fetch approved profiles from applications table
   useEffect(() => {
@@ -169,6 +205,31 @@ export default function ProfileSearch() {
     setEthnicities([]);
     setPetOwner("any");
   };
+
+  if (checkingApproval) {
+    return (
+      <div className="container max-w-3xl mx-auto py-12">
+        <BackToHomeButton />
+        <div className="text-center py-20">
+          <h2 className="text-2xl font-bold mb-4">Checking your approval status...</h2>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isApproved) {
+    return (
+      <div className="container max-w-3xl mx-auto py-12">
+        <BackToHomeButton />
+        <div className="text-center py-20 space-y-4">
+          <h2 className="text-2xl font-bold mb-4">Application Pending Approval</h2>
+          <p className="text-gray-600">Your application is currently being reviewed by our admin team.</p>
+          <p className="text-gray-600">You'll be able to search profiles once your application is approved.</p>
+          <p className="text-sm text-gray-500 mt-4">This usually takes 24-48 hours.</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!userGender)
     return (
