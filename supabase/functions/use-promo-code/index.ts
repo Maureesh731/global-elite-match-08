@@ -46,29 +46,25 @@ serve(async (req) => {
       });
     }
 
-    // Check current usage count
-    const { count, error: usageError } = await supabaseClient
-      .from("promo_usage")
-      .select("*", { count: "exact", head: true })
-      .eq("promo_code", promoCodeData.code);
+    // Use atomic operation to increment current_uses and check limit in one query
+    const { data: updateData, error: updateError } = await supabaseClient
+      .from("promo_codes")
+      .update({ current_uses: promoCodeData.current_uses + 1 })
+      .eq("id", promoCodeData.id)
+      .lt("current_uses", promoCodeData.max_uses)
+      .eq("is_active", true)
+      .select()
+      .single();
 
-    if (usageError) {
-      console.error("Error checking promo usage:", usageError);
-      return new Response(JSON.stringify({ error: "Database error" }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 500,
-      });
-    }
-
-    const usageCount = count || 0;
-    console.log(`Current usage count: ${usageCount}/${promoCodeData.max_uses}`);
-    
-    if (usageCount >= promoCodeData.max_uses) {
+    if (updateError || !updateData) {
+      console.log("Promo code limit reached or already inactive");
       return new Response(JSON.stringify({ error: "Promo code limit reached" }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 400,
       });
     }
+
+    console.log(`Promo code usage incremented: ${updateData.current_uses}/${promoCodeData.max_uses}`);
 
     // For free applications, we don't require authentication yet
     // Just record the usage with a temporary identifier
