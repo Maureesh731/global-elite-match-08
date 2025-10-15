@@ -38,13 +38,6 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
     setUploading(true);
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        toast.error("You must be logged in to upload photos");
-        setUploading(false);
-        return;
-      }
-
       const uploadedUrls: string[] = [];
 
       for (const file of filesToUpload) {
@@ -61,7 +54,9 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
         }
 
         const fileExt = file.name.split('.').pop();
-        const fileName = `${user.id}/${Math.random()}.${fileExt}`;
+        // Use random ID for anonymous uploads during application
+        const userId = Math.random().toString(36).substring(7);
+        const fileName = `${userId}/${Math.random()}.${fileExt}`;
         
         const { data, error } = await supabase.storage
           .from('profile-photos')
@@ -80,11 +75,14 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
         uploadedUrls.push(publicUrl);
       }
 
-      const newPhotoUrls = [...photoUrls, ...uploadedUrls];
-      setPhotoUrls(newPhotoUrls);
-      onPhotosChange(newPhotoUrls);
-      
-      toast.success(`${uploadedUrls.length} photo(s) uploaded successfully`);
+      if (uploadedUrls.length > 0) {
+        const newPhotoUrls = [...photoUrls, ...uploadedUrls];
+        setPhotoUrls(newPhotoUrls);
+        onPhotosChange(newPhotoUrls);
+        toast.success(`${uploadedUrls.length} photo(s) uploaded successfully`);
+      } else {
+        toast.error("No photos were uploaded successfully");
+      }
     } catch (error) {
       console.error('Error uploading photos:', error);
       toast.error("Error uploading photos");
