@@ -103,8 +103,16 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
 
   const submitFreeApplication = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    console.log("Free application validation check:", { agreed, isFormValid, isValidPromo });
+    
     if (!agreed || !isFormValid || !isValidPromo) {
-      console.log("Free application validation failed:", { agreed, isFormValid, isValidPromo });
+      console.error("Free application validation failed:", { agreed, isFormValid, isValidPromo });
+      toast({
+        title: "Cannot submit",
+        description: "Please complete all required fields and accept the terms.",
+        variant: "destructive",
+      });
       return;
     }
     
