@@ -112,7 +112,7 @@ serve(async (req) => {
 
     const emailResponse = await resend.emails.send({
       from: 'Untouchable Dating <onboarding@resend.dev>',
-      to: ['ceo@startff.com'],
+      to: ['ceo@maureesh.com'],
       subject: `🔥 New Member Application: ${sanitizeHtml(applicationData.first_name)} ${sanitizeHtml(applicationData.last_name)}`,
       html: htmlContent,
     });
