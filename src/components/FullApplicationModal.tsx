@@ -56,46 +56,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
     
     const currentIsFreeApplication = isFreeProfile || isProcessingFreeApp;
     
-    // For promo code applications, store data and redirect to welcome page
-    if (currentIsFreeApplication && isProcessingFreeApp) {
-      const applicationData = {
-        first_name: form.firstName,
-        last_name: form.lastName,
-        member_profile_name: form.memberProfileName,
-        age: form.age,
-        email: form.email,
-        phone: form.phone,
-        linkedin: form.linkedin,
-        bio: form.bio,
-        has_herpes: form.hasHerpes,
-        has_hiv: form.hasHIV,
-        has_hpv: form.hasHPV,
-        has_other_stds: form.hasOtherSTDs,
-        has_chronic_diseases: form.hasChronicDiseases,
-        covid_vaccinated: form.covidVaccinated,
-        uses_alcohol: form.usesAlcohol,
-        uses_drugs: form.usesDrugs,
-        uses_marijuana: form.usesMarijuana,
-        smokes_cigarettes: form.smokesCigarettes,
-        uses_prescription_drugs: form.usesPrescriptionDrugs,
-        disclosure_authorization: form.disclosureAuthorization,
-        wants_optional_testing: form.wantsOptionalTesting,
-        username: form.username,
-        password: form.password
-      };
-      
-      localStorage.setItem('pendingApplication', JSON.stringify(applicationData));
-      localStorage.setItem('promoCodeUsed', 'true');
-      
-      // Close modal and redirect to welcome page
-      handleModalClose();
-      setTimeout(() => {
-        window.location.href = '/welcome';
-      }, 100);
-      return;
-    }
-    
-    // All other applications go through normal submission (no payments during application)
+    // All applications go through normal submission
     await submitApplication(form, currentIsFreeApplication, () => {
       if (onSubmit) onSubmit(form);
       setShowSubmitSuccess(true);
