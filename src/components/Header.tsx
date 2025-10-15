@@ -155,8 +155,8 @@ export const Header = () => {
           <LanguageSwitcher />
           {user ? (
             <Button 
-              variant="ghost" 
-              className="text-white/80 hover:text-white hover:bg-gray-800/60 font-medium tracking-wide" 
+              variant="outline" 
+              className="bg-gradient-to-r from-red-600/20 to-purple-600/20 border-red-400/40 text-white hover:from-red-600/40 hover:to-purple-600/40 hover:border-red-400/60 font-bold tracking-wide uppercase text-sm shadow-lg shadow-red-600/20" 
               onClick={handleSignOut}
             >
               Sign Out
