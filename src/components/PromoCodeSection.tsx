@@ -103,25 +103,46 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
 
   const submitFreeApplication = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!agreed || !isFormValid || !isValidPromo) return;
+    if (!agreed || !isFormValid || !isValidPromo) {
+      console.log("Free application validation failed:", { agreed, isFormValid, isValidPromo });
+      return;
+    }
     
     setLoading(true);
     
     try {
+      console.log("Calling use-promo-code edge function with:", promoCode.trim());
+      
       // Call the use-promo-code edge function to record usage
       const { data, error } = await supabase.functions.invoke("use-promo-code", {
         body: { promoCode: promoCode.trim() }
       });
 
-      if (error || !data?.success) {
+      console.log("Edge function response:", { data, error });
+
+      if (error) {
+        console.error("Edge function error:", error);
         toast({
           title: "Could not process promo code",
-          description: error?.message || "Please try again",
+          description: error.message || "Please try again",
           variant: "destructive",
         });
         setLoading(false);
         return;
       }
+
+      if (!data?.success) {
+        console.error("Edge function returned unsuccessful:", data);
+        toast({
+          title: "Could not process promo code",
+          description: data?.error || "Please try again",
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+      
+      console.log("Promo code validated successfully, submitting application...");
       
       // Mark as free application before submitting
       if (onFreeApplicationStart) {
@@ -134,9 +155,10 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
       }, 100);
       
     } catch (err) {
+      console.error("Free application submission error:", err);
       toast({
         title: "Registration failed",
-        description: "Please try again",
+        description: err instanceof Error ? err.message : "Please try again",
         variant: "destructive",
       });
       setLoading(false);

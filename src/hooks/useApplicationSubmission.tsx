@@ -61,10 +61,14 @@ export const useApplicationSubmission = () => {
       });
 
       if (authError) {
+        console.error("Auth signup error:", authError);
+        toast.error(`Registration failed: ${authError.message}`);
         return;
       }
 
       if (!authData.user) {
+        console.error("No user returned from signup");
+        toast.error("Registration failed: No user created");
         return;
       }
 
@@ -102,6 +106,8 @@ export const useApplicationSubmission = () => {
         .insert([applicationData]);
       
       if (dbError) {
+        console.error("Database insert error:", dbError);
+        toast.error(`Application save failed: ${dbError.message}`);
         return;
       }
 
@@ -135,17 +141,8 @@ export const useApplicationSubmission = () => {
         navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
       }, 2500);
     } catch (error) {
-      // Show success even if there are issues since we want good UX
-      onSuccess();
-      
-      // Navigate to profile after success message for all users
-      setTimeout(() => {
-        // Navigate to appropriate profile page based on member profile name
-        // Simple heuristic: if profile name suggests female, go to ladies page
-        const profileName = form.memberProfileName.toLowerCase();
-        const isFemale = profileName.includes('lady') || profileName.includes('miss') || profileName.includes('ms');
-        navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
-      }, 2500);
+      console.error("Application submission error:", error);
+      toast.error("An unexpected error occurred. Please try again.");
     }
   };
 
