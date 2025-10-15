@@ -2,6 +2,15 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
+import { z } from 'zod';
+
+const bidSchema = z.object({
+  bidAmount: z.number()
+    .positive('Bid must be positive')
+    .min(0.01, 'Minimum bid is $0.01')
+    .max(10000000, 'Maximum bid is $10,000,000')
+    .multipleOf(0.01, 'Bid must be in cents')
+});
 
 export interface DonationAuction {
   id: string;
@@ -168,7 +177,29 @@ export const useAuctionBids = (auctionId: string) => {
       return false;
     }
 
+    // Validate bid amount
+    const bidInDollars = bidAmount / 100;
+    const validation = bidSchema.safeParse({ bidAmount: bidInDollars });
+    if (!validation.success) {
+      toast.error(validation.error.errors[0].message);
+      return false;
+    }
+
     try {
+      // Fetch current auction to validate bid exceeds current highest
+      const { data: auction, error: fetchError } = await supabase
+        .from('donation_auctions')
+        .select('current_highest_bid')
+        .eq('id', auctionId)
+        .single();
+
+      if (fetchError) throw fetchError;
+
+      if (bidAmount <= auction.current_highest_bid) {
+        toast.error('Bid must exceed current highest bid');
+        return false;
+      }
+
       const { error } = await supabase
         .from('auction_bids')
         .insert([{
