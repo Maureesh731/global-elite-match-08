@@ -147,7 +147,21 @@ export const useApplicationSubmission = () => {
       });
       
       if (emailError) {
-        // Continue even if email fails since data is saved
+        console.error('Application email error:', emailError);
+      }
+
+      // Send admin notification email
+      const { error: adminEmailError } = await supabase.functions.invoke("send-admin-notification", {
+        body: { 
+          applicantName: `${form.firstName} ${form.lastName}`,
+          applicantEmail: form.email,
+          membershipType: isFreeApplication ? 'Free' : 'Paid',
+          applicationId: authData.user.id
+        }
+      });
+      
+      if (adminEmailError) {
+        console.error('Admin notification error:', adminEmailError);
       }
       
       onSuccess();
