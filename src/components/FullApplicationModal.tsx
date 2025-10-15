@@ -29,7 +29,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
   const onOpenChange = controlledOnOpenChange || setInternalOpen;
 
-  const { form, handleInput, isFormValid, resetForm } = useApplicationForm();
+  const { form, handleInput, setPhotoUrl, isFormValid, resetForm } = useApplicationForm();
   const { submitApplication } = useApplicationSubmission();
   
   const [agreed, setAgreed] = useState(false);
@@ -92,6 +92,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
                 <FullApplicationModalFormFields
                   form={form}
                   handleInput={handleInput}
+                  setPhotoUrl={setPhotoUrl}
                 />
                 <FullApplicationModalDisclaimer
                   agreed={agreed}

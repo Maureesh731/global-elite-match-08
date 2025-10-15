@@ -28,6 +28,7 @@ import AccreditedClinics from "./pages/AccreditedClinics";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import SubscriptionSetup from "./pages/SubscriptionSetup";
+import ProfilePhotos from "./pages/ProfilePhotos";
 import Contact from "./pages/Contact";
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -61,6 +62,7 @@ const App = () => (
             <Route path="/donation-auctions" element={<DonationAuctions />} />
             <Route path="/donation-profile-setup" element={<DonationProfileSetup />} />
             <Route path="/accredited-clinics" element={<AccreditedClinics />} />
+            <Route path="/profile-photos" element={<ProfilePhotos />} />
             <Route path="/contact" element={<Contact />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="/networking" element={<NetworkingPage />} />

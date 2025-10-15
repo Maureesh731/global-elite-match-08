@@ -111,6 +111,26 @@ export const useApplicationSubmission = () => {
         return;
       }
 
+      // Create initial profile with photo
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert([{
+          user_id: authData.user.id,
+          full_name: `${form.firstName} ${form.lastName}`,
+          age: form.age,
+          bio: form.bio,
+          gender: form.memberProfileName.toLowerCase().includes('lady') || 
+                 form.memberProfileName.toLowerCase().includes('miss') ? 'female' : 'male',
+          membership_type: isFreeApplication ? 'free' : 'paid',
+          status: 'pending',
+          photo_urls: form.photoUrl ? [form.photoUrl] : []
+        }]);
+
+      if (profileError) {
+        console.error('Profile creation error:', profileError);
+        // Don't fail the whole process if profile creation fails
+      }
+
       // Create message restriction record for free users
       if (isFreeApplication && authData.user) {
         await supabase

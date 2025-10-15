@@ -9,6 +9,8 @@ export type ApplicationFormState = {
   phone: string;
   linkedin: string;
   bio: string;
+  // Photo
+  photoUrl: string;
   // Authentication credentials
   username: string;
   password: string;
@@ -39,6 +41,7 @@ const initialFormState: ApplicationFormState = {
   phone: "",
   linkedin: "",
   bio: "",
+  photoUrl: "",
   // Authentication credentials
   username: "",
   password: "",
@@ -70,6 +73,10 @@ export const useApplicationForm = () => {
     setForm((f) => ({ ...f, [name]: value }));
   };
 
+  const setPhotoUrl = (url: string) => {
+    setForm((f) => ({ ...f, photoUrl: url }));
+  };
+
   const isFormValid = (agreed: boolean) => {
     const requiredFields = [
       form.firstName.trim(),
@@ -80,6 +87,7 @@ export const useApplicationForm = () => {
       form.phone.trim(),
       form.linkedin.trim(),
       form.bio.trim(),
+      form.photoUrl.trim(), // Photo is required
       form.username.trim(),
       form.password.trim(),
       form.confirmPassword.trim()
@@ -130,6 +138,7 @@ export const useApplicationForm = () => {
   return {
     form,
     handleInput,
+    setPhotoUrl,
     isFormValid,
     resetForm
   };
