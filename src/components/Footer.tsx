@@ -121,7 +121,11 @@ export const Footer = () => {
           <div>
             <h3 className="font-bold text-white mb-6 text-lg">Support</h3>
             <ul className="space-y-3 text-gray-400">
-              <li><a href="#" className="hover:text-purple-400 transition-colors">Contact Us</a></li>
+              <li>
+                <Link to="/contact" className="hover:text-purple-400 transition-colors">
+                  Contact Us
+                </Link>
+              </li>
               <li><a href="#" className="hover:text-purple-400 transition-colors">Privacy Policy</a></li>
               <li><a href="#" className="hover:text-purple-400 transition-colors">Terms of Service</a></li>
               <li><a href="#" className="hover:text-purple-400 transition-colors">Safety Guidelines</a></li>
