@@ -85,12 +85,11 @@ const Welcome = () => {
         return;
       }
 
-      // Prepare complete application data with user_id
+      // Prepare complete application data with user_id (no password storage)
       const completeApplicationData = {
         ...parsedApplicationData,
         user_id: authData.user.id,
         username: username,
-        password_hash: password,
         membership_type: 'free',
         status: 'pending'
       };

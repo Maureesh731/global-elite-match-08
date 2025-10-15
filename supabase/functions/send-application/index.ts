@@ -17,7 +17,26 @@ serve(async (req) => {
   try {
     const { applicationData } = await req.json();
     
-    console.log('Sending application review email for:', applicationData.email);
+    // Validate applicationData
+    if (!applicationData || typeof applicationData !== 'object') {
+      return new Response(
+        JSON.stringify({ error: 'Invalid application data' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      );
+    }
+
+    // Sanitize HTML function to prevent XSS in emails
+    const sanitizeHtml = (text: string): string => {
+      if (!text) return '';
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    };
+    
+    console.log('Sending application review email for:', sanitizeHtml(applicationData.email));
     
     // Create HTML email template for application review
     const htmlContent = `
@@ -50,18 +69,18 @@ serve(async (req) => {
             <div class="content">
               <div class="section">
                 <h2>👤 Personal Information</h2>
-                <div class="field"><span class="label">Full Name:</span><span class="value">${applicationData.first_name} ${applicationData.last_name}</span></div>
-                <div class="field"><span class="label">Member Profile Name:</span><span class="value">${applicationData.member_profile_name}</span></div>
-                <div class="field"><span class="label">Username:</span><span class="value">${applicationData.username}</span></div>
-                <div class="field"><span class="label">Age:</span><span class="value">${applicationData.age}</span></div>
-                <div class="field"><span class="label">Email:</span><span class="value">${applicationData.email}</span></div>
-                <div class="field"><span class="label">Phone:</span><span class="value">${applicationData.phone}</span></div>
-                <div class="field"><span class="label">LinkedIn:</span><span class="value">${applicationData.linkedin || 'Not provided'}</span></div>
+                <div class="field"><span class="label">Full Name:</span><span class="value">${sanitizeHtml(applicationData.first_name)} ${sanitizeHtml(applicationData.last_name)}</span></div>
+                <div class="field"><span class="label">Member Profile Name:</span><span class="value">${sanitizeHtml(applicationData.member_profile_name)}</span></div>
+                <div class="field"><span class="label">Username:</span><span class="value">${sanitizeHtml(applicationData.username)}</span></div>
+                <div class="field"><span class="label">Age:</span><span class="value">${sanitizeHtml(applicationData.age)}</span></div>
+                <div class="field"><span class="label">Email:</span><span class="value">${sanitizeHtml(applicationData.email)}</span></div>
+                <div class="field"><span class="label">Phone:</span><span class="value">${sanitizeHtml(applicationData.phone)}</span></div>
+                <div class="field"><span class="label">LinkedIn:</span><span class="value">${sanitizeHtml(applicationData.linkedin || 'Not provided')}</span></div>
               </div>
 
               <div class="section">
                 <h2>📝 Bio</h2>
-                <p>${applicationData.bio}</p>
+                <p>${sanitizeHtml(applicationData.bio)}</p>
               </div>
               
               <div class="section health-section">
@@ -94,7 +113,7 @@ serve(async (req) => {
     const emailResponse = await resend.emails.send({
       from: 'Untouchable Dating <onboarding@resend.dev>',
       to: ['ceo@startff.com'],
-      subject: `🔥 New Member Application: ${applicationData.first_name} ${applicationData.last_name}`,
+      subject: `🔥 New Member Application: ${sanitizeHtml(applicationData.first_name)} ${sanitizeHtml(applicationData.last_name)}`,
       html: htmlContent,
     });
 

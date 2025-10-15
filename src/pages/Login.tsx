@@ -21,7 +21,7 @@ const Login = () => {
       // Query applications table to check if user exists and is approved
       const { data: application, error } = await supabase
         .from('applications')
-        .select('email, password_hash, status')
+        .select('email, status')
         .eq('username', username)
         .single();
 
@@ -35,7 +35,7 @@ const Login = () => {
         return;
       }
 
-      // Use Supabase Auth for secure authentication
+      // Use Supabase Auth for secure authentication (password hashing handled by Supabase)
       const { error: authError } = await supabase.auth.signInWithPassword({
         email: application.email,
         password: password

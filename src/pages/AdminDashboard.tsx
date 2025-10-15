@@ -124,8 +124,18 @@ const AdminDashboard = () => {
         return;
       }
 
-      // Send application response email and update database
-      const { error } = await supabase.functions.invoke('send-application-response', {
+      // Call server-side edge function to update application with admin verification
+      const { error: approveError } = await supabase.functions.invoke('admin-approve-application', {
+        body: {
+          applicationId,
+          action
+        }
+      });
+
+      if (approveError) throw approveError;
+
+      // Send application response email
+      const { error: emailError } = await supabase.functions.invoke('send-application-response', {
         body: {
           applicationId,
           status: action,
@@ -137,22 +147,28 @@ const AdminDashboard = () => {
         }
       });
 
-      if (error) throw error;
+      if (emailError) {
+        console.error('Email error:', emailError);
+        // Continue even if email fails
+      }
       
-      toast.success(`Application ${action} successfully and email sent`);
+      toast.success(`Application ${action} successfully`);
       fetchData();
     } catch (error) {
       console.error('Error updating application:', error);
-      toast.error('Failed to update application or send email');
+      toast.error('Failed to update application');
     }
   };
 
   const handleProfileAction = async (profileId: string, action: 'approved' | 'denied') => {
     try {
-      const { error } = await supabase
-        .from('profiles')
-        .update({ status: action })
-        .eq('id', profileId);
+      // Call server-side edge function with admin verification
+      const { error } = await supabase.functions.invoke('admin-update-profile', {
+        body: {
+          profileId,
+          status: action
+        }
+      });
 
       if (error) throw error;
       

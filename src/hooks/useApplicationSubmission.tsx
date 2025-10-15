@@ -32,7 +32,7 @@ export const useApplicationSubmission = () => {
         return;
       }
 
-      // Transform form data to match database schema
+      // Transform form data to match database schema (no password storage)
       const applicationData = {
         user_id: authData.user.id,
         first_name: form.firstName,
@@ -44,7 +44,6 @@ export const useApplicationSubmission = () => {
         linkedin: form.linkedin,
         bio: form.bio,
         username: form.username,
-        password_hash: form.password,
         has_herpes: form.hasHerpes,
         has_hiv: form.hasHIV,
         has_hpv: form.hasHPV,

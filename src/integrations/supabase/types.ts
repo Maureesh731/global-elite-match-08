@@ -33,7 +33,6 @@ export type Database = {
           linkedin: string | null
           member_profile_name: string
           membership_type: string
-          password_hash: string
           phone: string
           review_notes: string | null
           reviewed_at: string | null
@@ -65,7 +64,6 @@ export type Database = {
           linkedin?: string | null
           member_profile_name: string
           membership_type?: string
-          password_hash: string
           phone: string
           review_notes?: string | null
           reviewed_at?: string | null
@@ -97,7 +95,6 @@ export type Database = {
           linkedin?: string | null
           member_profile_name?: string
           membership_type?: string
-          password_hash?: string
           phone?: string
           review_notes?: string | null
           reviewed_at?: string | null
