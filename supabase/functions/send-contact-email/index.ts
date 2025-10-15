@@ -9,6 +9,16 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+// HTML sanitization function to prevent XSS attacks
+const escapeHtml = (text: string): string => {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+};
+
 interface ContactRequest {
   name: string;
   email: string;
@@ -54,12 +64,12 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("[CONTACT] Sending email notification");
 
-    // Send email to CEO
+    // Send email to CEO (with sanitized user input)
     const emailResponse = await resend.emails.send({
       from: "Untouchable Dating <onboarding@resend.dev>",
       to: ["ceo@maureesh.com"],
       replyTo: email,
-      subject: `Contact Form: ${subject}`,
+      subject: `Contact Form: ${escapeHtml(subject)}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #7c3aed; border-bottom: 2px solid #7c3aed; padding-bottom: 10px;">
@@ -67,21 +77,21 @@ const handler = async (req: Request): Promise<Response> => {
           </h2>
           
           <div style="background-color: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <p style="margin: 10px 0;"><strong>From:</strong> ${name}</p>
-            <p style="margin: 10px 0;"><strong>Email:</strong> ${email}</p>
-            <p style="margin: 10px 0;"><strong>Subject:</strong> ${subject}</p>
+            <p style="margin: 10px 0;"><strong>From:</strong> ${escapeHtml(name)}</p>
+            <p style="margin: 10px 0;"><strong>Email:</strong> ${escapeHtml(email)}</p>
+            <p style="margin: 10px 0;"><strong>Subject:</strong> ${escapeHtml(subject)}</p>
           </div>
           
           <div style="margin: 20px 0;">
             <h3 style="color: #374151; margin-bottom: 10px;">Message:</h3>
             <div style="background-color: #ffffff; padding: 20px; border-left: 4px solid #7c3aed; border-radius: 4px;">
-              ${message.replace(/\n/g, '<br>')}
+              ${escapeHtml(message).replace(/\n/g, '<br>')}
             </div>
           </div>
           
           <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 12px;">
             <p>This email was sent from the Untouchable Dating contact form.</p>
-            <p>Reply directly to this email to respond to ${name}.</p>
+            <p>Reply directly to this email to respond to ${escapeHtml(name)}.</p>
           </div>
         </div>
       `,
@@ -94,14 +104,14 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("[CONTACT] Email sent successfully:", emailResponse.data?.id);
 
-    // Send confirmation email to user
+    // Send confirmation email to user (with sanitized user input)
     await resend.emails.send({
       from: "Untouchable Dating <onboarding@resend.dev>",
       to: [email],
       subject: "We received your message!",
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #7c3aed;">Thank you for contacting us, ${name}!</h2>
+          <h2 style="color: #7c3aed;">Thank you for contacting us, ${escapeHtml(name)}!</h2>
           
           <p style="color: #374151; line-height: 1.6;">
             We have received your message and our team will get back to you as soon as possible, 
@@ -110,7 +120,7 @@ const handler = async (req: Request): Promise<Response> => {
           
           <div style="background-color: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <p style="margin: 5px 0; color: #6b7280;"><strong>Your message:</strong></p>
-            <p style="margin: 10px 0; color: #374151;">${message.substring(0, 200)}${message.length > 200 ? '...' : ''}</p>
+            <p style="margin: 10px 0; color: #374151;">${escapeHtml(message.substring(0, 200))}${message.length > 200 ? '...' : ''}</p>
           </div>
           
           <p style="color: #374151; line-height: 1.6;">
