@@ -32,8 +32,8 @@ const Welcome = () => {
       return;
     }
 
-    if (password.length < 6) {
-      toast.error("Password must be at least 6 characters");
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters");
       return;
     }
 
@@ -46,11 +46,11 @@ const Welcome = () => {
 
     try {
       // Check if username is already taken
-      const { data: existingUser, error: checkError } = await supabase
+      const { data: existingUser } = await supabase
         .from('applications')
         .select('username')
         .eq('username', username)
-        .single();
+        .maybeSingle();
 
       if (existingUser) {
         toast.error("Username is already taken. Please choose another.");
@@ -58,12 +58,41 @@ const Welcome = () => {
         return;
       }
 
-      // Prepare complete application data
+      // Create Supabase auth user first
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: parsedApplicationData.email,
+        password: password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/`,
+          data: {
+            first_name: parsedApplicationData.first_name,
+            last_name: parsedApplicationData.last_name,
+            username: username
+          }
+        }
+      });
+
+      if (authError) {
+        console.error('Auth error:', authError);
+        toast.error("Failed to create account: " + authError.message);
+        setIsLoading(false);
+        return;
+      }
+
+      if (!authData.user) {
+        toast.error("Failed to create account. Please try again.");
+        setIsLoading(false);
+        return;
+      }
+
+      // Prepare complete application data with user_id
       const completeApplicationData = {
         ...parsedApplicationData,
+        user_id: authData.user.id,
         username: username,
-        password_hash: password, // In production, this should be hashed
-        status: 'pending' // Will be approved by admin
+        password_hash: password,
+        membership_type: 'free',
+        status: 'pending'
       };
 
       // Save application to database
@@ -77,6 +106,14 @@ const Welcome = () => {
         setIsLoading(false);
         return;
       }
+
+      // Create message restriction record for free user
+      await supabase
+        .from('message_restrictions')
+        .insert([{
+          user_id: authData.user.id,
+          can_send_messages: false
+        }]);
 
       // Send application data to email
       const { error: emailError } = await supabase.functions.invoke("send-application", {
@@ -92,18 +129,16 @@ const Welcome = () => {
       localStorage.removeItem('pendingApplication');
       localStorage.removeItem('promoCodeUsed');
 
-      toast.success("Account created successfully! Your application is pending admin approval.");
+      toast.success("Account created successfully! Your application is pending admin approval. You'll receive an email when approved.");
       
-      // Navigate to appropriate profile page based on member profile name
+      // Navigate to login page
       setTimeout(() => {
-        const profileName = completeApplicationData.member_profile_name.toLowerCase();
-        const isFemale = profileName.includes('lady') || profileName.includes('miss') || profileName.includes('ms');
-        navigate(isFemale ? '/ladies-profile' : '/gentlemen-profile');
+        navigate('/login');
       }, 2000);
 
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error creating account:", error);
-      toast.error("Failed to create account. Please try again.");
+      toast.error("Failed to create account: " + (error.message || "Please try again."));
     } finally {
       setIsLoading(false);
     }
@@ -162,9 +197,9 @@ const Welcome = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter password (min 6 characters)"
+                placeholder="Enter password (min 8 characters)"
                 required
-                minLength={6}
+                minLength={8}
               />
             </div>
             <div>
@@ -176,7 +211,7 @@ const Welcome = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
                 required
-                minLength={6}
+                minLength={8}
               />
             </div>
             <Button
