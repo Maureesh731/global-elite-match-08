@@ -79,7 +79,7 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
         const newPhotoUrls = [...photoUrls, ...uploadedUrls];
         setPhotoUrls(newPhotoUrls);
         onPhotosChange(newPhotoUrls);
-        toast.success(`✓ Photo uploaded successfully!`);
+        toast.success("✓ Photo uploaded successfully!");
       } else {
         toast.error("No photos were uploaded successfully");
       }
