@@ -9,6 +9,7 @@ import { PromoCodeSection } from "./PromoCodeSection";
 import { ApplicationSuccessMessage } from "./ApplicationSuccessMessage";
 import { useApplicationForm } from "@/hooks/useApplicationForm";
 import { useApplicationSubmission } from "@/hooks/useApplicationSubmission";
+import { useToast } from "@/hooks/use-toast";
 
 type FullApplicationModalProps = {
   children?: React.ReactNode;
@@ -31,6 +32,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
 
   const { form, handleInput, setPhotoUrl, isFormValid, resetForm } = useApplicationForm();
   const { submitApplication } = useApplicationSubmission();
+  const { toast } = useToast();
   
   const [agreed, setAgreed] = useState(false);
   const [showSubmitSuccess, setShowSubmitSuccess] = useState(false);
@@ -52,7 +54,23 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isFormValid(agreed)) return;
+    
+    console.log("Form submission attempt:", { 
+      isValid: isFormValid(agreed), 
+      agreed, 
+      photoUrl: form.photoUrl,
+      isFreeProfile,
+      isProcessingFreeApp
+    });
+    
+    if (!isFormValid(agreed)) {
+      toast({
+        title: "Form incomplete",
+        description: "Please fill all required fields including uploading a photo",
+        variant: "destructive"
+      });
+      return;
+    }
     
     const currentIsFreeApplication = isFreeProfile || isProcessingFreeApp;
     

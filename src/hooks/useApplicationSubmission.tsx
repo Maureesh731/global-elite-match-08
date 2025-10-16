@@ -27,6 +27,14 @@ export const useApplicationSubmission = () => {
     onSuccess: () => void
   ) => {
     try {
+      console.log("Starting application submission...", { isFreeApplication });
+      
+      // Validate that photo is uploaded
+      if (!form.photoUrl || form.photoUrl.trim() === "") {
+        toast.error("Please upload a profile photo before submitting");
+        return;
+      }
+      
       // Validate application data
       const validation = applicationSchema.safeParse({
         firstName: form.firstName,
