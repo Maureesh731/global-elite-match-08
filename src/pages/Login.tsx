@@ -18,38 +18,40 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      // Query applications table to check if user exists and is approved
+      // Query applications table to get email
       const { data: application, error } = await supabase
         .from('applications')
         .select('email, status')
         .eq('username', username)
         .single();
 
-      if (error || !application) {
-        toast.error("Invalid username or password");
-        return;
-      }
-
-      if (application.status !== 'approved') {
-        toast.error("Your application is still pending approval");
-        return;
-      }
-
-      // Use Supabase Auth for secure authentication (password hashing handled by Supabase)
+      // Always attempt authentication to prevent timing attacks
+      // Use a dummy email if username not found
+      const emailToUse = application?.email || 'nonexistent@dummy.com';
+      
       const { error: authError } = await supabase.auth.signInWithPassword({
-        email: application.email,
+        email: emailToUse,
         password: password
       });
 
-      if (authError) {
+      // Check all conditions after authentication attempt
+      // This prevents username enumeration through timing or different error messages
+      if (error || !application || authError) {
         toast.error("Invalid username or password");
+        return;
+      }
+
+      // Only check approval status after successful authentication
+      if (application.status !== 'approved') {
+        await supabase.auth.signOut();
+        toast.error("Your application is still pending approval");
         return;
       }
 
       toast.success("Login successful!");
       navigate('/');
     } catch (error) {
-      toast.error("Login failed");
+      toast.error("Invalid username or password");
     } finally {
       setIsLoading(false);
     }
