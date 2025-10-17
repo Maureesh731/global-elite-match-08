@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FeaturedMembers } from "@/components/FeaturedMembers";
 import { FullApplicationModal } from "@/components/FullApplicationModal";
 import { useUserSubscription } from "@/hooks/useUserSubscription";
+import { VisitorCounter } from "@/components/VisitorCounter";
 import { useState } from "react";
 
 const Index = () => {
@@ -38,6 +39,7 @@ const Index = () => {
       <Testimonials />
       <FeaturedMembers />
       <div className="container mx-auto py-16 flex flex-col items-center gap-6">
+        <VisitorCounter />
         <div className="flex flex-wrap gap-6 justify-center">
           <Button 
             onClick={() => handleButtonClick("/gentlemen-profile")}
