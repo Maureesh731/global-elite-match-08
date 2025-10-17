@@ -1,165 +1,72 @@
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { BackToHomeButton } from "@/components/BackToHomeButton";
+import { toast } from "sonner";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { CheckCircle2, Clock } from "lucide-react";
 
 const Welcome = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [applicationStatus, setApplicationStatus] = useState<'pending' | 'approved' | null>(null);
+  const [userName, setUserName] = useState<string>("");
 
-  // Get application data from localStorage
-  const applicationData = localStorage.getItem('pendingApplication');
-  const parsedApplicationData = applicationData ? JSON.parse(applicationData) : null;
+  useEffect(() => {
+    checkApplicationStatus();
+  }, []);
 
-  const handleSetup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!parsedApplicationData) {
-      toast.error("No application data found. Please start over.");
-      navigate('/');
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
-
-    if (password.length < 8) {
-      toast.error("Password must be at least 8 characters");
-      return;
-    }
-
-    if (username.length < 3) {
-      toast.error("Username must be at least 3 characters");
-      return;
-    }
-
-    setIsLoading(true);
-
+  const checkApplicationStatus = async () => {
     try {
-      // Check if username is already taken
-      const { data: existingUser } = await supabase
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        navigate('/login');
+        return;
+      }
+
+      // Check application status
+      const { data: application } = await supabase
         .from('applications')
-        .select('username')
-        .eq('username', username)
+        .select('status, first_name')
+        .eq('user_id', user.id)
         .maybeSingle();
 
-      if (existingUser) {
-        toast.error("Username is already taken. Please choose another.");
-        setIsLoading(false);
-        return;
+      if (application) {
+        setApplicationStatus(application.status as 'pending' | 'approved');
+        setUserName(application.first_name);
       }
-
-      // Create Supabase auth user first
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: parsedApplicationData.email,
-        password: password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/`,
-          data: {
-            first_name: parsedApplicationData.first_name,
-            last_name: parsedApplicationData.last_name,
-            username: username
-          }
-        }
-      });
-
-      if (authError) {
-        console.error('Auth error:', authError);
-        toast.error("Failed to create account: " + authError.message);
-        setIsLoading(false);
-        return;
-      }
-
-      if (!authData.user) {
-        toast.error("Failed to create account. Please try again.");
-        setIsLoading(false);
-        return;
-      }
-
-      // Prepare complete application data with user_id (no password storage)
-      const completeApplicationData = {
-        ...parsedApplicationData,
-        user_id: authData.user.id,
-        username: username,
-        membership_type: 'free',
-        status: 'pending'
-      };
-
-      // Save application to database
-      const { error: dbError } = await supabase
-        .from('applications')
-        .insert([completeApplicationData]);
-      
-      if (dbError) {
-        console.error("Error saving application to database:", dbError);
-        toast.error("Failed to save application. Please try again.");
-        setIsLoading(false);
-        return;
-      }
-
-      // Create message restriction record for free user
-      await supabase
-        .from('message_restrictions')
-        .insert([{
-          user_id: authData.user.id,
-          can_send_messages: false
-        }]);
-
-      // Send application data to email
-      const { error: emailError } = await supabase.functions.invoke("send-application", {
-        body: { applicationData: completeApplicationData }
-      });
-      
-      if (emailError) {
-        console.error("Error sending application email:", emailError);
-        // Continue even if email fails since data is saved
-      }
-
-      // Clear stored application data
-      localStorage.removeItem('pendingApplication');
-      localStorage.removeItem('promoCodeUsed');
-
-      toast.success("Account created successfully! Your application is pending admin approval. You'll receive an email when approved.");
-      
-      // Navigate to login page
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
-
-    } catch (error: any) {
-      console.error("Error creating account:", error);
-      toast.error("Failed to create account: " + (error.message || "Please try again."));
+    } catch (error) {
+      console.error('Error checking status:', error);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
-  if (!parsedApplicationData) {
+  if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black flex items-center justify-center">
-        <Card className="w-full max-w-md mx-4">
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center">
+        <Clock className="w-12 h-12 animate-spin text-purple-600" />
+      </div>
+    );
+  }
+
+  if (applicationStatus === 'approved') {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center p-4">
+        <Card className="max-w-md w-full bg-gray-800 border-gray-700">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold text-red-500">Error</CardTitle>
-            <CardDescription>
-              No application data found. Please start over.
+            <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
+            <CardTitle className="text-white text-2xl">Application Approved!</CardTitle>
+            <CardDescription className="text-gray-300">
+              Welcome {userName}! Your application has been approved.
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <Button 
-              onClick={() => navigate('/')}
-              className="w-full"
-            >
-              Go to Home
-            </Button>
+          <CardContent className="space-y-4">
+            <p className="text-gray-400 text-center">
+              You can now access all member features including profile search and messaging.
+            </p>
+            <BackToHomeButton className="w-full" />
           </CardContent>
         </Card>
       </div>
@@ -167,67 +74,34 @@ const Welcome = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black flex items-center justify-center">
-      <Card className="w-full max-w-md mx-4">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center p-4">
+      <Card className="max-w-md w-full bg-gray-800 border-gray-700">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Welcome to Untouchable Dating!</CardTitle>
-          <CardDescription>
-            Set up your username and password to complete your free application
+          <Clock className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
+          <CardTitle className="text-white text-2xl">Application Submitted!</CardTitle>
+          <CardDescription className="text-gray-300">
+            Welcome {userName}! Your application is under review.
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSetup} className="space-y-4">
-            <div>
-              <Label htmlFor="username">Choose a Username</Label>
-              <Input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter username (min 3 characters)"
-                required
-                minLength={3}
-              />
-            </div>
-            <div>
-              <Label htmlFor="password">Choose a Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter password (min 8 characters)"
-                required
-                minLength={8}
-              />
-            </div>
-            <div>
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm your password"
-                required
-                minLength={8}
-              />
-            </div>
-            <Button
-              type="submit"
-              className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400"
-              disabled={isLoading}
-            >
-              {isLoading ? "Creating Account..." : "Complete Application"}
-            </Button>
-          </form>
-          <div className="mt-4 p-3 bg-green-100 border border-green-300 rounded-md">
-            <p className="text-sm text-green-800">
-              ✅ Free 1-year access approved with promo code!
+        <CardContent className="space-y-4">
+          <div className="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4">
+            <h3 className="text-yellow-500 font-semibold mb-2">Awaiting Approval</h3>
+            <p className="text-gray-300 text-sm">
+              Your application is currently being reviewed by our team. This typically takes 24-48 hours.
             </p>
-            <p className="text-xs text-green-600 mt-1">
-              Your profile will go live once approved by our team.
-            </p>
+          </div>
+          
+          <div className="space-y-3 text-sm text-gray-300">
+            <p className="font-semibold text-white">What happens next?</p>
+            <ul className="space-y-2 list-disc list-inside">
+              <li>Our team reviews your application</li>
+              <li>You'll receive an email notification once approved</li>
+              <li>After approval, you can access profile search and messaging</li>
+            </ul>
+          </div>
+
+          <div className="pt-4">
+            <BackToHomeButton className="w-full" />
           </div>
         </CardContent>
       </Card>
