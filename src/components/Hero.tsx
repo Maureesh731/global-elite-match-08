@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Star, Shield, Users, Crown } from "lucide-react";
+import { Star, Shield, Users, Crown, Facebook, Instagram } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { FullApplicationModal } from "@/components/FullApplicationModal";
 import heroHealth1 from "@/assets/hero-health-1.jpg";
@@ -92,6 +92,32 @@ export const Hero = () => {
                 <Star className="w-5 h-5 text-white" />
               </div>
               <span className="text-gray-200 font-medium">Premium Quality</span>
+            </div>
+          </div>
+          
+          <div className="mb-12">
+            <p className="text-white text-lg mb-4 font-semibold">Follow Us on Social Media</p>
+            <div className="flex justify-center gap-4">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on Facebook"
+                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
+              >
+                <Facebook className="w-5 h-5" />
+                <span className="font-semibold">Facebook</span>
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow us on Instagram"
+                className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
+              >
+                <Instagram className="w-5 h-5" />
+                <span className="font-semibold">Instagram</span>
+              </a>
             </div>
           </div>
           
