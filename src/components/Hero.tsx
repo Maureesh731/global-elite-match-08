@@ -50,6 +50,12 @@ export const Hero = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
+          <div className="mb-6">
+            <div className="inline-block bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 text-black font-bold px-8 py-3 rounded-full shadow-2xl shadow-yellow-500/50 animate-pulse border-2 border-yellow-300">
+              <span className="text-lg md:text-xl">🚀 COMING SOON 🚀</span>
+            </div>
+          </div>
+          
           <div className="flex justify-center mb-8">
             <Badge className="bg-gradient-to-r from-purple-800/80 to-red-800/80 text-white border-purple-500/50 px-6 py-3 text-sm backdrop-blur-sm shadow-lg shadow-purple-500/20">
               <Crown className="w-4 h-4 mr-2" />
