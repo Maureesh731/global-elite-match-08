@@ -60,7 +60,7 @@ export const useApplicationSubmission = () => {
         email: form.email,
         password: form.password,
         options: {
-          emailRedirectTo: `${window.location.origin}/`,
+          emailRedirectTo: `${window.location.origin}/welcome`,
           data: {
             first_name: form.firstName,
             last_name: form.lastName
@@ -79,6 +79,8 @@ export const useApplicationSubmission = () => {
         toast.error("Registration failed: No user created");
         return;
       }
+
+      console.log("User created successfully:", authData.user.id);
 
       // Transform form data to match database schema (no password storage)
       const applicationData = {
@@ -150,16 +152,21 @@ export const useApplicationSubmission = () => {
       }
 
       // Send application data to email
-      const { error: emailError } = await supabase.functions.invoke("send-application", {
+      console.log("Sending application email...");
+      const { data: emailData, error: emailError } = await supabase.functions.invoke("send-application", {
         body: { applicationData: form }
       });
       
       if (emailError) {
         console.error('Application email error:', emailError);
+        toast.error("Failed to send application email");
+      } else {
+        console.log("Application email sent:", emailData);
       }
 
       // Send admin notification email
-      const { error: adminEmailError } = await supabase.functions.invoke("send-admin-notification", {
+      console.log("Sending admin notification email...");
+      const { data: adminEmailData, error: adminEmailError } = await supabase.functions.invoke("send-admin-notification", {
         body: { 
           applicantName: `${form.firstName} ${form.lastName}`,
           applicantEmail: form.email,
@@ -170,6 +177,9 @@ export const useApplicationSubmission = () => {
       
       if (adminEmailError) {
         console.error('Admin notification error:', adminEmailError);
+        toast.error("Failed to send admin notification");
+      } else {
+        console.log("Admin notification sent:", adminEmailData);
       }
       
       onSuccess();
