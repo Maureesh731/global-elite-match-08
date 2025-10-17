@@ -109,7 +109,7 @@ export const Hero = () => {
                 <span className="font-semibold">Facebook</span>
               </a>
               <a
-                href="https://www.instagram.com/reel/DNOV0Epyu2b/?igsh=dTg4MmU3c3BtazY="
+                href="https://www.instagram.com/untouchabledating?igsh=MTZiNDg2MzZ0MHhrNg=="
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on Instagram"

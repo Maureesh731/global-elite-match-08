@@ -44,7 +44,7 @@ export const Footer = () => {
                 <Facebook className="w-5 h-5" />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/untouchabledating?igsh=MTZiNDg2MzZ0MHhrNg=="
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
