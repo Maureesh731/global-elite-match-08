@@ -138,7 +138,6 @@ export default function ProfileDetail() {
             last_name,
             member_profile_name,
             age,
-            email,
             bio,
             linkedin,
             has_herpes,
@@ -374,9 +373,8 @@ export default function ProfileDetail() {
                   <span className="font-medium">Member Profile:</span>
                   <span className="ml-2 text-gray-700">@{profile.member_profile_name}</span>
                 </div>
-                <div>
-                  <span className="font-medium">Email:</span>
-                  <span className="ml-2 text-gray-700">{profile.email}</span>
+                <div className="text-sm text-gray-600">
+                  Use the "Send Message" button below to contact this member securely through the platform.
                 </div>
               </div>
             </div>
