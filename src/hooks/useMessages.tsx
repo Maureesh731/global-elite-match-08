@@ -8,6 +8,13 @@ const messageSchema = z.object({
     .trim()
     .min(1, 'Message cannot be empty')
     .max(5000, 'Message must be less than 5000 characters')
+    .refine(val => val.length > 0, 'Message cannot be only whitespace')
+    .refine(val => !/<script|javascript:|on\w+=/i.test(val), 'Invalid content detected')
+    .refine(val => {
+      // Check for excessive special characters or potential abuse patterns
+      const specialCharCount = (val.match(/[^a-zA-Z0-9\s.,!?'"()-]/g) || []).length;
+      return specialCharCount < val.length * 0.3; // Less than 30% special chars
+    }, 'Message contains too many special characters')
 });
 
 interface Message {
