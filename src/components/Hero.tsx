@@ -99,7 +99,7 @@ export const Hero = () => {
             <p className="text-white text-lg mb-4 font-semibold">Follow Us on Social Media</p>
             <div className="flex justify-center gap-4">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/groups/1774371110166877/?ref=share&mibextid=NSMWBT"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on Facebook"

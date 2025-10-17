@@ -35,7 +35,7 @@ export const Footer = () => {
             </p>
             <div className="flex items-center space-x-4">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/groups/1774371110166877/?ref=share&mibextid=NSMWBT"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
