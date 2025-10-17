@@ -13,6 +13,7 @@ import { FeaturedMembers } from "@/components/FeaturedMembers";
 import { FullApplicationModal } from "@/components/FullApplicationModal";
 import { useUserSubscription } from "@/hooks/useUserSubscription";
 import { VisitorCounter } from "@/components/VisitorCounter";
+import { LiveMemberCount } from "@/components/LiveMemberCount";
 import { useState } from "react";
 
 const Index = () => {
@@ -39,6 +40,7 @@ const Index = () => {
       <Testimonials />
       <FeaturedMembers />
       <div className="container mx-auto py-16 flex flex-col items-center gap-6">
+        <LiveMemberCount />
         <VisitorCounter />
         <div className="flex flex-wrap gap-6 justify-center">
           <Button 
