@@ -79,6 +79,7 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
         const newPhotoUrls = [...photoUrls, ...uploadedUrls];
         setPhotoUrls(newPhotoUrls);
         onPhotosChange(newPhotoUrls);
+        setUploading(false);
         
         // Show immediate success notification
         toast.success(
@@ -96,13 +97,13 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
           }
         );
       } else {
+        setUploading(false);
         toast.error("No photos were uploaded successfully");
       }
     } catch (error) {
       console.error('Error uploading photos:', error);
-      toast.error("Error uploading photos");
-    } finally {
       setUploading(false);
+      toast.error("Error uploading photos");
     }
   };
 
