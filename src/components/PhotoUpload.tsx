@@ -162,18 +162,23 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
             className="hidden"
             disabled={uploading}
           />
-          <label htmlFor="photo-upload">
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full bg-gray-700 border-gray-600 text-white hover:bg-gray-600"
-              disabled={uploading}
-              onClick={() => document.getElementById('photo-upload')?.click()}
-            >
-              <Upload className="w-4 h-4 mr-2" />
-              {uploading ? 'Uploading...' : 'Upload Photos'}
-            </Button>
-          </label>
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full bg-gray-700 border-gray-600 text-white hover:bg-gray-600"
+            disabled={uploading}
+            onClick={(e) => {
+              e.preventDefault();
+              const input = document.getElementById('photo-upload') as HTMLInputElement;
+              if (input) {
+                input.value = ''; // Reset input to allow re-upload of same file
+                input.click();
+              }
+            }}
+          >
+            <Upload className="w-4 h-4 mr-2" />
+            {uploading ? 'Uploading...' : 'Upload Photos'}
+          </Button>
           <p className="text-xs text-gray-400 mt-2">
             Supported: JPG, PNG, WEBP • Max size: 5MB per photo
           </p>
