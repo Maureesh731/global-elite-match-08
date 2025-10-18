@@ -8,46 +8,17 @@ export const useVisitorTracking = () => {
   useEffect(() => {
     const trackVisitor = async () => {
       try {
-        // Get visitor IP from a free IP API
-        const ipResponse = await fetch('https://api.ipify.org?format=json');
-        const { ip } = await ipResponse.json();
+        // Call edge function to track visitor (uses service role for database access)
+        const { data, error } = await supabase.functions.invoke('track-visitor');
 
-        // Try to insert or update visitor record
-        const { error: upsertError } = await supabase
-          .from('visitors')
-          .upsert(
-            { 
-              ip_address: ip,
-              last_visit: new Date().toISOString(),
-              visit_count: 1
-            },
-            { 
-              onConflict: 'ip_address',
-              ignoreDuplicates: false 
-            }
-          );
-
-        if (upsertError) {
-          // If insert fails, try to update
-          await supabase
-            .from('visitors')
-            .update({ 
-              last_visit: new Date().toISOString(),
-            })
-            .eq('ip_address', ip);
-        }
-
-        // Fetch total unique visitor count
-        const { count, error: countError } = await supabase
-          .from('visitors')
-          .select('*', { count: 'exact', head: true });
-
-        if (!countError && count !== null) {
-          setVisitorCount(count);
+        if (error) {
+          console.error('Error tracking visitor:', error);
+          setVisitorCount(1247);
+        } else if (data?.count) {
+          setVisitorCount(data.count);
         }
       } catch (error) {
         console.error('Error tracking visitor:', error);
-        // Set a fallback count
         setVisitorCount(1247);
       } finally {
         setLoading(false);
