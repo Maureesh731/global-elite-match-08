@@ -125,8 +125,13 @@ export const useApplicationForm = () => {
     // Check if passwords match
     const passwordsMatch = form.password === form.confirmPassword;
     
-    // Check password strength (minimum 8 characters)
-    const passwordValid = form.password.length >= 8;
+    // Check password strength (minimum 8 characters + complexity requirements)
+    const passwordValid = 
+      form.password.length >= 8 &&
+      /[A-Z]/.test(form.password) && // At least one uppercase letter
+      /[a-z]/.test(form.password) && // At least one lowercase letter
+      /[0-9]/.test(form.password) && // At least one number
+      /[!@#$%^&*(),.?":{}|<>]/.test(form.password); // At least one special character
 
     return allFieldsFilled && allHealthQuestionsAnswered && linkedinValid && ageValid && passwordsMatch && passwordValid && agreed;
   };
