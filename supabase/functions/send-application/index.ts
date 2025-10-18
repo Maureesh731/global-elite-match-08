@@ -128,9 +128,15 @@ serve(async (req) => {
     );
 
   } catch (error) {
+    // Log detailed error server-side only
     console.error('Error sending application email:', error);
+    
+    // Return generic error to client
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: "Unable to process your application submission. Please try again later.",
+        code: "APPLICATION_SUBMIT_ERROR"
+      }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 500 

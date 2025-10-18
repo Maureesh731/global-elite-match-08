@@ -141,8 +141,15 @@ serve(async (req) => {
 
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
+    
+    // Log detailed error server-side only
     logStep("ERROR in create-crypto-payment", { message: errorMessage });
-    return new Response(JSON.stringify({ error: errorMessage }), {
+    
+    // Return generic error to client
+    return new Response(JSON.stringify({ 
+      error: "Unable to process payment request. Please try again later or contact support.",
+      code: "PAYMENT_CREATION_ERROR"
+    }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,
     });

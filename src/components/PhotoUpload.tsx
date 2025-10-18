@@ -51,41 +51,41 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
       const uploadedUrls: string[] = [];
 
       for (const file of filesToUpload) {
-        // Validate file type
+        // Client-side validation (user feedback only)
         if (!file.type.startsWith('image/')) {
           toast.error(`${file.name} is not an image file`);
           continue;
         }
 
-        // Validate file size (max 5MB)
         if (file.size > 5 * 1024 * 1024) {
           toast.error(`${file.name} is too large. Max size is 5MB`);
           continue;
         }
 
-        const fileExt = file.name.split('.').pop();
-        const timestamp = Date.now();
-        const randomId = Math.random().toString(36).substring(7);
-        const fileName = `applications/${timestamp}-${randomId}.${fileExt}`;
-        
-        const { data, error } = await supabase.storage
-          .from('profile-photos')
-          .upload(fileName, file, {
-            cacheControl: '3600',
-            upsert: false
-          });
+        // Use server-side validation endpoint
+        const formData = new FormData();
+        formData.append('file', file);
 
-        if (error) {
-          console.error('Upload error:', error);
-          toast.error(`Failed to upload ${file.name}: ${error.message}`);
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        const response = await supabase.functions.invoke('validate-photo-upload', {
+          body: formData,
+          headers: session?.access_token ? {
+            Authorization: `Bearer ${session.access_token}`
+          } : {}
+        });
+
+        if (response.error) {
+          console.error('Upload validation error:', response.error);
+          toast.error(`Failed to upload ${file.name}: ${response.error.message || 'Validation failed'}`);
           continue;
         }
 
-        const { data: { publicUrl } } = supabase.storage
-          .from('profile-photos')
-          .getPublicUrl(data.path);
-
-        uploadedUrls.push(publicUrl);
+        if (response.data?.url) {
+          uploadedUrls.push(response.data.url);
+        } else {
+          toast.error(`Failed to upload ${file.name}`);
+        }
       }
 
       if (uploadedUrls.length > 0) {

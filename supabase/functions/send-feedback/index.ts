@@ -98,9 +98,15 @@ const handler = async (req: Request): Promise<Response> => {
       },
     });
   } catch (error: any) {
+    // Log detailed error server-side only
     console.error("Error in send-feedback function:", error);
+    
+    // Return generic error to client
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: "Unable to submit your feedback at this time. Please try again later.",
+        code: "FEEDBACK_SUBMIT_ERROR"
+      }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },

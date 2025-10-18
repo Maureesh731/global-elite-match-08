@@ -143,9 +143,15 @@ const handler = async (req: Request): Promise<Response> => {
       },
     });
   } catch (error: any) {
+    // Log detailed error server-side only
     console.error("[CONTACT] Error in send-contact-email function:", error);
+    
+    // Return generic error to client
     return new Response(
-      JSON.stringify({ error: error.message || "Failed to send email" }),
+      JSON.stringify({ 
+        error: "Unable to send your message at this time. Please try again later or contact us directly.",
+        code: "EMAIL_SEND_ERROR"
+      }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
