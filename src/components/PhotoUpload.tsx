@@ -171,18 +171,12 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
             className="hidden"
             disabled={uploading}
           />
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full bg-gray-700 border-gray-600 text-white hover:bg-gray-600"
-            disabled={uploading}
-            asChild
-          >
-            <label htmlFor="photo-upload" className="cursor-pointer">
+          <label htmlFor="photo-upload" className="cursor-pointer block">
+            <div className="w-full bg-gray-700 border border-gray-600 text-white hover:bg-gray-600 rounded-md px-4 py-2 flex items-center justify-center transition-colors">
               <Upload className="w-4 h-4 mr-2" />
               {uploading ? 'Uploading...' : 'Upload Photos'}
-            </label>
-          </Button>
+            </div>
+          </label>
           <p className="text-xs text-gray-400 mt-2">
             Supported: JPG, PNG, WEBP • Max size: 5MB per photo
           </p>
