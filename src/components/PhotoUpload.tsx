@@ -79,23 +79,20 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
         const newPhotoUrls = [...photoUrls, ...uploadedUrls];
         setPhotoUrls(newPhotoUrls);
         onPhotosChange(newPhotoUrls);
-        setUploading(false);
         
-        // Show immediate success notification
+        // Show immediate success notification BEFORE setting uploading to false
         toast.success(
-          "✓ Photo accepted! Upload complete.",
+          `✓ Photo${uploadedUrls.length > 1 ? 's' : ''} Accepted!`,
           {
-            duration: 5000,
+            duration: 6000,
             description: required 
-              ? "Your profile photo has been successfully added to your application. You can now proceed with the form." 
-              : "Photo successfully added to your profile.",
-            style: {
-              background: '#10b981',
-              color: 'white',
-              fontWeight: '600'
-            }
+              ? `${uploadedUrls.length} photo${uploadedUrls.length > 1 ? 's' : ''} successfully uploaded. You can now proceed with your application.` 
+              : `${uploadedUrls.length} photo${uploadedUrls.length > 1 ? 's' : ''} added to your profile.`,
           }
         );
+        
+        // Set uploading to false AFTER showing toast
+        setUploading(false);
       } else {
         setUploading(false);
         toast.error("No photos were uploaded successfully");
