@@ -23,13 +23,19 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
   const [photoUrls, setPhotoUrls] = useState<string[]>(initialPhotos);
   const [uploading, setUploading] = useState(false);
 
+  React.useEffect(() => {
+    console.log('PhotoUpload component mounted, initial photos:', initialPhotos.length);
+  }, []);
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('=== FILE UPLOAD HANDLER CALLED ===');
     const files = e.target.files;
     console.log('Photo upload started, files:', files?.length);
     if (!files || files.length === 0) {
       console.log('No files selected');
       return;
     }
+    console.log('Files detected:', Array.from(files).map(f => f.name));
 
     if (photoUrls.length >= maxPhotos) {
       toast.error(`Maximum ${maxPhotos} photos allowed`);
@@ -153,21 +159,30 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
       {/* Upload button */}
       {photoUrls.length < maxPhotos && (
         <div>
-          <label htmlFor="photo-upload" className="cursor-pointer">
-            <input
-              type="file"
-              id="photo-upload"
-              accept="image/*"
-              multiple
-              onChange={handleFileUpload}
-              className="hidden"
-              disabled={uploading}
-            />
-            <div className="w-full bg-gray-700 border border-gray-600 text-white hover:bg-gray-600 rounded-md px-4 py-2 flex items-center justify-center transition-colors">
+          <input
+            type="file"
+            id="photo-upload"
+            accept="image/*"
+            multiple
+            onChange={(e) => {
+              console.log('Input onChange triggered');
+              handleFileUpload(e);
+            }}
+            className="hidden"
+            disabled={uploading}
+          />
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full bg-gray-700 border-gray-600 text-white hover:bg-gray-600"
+            disabled={uploading}
+            asChild
+          >
+            <label htmlFor="photo-upload" className="cursor-pointer">
               <Upload className="w-4 h-4 mr-2" />
               {uploading ? 'Uploading...' : 'Upload Photos'}
-            </div>
-          </label>
+            </label>
+          </Button>
           <p className="text-xs text-gray-400 mt-2">
             Supported: JPG, PNG, WEBP • Max size: 5MB per photo
           </p>
