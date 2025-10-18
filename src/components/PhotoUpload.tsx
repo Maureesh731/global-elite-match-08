@@ -22,6 +22,7 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
 }) => {
   const [photoUrls, setPhotoUrls] = useState<string[]>(initialPhotos);
   const [uploading, setUploading] = useState(false);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
     console.log('PhotoUpload component mounted, initial photos:', initialPhotos.length);
@@ -160,23 +161,24 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
       {photoUrls.length < maxPhotos && (
         <div>
           <input
+            ref={fileInputRef}
             type="file"
-            id="photo-upload"
             accept="image/*"
             multiple
-            onChange={(e) => {
-              console.log('Input onChange triggered');
-              handleFileUpload(e);
-            }}
+            onChange={handleFileUpload}
             className="hidden"
             disabled={uploading}
           />
-          <label htmlFor="photo-upload" className="cursor-pointer block">
-            <div className="w-full bg-gray-700 border border-gray-600 text-white hover:bg-gray-600 rounded-md px-4 py-2 flex items-center justify-center transition-colors">
-              <Upload className="w-4 h-4 mr-2" />
-              {uploading ? 'Uploading...' : 'Upload Photos'}
-            </div>
-          </label>
+          <Button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading}
+            className="w-full"
+            variant="outline"
+          >
+            <Upload className="w-4 h-4 mr-2" />
+            {uploading ? 'Uploading...' : 'Upload Photos'}
+          </Button>
           <p className="text-xs text-gray-400 mt-2">
             Supported: JPG, PNG, WEBP • Max size: 5MB per photo
           </p>
