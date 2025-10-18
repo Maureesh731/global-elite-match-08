@@ -79,11 +79,20 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
         const newPhotoUrls = [...photoUrls, ...uploadedUrls];
         setPhotoUrls(newPhotoUrls);
         onPhotosChange(newPhotoUrls);
+        
+        // Show immediate success notification
         toast.success(
-          `✓ Photo${uploadedUrls.length > 1 ? 's' : ''} accepted! Upload complete.`,
+          "✓ Photo accepted! Upload complete.",
           {
-            duration: 4000,
-            description: required ? "Your profile photo has been successfully added to your application." : "Photo added to your profile."
+            duration: 5000,
+            description: required 
+              ? "Your profile photo has been successfully added to your application. You can now proceed with the form." 
+              : "Photo successfully added to your profile.",
+            style: {
+              background: '#10b981',
+              color: 'white',
+              fontWeight: '600'
+            }
           }
         );
       } else {
