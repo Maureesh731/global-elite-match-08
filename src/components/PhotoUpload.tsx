@@ -25,7 +25,11 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (!files || files.length === 0) return;
+    console.log('Photo upload started, files:', files?.length);
+    if (!files || files.length === 0) {
+      console.log('No files selected');
+      return;
+    }
 
     if (photoUrls.length >= maxPhotos) {
       toast.error(`Maximum ${maxPhotos} photos allowed`);
@@ -58,6 +62,7 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
         const userId = Math.random().toString(36).substring(7);
         const fileName = `${userId}/${Math.random()}.${fileExt}`;
         
+        console.log('Uploading file:', file.name, 'to:', fileName);
         const { data, error } = await supabase.storage
           .from('profile-photos')
           .upload(fileName, file);
@@ -67,6 +72,8 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
           toast.error(`Failed to upload ${file.name}`);
           continue;
         }
+        
+        console.log('Upload successful:', data.path);
 
         const { data: { publicUrl } } = supabase.storage
           .from('profile-photos')
@@ -76,11 +83,13 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
       }
 
       if (uploadedUrls.length > 0) {
+        console.log('All uploads complete. Total photos:', uploadedUrls.length);
         const newPhotoUrls = [...photoUrls, ...uploadedUrls];
         setPhotoUrls(newPhotoUrls);
         onPhotosChange(newPhotoUrls);
         setUploading(false);
         
+        console.log('Showing success toast');
         // Clear, immediate success notification
         toast.success(`Photo Upload Complete!`, {
           description: `Your photo has been successfully uploaded and added to your application. You may now continue filling out the form.`,
