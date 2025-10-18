@@ -52,27 +52,15 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
 
     setLoading(true);
     try {
-      const { count, error } = await supabase
-        .from("promo_usage")
-        .select("*", { count: "exact", head: true })
-        .eq("promo_code", "IamUnvaccinated");
+      // Call edge function to validate promo code (atomic operation)
+      const { data, error } = await supabase.functions.invoke("use-promo-code", {
+        body: { promoCode: promoCode.trim(), validateOnly: true }
+      });
 
-      if (error) {
+      if (error || !data?.success) {
         toast({
-          title: "Could not verify promo code",
-          description: "Database error occurred",
-          variant: "destructive",
-        });
-        setLoading(false);
-        return;
-      }
-
-      const usageCount = count || 0;
-
-      if (usageCount >= 25) {
-        toast({
-          title: "Promo code limit reached",
-          description: "This promo code has reached its 25 use maximum",
+          title: data?.error || "Invalid promo code",
+          description: "Please check your promo code and try again",
           variant: "destructive",
         });
         setIsValidPromo(false);

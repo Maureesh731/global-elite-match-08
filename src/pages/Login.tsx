@@ -17,6 +17,8 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
 
+    const startTime = Date.now();
+
     try {
       // Query applications table to get email
       const { data: application, error } = await supabase
@@ -33,6 +35,13 @@ const Login = () => {
         email: emailToUse,
         password: password
       });
+
+      // Add artificial delay to normalize timing (prevent username enumeration)
+      const elapsed = Date.now() - startTime;
+      const minDelay = 500; // 500ms minimum response time
+      if (elapsed < minDelay) {
+        await new Promise(resolve => setTimeout(resolve, minDelay - elapsed));
+      }
 
       // Check all conditions after authentication attempt
       // This prevents username enumeration through timing or different error messages
@@ -51,6 +60,12 @@ const Login = () => {
       toast.success("Login successful!");
       navigate('/');
     } catch (error) {
+      // Ensure consistent timing even on exceptions
+      const elapsed = Date.now() - startTime;
+      const minDelay = 500;
+      if (elapsed < minDelay) {
+        await new Promise(resolve => setTimeout(resolve, minDelay - elapsed));
+      }
       toast.error("Invalid username or password");
     } finally {
       setIsLoading(false);

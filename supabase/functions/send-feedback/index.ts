@@ -9,6 +9,18 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+// Sanitize HTML to prevent XSS
+const escapeHtml = (text: string): string => {
+  const map: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, (m) => map[m]);
+};
+
 interface FeedbackRequest {
   name: string;
   email: string;
@@ -41,7 +53,7 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResponse = await resend.emails.send({
       from: "Untouchable Dating <noreply@startff.com>",
       to: ["ceo@startff.com"],
-      subject: `New Feedback: ${categoryLabels[category] || category}`,
+      subject: `New Feedback: ${escapeHtml(categoryLabels[category] || category)}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #7c3aed; border-bottom: 2px solid #7c3aed; padding-bottom: 10px;">
@@ -50,14 +62,14 @@ const handler = async (req: Request): Promise<Response> => {
           
           <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="margin-top: 0; color: #374151;">Feedback Details</h3>
-            <p><strong>Category:</strong> ${categoryLabels[category] || category}</p>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Category:</strong> ${escapeHtml(categoryLabels[category] || category)}</p>
+            <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+            <p><strong>Email:</strong> ${escapeHtml(email)}</p>
           </div>
 
           <div style="background-color: #ffffff; padding: 20px; border: 1px solid #e5e7eb; border-radius: 8px;">
             <h3 style="margin-top: 0; color: #374151;">Message:</h3>
-            <p style="line-height: 1.6; color: #374151; white-space: pre-wrap;">${message}</p>
+            <p style="line-height: 1.6; color: #374151; white-space: pre-wrap;">${escapeHtml(message)}</p>
           </div>
 
           <div style="margin-top: 30px; padding: 15px; background-color: #fef3c7; border-radius: 8px; border-left: 4px solid #f59e0b;">

@@ -12,8 +12,8 @@ serve(async (req) => {
   }
 
   try {
-    const { promoCode } = await req.json();
-    console.log(`Processing promo code: ${promoCode}`);
+    const { promoCode, validateOnly } = await req.json();
+    console.log(`Processing promo code: ${promoCode}, validateOnly: ${validateOnly}`);
 
     // Create Supabase client with service role key for admin operations
     const supabaseClient = createClient(
@@ -43,6 +43,25 @@ serve(async (req) => {
       return new Response(JSON.stringify({ error: "Promo code has expired" }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 400,
+      });
+    }
+
+    // If validateOnly, just check if code can be used without incrementing
+    if (validateOnly) {
+      if (promoCodeData.current_uses >= promoCodeData.max_uses) {
+        return new Response(JSON.stringify({ error: "Promo code limit reached" }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 400,
+        });
+      }
+      
+      return new Response(JSON.stringify({ 
+        success: true, 
+        message: `Promo code valid! ${promoCodeData.benefits_years} year${promoCodeData.benefits_years > 1 ? 's' : ''} free access available.`,
+        freeYears: promoCodeData.benefits_years 
+      }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
       });
     }
 
