@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Upload, X } from "lucide-react";
+import { Upload, X, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -25,21 +25,20 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
-    console.log('PhotoUpload component mounted, initial photos:', initialPhotos.length);
-  }, []);
+    setPhotoUrls(initialPhotos);
+  }, [initialPhotos]);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('=== FILE UPLOAD HANDLER CALLED ===');
     const files = e.target.files;
-    console.log('Photo upload started, files:', files?.length);
     if (!files || files.length === 0) {
-      console.log('No files selected');
       return;
     }
-    console.log('Files detected:', Array.from(files).map(f => f.name));
 
     if (photoUrls.length >= maxPhotos) {
       toast.error(`Maximum ${maxPhotos} photos allowed`);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
       return;
     }
 
@@ -65,22 +64,22 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
         }
 
         const fileExt = file.name.split('.').pop();
-        // Use random ID for anonymous uploads during application
-        const userId = Math.random().toString(36).substring(7);
-        const fileName = `${userId}/${Math.random()}.${fileExt}`;
+        const timestamp = Date.now();
+        const randomId = Math.random().toString(36).substring(7);
+        const fileName = `applications/${timestamp}-${randomId}.${fileExt}`;
         
-        console.log('Uploading file:', file.name, 'to:', fileName);
         const { data, error } = await supabase.storage
           .from('profile-photos')
-          .upload(fileName, file);
+          .upload(fileName, file, {
+            cacheControl: '3600',
+            upsert: false
+          });
 
         if (error) {
           console.error('Upload error:', error);
-          toast.error(`Failed to upload ${file.name}`);
+          toast.error(`Failed to upload ${file.name}: ${error.message}`);
           continue;
         }
-        
-        console.log('Upload successful:', data.path);
 
         const { data: { publicUrl } } = supabase.storage
           .from('profile-photos')
@@ -90,26 +89,21 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
       }
 
       if (uploadedUrls.length > 0) {
-        console.log('All uploads complete. Total photos:', uploadedUrls.length);
         const newPhotoUrls = [...photoUrls, ...uploadedUrls];
         setPhotoUrls(newPhotoUrls);
         onPhotosChange(newPhotoUrls);
-        setUploading(false);
-        
-        console.log('Showing success toast');
-        // Clear, immediate success notification
-        toast.success(`Photo Upload Complete!`, {
-          description: `Your photo has been successfully uploaded and added to your application. You may now continue filling out the form.`,
-          duration: 6000,
-        });
+        toast.success(`${uploadedUrls.length} photo${uploadedUrls.length > 1 ? 's' : ''} uploaded successfully!`);
       } else {
-        setUploading(false);
         toast.error("No photos were uploaded successfully");
       }
     } catch (error) {
       console.error('Error uploading photos:', error);
-      setUploading(false);
       toast.error("Error uploading photos");
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     }
   };
 
@@ -164,20 +158,31 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
             ref={fileInputRef}
             type="file"
             accept="image/*"
-            multiple
+            multiple={maxPhotos > 1}
             onChange={handleFileUpload}
             className="hidden"
             disabled={uploading}
+            id="photo-upload-input"
           />
           <Button
             type="button"
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => {
+              fileInputRef.current?.click();
+            }}
             disabled={uploading}
-            className="w-full"
-            variant="outline"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white"
           >
-            <Upload className="w-4 h-4 mr-2" />
-            {uploading ? 'Uploading...' : 'Upload Photos'}
+            {uploading ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Uploading...
+              </>
+            ) : (
+              <>
+                <Upload className="w-4 h-4 mr-2" />
+                {photoUrls.length === 0 ? 'Upload Photo' : 'Upload More Photos'}
+              </>
+            )}
           </Button>
           <p className="text-xs text-gray-400 mt-2">
             Supported: JPG, PNG, WEBP • Max size: 5MB per photo
