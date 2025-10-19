@@ -79,7 +79,7 @@ serve(async (req) => {
         <p>${sanitizeHtml(message)}</p>
         <p><strong>Next Step:</strong></p>
         <p>To activate your membership and start connecting with other members, please complete your subscription setup:</p>
-        <p><a href="${Deno.env.get('SUPABASE_URL')?.replace('supabase.co', 'lovable.app')}/subscription-setup" style="display: inline-block; background: linear-gradient(to right, #9333ea, #2563eb); color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 16px 0;">Activate Membership</a></p>
+        <p><a href="${Deno.env.get('SITE_URL') || window.location.origin}/subscription-setup" style="display: inline-block; background: linear-gradient(to right, #9333ea, #2563eb); color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 16px 0;">Activate Membership</a></p>
         <p>Welcome to the StartFF community!</p>
         <p>Best regards,<br>The StartFF Team</p>
       ` : `
