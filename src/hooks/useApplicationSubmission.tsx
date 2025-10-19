@@ -154,7 +154,7 @@ export const useApplicationSubmission = () => {
       // Send application data to email
       console.log("Sending application email...");
       const { data: emailData, error: emailError } = await supabase.functions.invoke("send-application", {
-        body: { applicationData: form }
+        body: { applicationData }
       });
       
       if (emailError) {
