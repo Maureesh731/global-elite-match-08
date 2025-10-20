@@ -94,6 +94,7 @@ export const useApplicationSubmission = () => {
         linkedin: form.linkedin,
         bio: form.bio,
         username: form.username,
+        photo_url: form.photoUrl,
         has_herpes: form.hasHerpes,
         has_hiv: form.hasHIV,
         has_hpv: form.hasHPV,
