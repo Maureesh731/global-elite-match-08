@@ -68,11 +68,15 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
 
         const { data: { session } } = await supabase.auth.getSession();
         
+        // Include auth header if available, but allow unauthenticated uploads for applications
+        const headers: Record<string, string> = {};
+        if (session?.access_token) {
+          headers.Authorization = `Bearer ${session.access_token}`;
+        }
+        
         const response = await supabase.functions.invoke('validate-photo-upload', {
           body: formData,
-          headers: session?.access_token ? {
-            Authorization: `Bearer ${session.access_token}`
-          } : {}
+          headers
         });
 
         if (response.error) {

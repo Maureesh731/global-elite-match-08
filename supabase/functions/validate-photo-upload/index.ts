@@ -42,28 +42,22 @@ serve(async (req) => {
   }
 
   try {
-    // Authenticate user
+    // Optional authentication - allows both authenticated and unauthenticated uploads
+    // This is needed for application photo uploads where users don't have accounts yet
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_ANON_KEY") ?? ""
     );
 
+    let userData = null;
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({ error: "Authentication required" }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    const token = authHeader.replace("Bearer ", "");
-    const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
     
-    if (userError || !userData.user) {
-      return new Response(
-        JSON.stringify({ error: "Invalid authentication" }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+    if (authHeader) {
+      const token = authHeader.replace("Bearer ", "");
+      const { data, error } = await supabaseClient.auth.getUser(token);
+      if (!error && data?.user) {
+        userData = data;
+      }
     }
 
     const formData = await req.formData();
