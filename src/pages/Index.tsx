@@ -46,18 +46,18 @@ const Index = () => {
         <VisitorCounter />
         <div className="flex flex-wrap gap-6 justify-center">
           <Button 
-            onClick={() => handleButtonClick("/gentlemen-profile")}
+            onClick={() => setShowFreeForm(true)}
             className="bg-gradient-to-r from-purple-800 to-purple-600 hover:from-purple-700 hover:to-purple-500 text-white px-8 py-4 text-lg font-semibold border border-purple-500/30 shadow-lg shadow-purple-500/20"
             disabled={loading}
           >
-            Create Gentleman's Profile
+            Create Free Profile
           </Button>
           <Button 
-            onClick={() => handleButtonClick("/ladies-profile")}
-            className="bg-gradient-to-r from-red-800 to-red-600 hover:from-red-700 hover:to-red-500 text-white px-8 py-4 text-lg font-semibold border border-red-500/30 shadow-lg shadow-red-500/20"
+            onClick={() => setShowMembershipForm(true)}
+            className="bg-gradient-to-r from-green-800 to-green-600 hover:from-green-700 hover:to-green-500 text-white px-8 py-4 text-lg font-semibold border border-green-500/30 shadow-lg shadow-green-500/20"
             disabled={loading}
           >
-            Create Lady's Profile
+            Apply for Membership
           </Button>
           <Button 
             onClick={() => handleButtonClick("/profile-search")}
@@ -75,21 +75,6 @@ const Index = () => {
       </div>
       <Footer />
       
-      <div className="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
-        <Button
-          onClick={() => setShowFreeForm(true)}
-          className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white px-6 py-3 shadow-lg"
-        >
-          Create Free Profile
-        </Button>
-        <Button
-          onClick={() => setShowMembershipForm(true)}
-          className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white px-6 py-3 shadow-lg"
-        >
-          Apply for Membership
-        </Button>
-      </div>
-
       <FreeProfileForm
         open={showFreeForm}
         onOpenChange={setShowFreeForm}
