@@ -10,14 +10,16 @@ import { Testimonials } from "@/components/Testimonials";
 import { Footer } from "@/components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { FeaturedMembers } from "@/components/FeaturedMembers";
-import { FullApplicationModal } from "@/components/FullApplicationModal";
+import { FreeProfileForm } from "@/components/FreeProfileForm";
+import { MembershipApplicationForm } from "@/components/MembershipApplicationForm";
 import { useUserSubscription } from "@/hooks/useUserSubscription";
 import { VisitorCounter } from "@/components/VisitorCounter";
 import { LiveMemberCount } from "@/components/LiveMemberCount";
 import { useState } from "react";
 
 const Index = () => {
-  const [showAppModal, setShowAppModal] = useState(false);
+  const [showFreeForm, setShowFreeForm] = useState(false);
+  const [showMembershipForm, setShowMembershipForm] = useState(false);
   const { subscribed, loading } = useUserSubscription();
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ const Index = () => {
     if (subscribed) {
       navigate(route);
     } else {
-      setShowAppModal(true);
+      setShowFreeForm(true);
     }
   };
 
@@ -72,9 +74,30 @@ const Index = () => {
         </div>
       </div>
       <Footer />
-      <FullApplicationModal
-        open={showAppModal}
-        onOpenChange={setShowAppModal}
+      
+      <div className="fixed bottom-8 right-8 flex flex-col gap-4 z-50">
+        <Button
+          onClick={() => setShowFreeForm(true)}
+          className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white px-6 py-3 shadow-lg"
+        >
+          Create Free Profile
+        </Button>
+        <Button
+          onClick={() => setShowMembershipForm(true)}
+          className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white px-6 py-3 shadow-lg"
+        >
+          Apply for Membership
+        </Button>
+      </div>
+
+      <FreeProfileForm
+        open={showFreeForm}
+        onOpenChange={setShowFreeForm}
+      />
+      
+      <MembershipApplicationForm
+        open={showMembershipForm}
+        onOpenChange={setShowMembershipForm}
       />
     </div>
   );
