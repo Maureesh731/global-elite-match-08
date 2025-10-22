@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, Shield, Users, Crown, Facebook, Instagram } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { FreeProfileForm } from "@/components/FreeProfileForm";
-import { MembershipApplicationForm } from "@/components/MembershipApplicationForm";
+import { FullApplicationModal } from "@/components/FullApplicationModal";
 import heroHealth1 from "@/assets/hero-health-1.jpg";
 import heroHealth2 from "@/assets/hero-health-2.jpg";
 import heroHealth3 from "@/assets/hero-health-3.jpg";
@@ -13,8 +12,6 @@ import heroHealth5 from "@/assets/hero-health-5.jpg";
 
 export const Hero = () => {
   const { t } = useTranslation();
-  const [showFreeForm, setShowFreeForm] = useState(false);
-  const [showMembershipForm, setShowMembershipForm] = useState(false);
   
   const backgroundImages = [
     heroHealth1,
@@ -125,34 +122,19 @@ export const Hero = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button 
-              size="lg" 
-              onClick={() => setShowMembershipForm(true)}
-              className="bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white px-12 py-6 text-xl font-bold shadow-2xl shadow-red-500/30 border border-red-500/50 transform hover:scale-105 transition-all duration-300"
-            >
-              {t('hero.cta_button')}
-            </Button>
-            <Button 
-              size="lg" 
-              onClick={() => setShowFreeForm(true)}
-              className="bg-white/10 backdrop-blur-sm border-2 border-white/30 hover:bg-white/20 text-white px-12 py-6 text-xl font-semibold transform hover:scale-105 transition-all duration-300 shadow-2xl shadow-purple-500/30" 
-              variant="outline"
-            >
-              Create Free Profile
-            </Button>
+            <FullApplicationModal>
+              <Button size="lg" className="bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white px-12 py-6 text-xl font-bold shadow-2xl shadow-red-500/30 border border-red-500/50 transform hover:scale-105 transition-all duration-300">
+                {t('hero.cta_button')}
+              </Button>
+            </FullApplicationModal>
+            <FullApplicationModal isFreeProfile={true}>
+              <Button size="lg" className="bg-white/10 backdrop-blur-sm border-2 border-white/30 hover:bg-white/20 text-white px-12 py-6 text-xl font-semibold transform hover:scale-105 transition-all duration-300 shadow-2xl shadow-purple-500/30" variant="outline">
+                Create Free Profile
+              </Button>
+            </FullApplicationModal>
           </div>
         </div>
       </div>
-      
-      <FreeProfileForm
-        open={showFreeForm}
-        onOpenChange={setShowFreeForm}
-      />
-      
-      <MembershipApplicationForm
-        open={showMembershipForm}
-        onOpenChange={setShowMembershipForm}
-      />
     </section>
   );
 };

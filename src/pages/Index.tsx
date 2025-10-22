@@ -10,16 +10,14 @@ import { Testimonials } from "@/components/Testimonials";
 import { Footer } from "@/components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { FeaturedMembers } from "@/components/FeaturedMembers";
-import { FreeProfileForm } from "@/components/FreeProfileForm";
-import { MembershipApplicationForm } from "@/components/MembershipApplicationForm";
+import { FullApplicationModal } from "@/components/FullApplicationModal";
 import { useUserSubscription } from "@/hooks/useUserSubscription";
 import { VisitorCounter } from "@/components/VisitorCounter";
 import { LiveMemberCount } from "@/components/LiveMemberCount";
 import { useState } from "react";
 
 const Index = () => {
-  const [showFreeForm, setShowFreeForm] = useState(false);
-  const [showMembershipForm, setShowMembershipForm] = useState(false);
+  const [showAppModal, setShowAppModal] = useState(false);
   const { subscribed, loading } = useUserSubscription();
   const navigate = useNavigate();
 
@@ -27,7 +25,7 @@ const Index = () => {
     if (subscribed) {
       navigate(route);
     } else {
-      setShowFreeForm(true);
+      setShowAppModal(true);
     }
   };
 
@@ -46,18 +44,18 @@ const Index = () => {
         <VisitorCounter />
         <div className="flex flex-wrap gap-6 justify-center">
           <Button 
-            onClick={() => setShowFreeForm(true)}
+            onClick={() => handleButtonClick("/gentlemen-profile")}
             className="bg-gradient-to-r from-purple-800 to-purple-600 hover:from-purple-700 hover:to-purple-500 text-white px-8 py-4 text-lg font-semibold border border-purple-500/30 shadow-lg shadow-purple-500/20"
             disabled={loading}
           >
-            Create Free Profile
+            Create Gentleman's Profile
           </Button>
           <Button 
-            onClick={() => setShowMembershipForm(true)}
-            className="bg-gradient-to-r from-green-800 to-green-600 hover:from-green-700 hover:to-green-500 text-white px-8 py-4 text-lg font-semibold border border-green-500/30 shadow-lg shadow-green-500/20"
+            onClick={() => handleButtonClick("/ladies-profile")}
+            className="bg-gradient-to-r from-red-800 to-red-600 hover:from-red-700 hover:to-red-500 text-white px-8 py-4 text-lg font-semibold border border-red-500/30 shadow-lg shadow-red-500/20"
             disabled={loading}
           >
-            Apply for Membership
+            Create Lady's Profile
           </Button>
           <Button 
             onClick={() => handleButtonClick("/profile-search")}
@@ -74,15 +72,9 @@ const Index = () => {
         </div>
       </div>
       <Footer />
-      
-      <FreeProfileForm
-        open={showFreeForm}
-        onOpenChange={setShowFreeForm}
-      />
-      
-      <MembershipApplicationForm
-        open={showMembershipForm}
-        onOpenChange={setShowMembershipForm}
+      <FullApplicationModal
+        open={showAppModal}
+        onOpenChange={setShowAppModal}
       />
     </div>
   );
