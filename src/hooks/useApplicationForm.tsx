@@ -87,7 +87,6 @@ export const useApplicationForm = () => {
       form.phone.trim(),
       form.linkedin.trim(),
       form.bio.trim(),
-      form.photoUrl.trim(), // Photo is required
       form.username.trim(),
       form.password.trim(),
       form.confirmPassword.trim()

@@ -29,12 +29,6 @@ export const useApplicationSubmission = () => {
     try {
       console.log("Starting application submission...", { isFreeApplication });
       
-      // Validate that photo is uploaded
-      if (!form.photoUrl || form.photoUrl.trim() === "") {
-        toast.error("Please upload a profile photo before submitting");
-        return;
-      }
-      
       // Validate application data
       const validation = applicationSchema.safeParse({
         firstName: form.firstName,
@@ -94,7 +88,6 @@ export const useApplicationSubmission = () => {
         linkedin: form.linkedin,
         bio: form.bio,
         username: form.username,
-        photo_url: form.photoUrl,
         has_herpes: form.hasHerpes,
         has_hiv: form.hasHIV,
         has_hpv: form.hasHPV,
@@ -122,7 +115,7 @@ export const useApplicationSubmission = () => {
         return;
       }
 
-      // Create initial profile with photo
+      // Create initial profile without photos
       const { error: profileError } = await supabase
         .from('profiles')
         .insert([{
@@ -134,7 +127,7 @@ export const useApplicationSubmission = () => {
                  form.memberProfileName.toLowerCase().includes('miss') ? 'female' : 'male',
           membership_type: isFreeApplication ? 'free' : 'paid',
           status: 'pending',
-          photo_urls: form.photoUrl ? [form.photoUrl] : []
+          photo_urls: []
         }]);
 
       if (profileError) {

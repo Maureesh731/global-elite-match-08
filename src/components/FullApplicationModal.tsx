@@ -30,7 +30,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
   const onOpenChange = controlledOnOpenChange || setInternalOpen;
 
-  const { form, handleInput, setPhotoUrl, isFormValid, resetForm } = useApplicationForm();
+  const { form, handleInput, isFormValid, resetForm } = useApplicationForm();
   const { submitApplication } = useApplicationSubmission();
   const { toast } = useToast();
   
@@ -58,7 +58,6 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
     console.log("Form submission attempt:", { 
       isValid: isFormValid(agreed), 
       agreed, 
-      photoUrl: form.photoUrl,
       isFreeProfile,
       isProcessingFreeApp
     });
@@ -66,7 +65,7 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
     if (!isFormValid(agreed)) {
       toast({
         title: "Form incomplete",
-        description: "Please fill all required fields including uploading a photo",
+        description: "Please fill all required fields",
         variant: "destructive"
       });
       return;
@@ -110,7 +109,6 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
                 <FullApplicationModalFormFields
                   form={form}
                   handleInput={handleInput}
-                  setPhotoUrl={setPhotoUrl}
                 />
                 <FullApplicationModalDisclaimer
                   agreed={agreed}

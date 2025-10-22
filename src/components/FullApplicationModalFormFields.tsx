@@ -3,18 +3,15 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ApplicationFormState } from "@/hooks/useApplicationForm";
-import { PhotoUpload } from "@/components/PhotoUpload";
 
 type Props = {
   form: ApplicationFormState;
   handleInput: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  setPhotoUrl: (url: string) => void;
 };
 
 export const FullApplicationModalFormFields: React.FC<Props> = ({
   form,
-  handleInput,
-  setPhotoUrl
+  handleInput
 }) => (
   <>
     <div>
@@ -126,19 +123,6 @@ export const FullApplicationModalFormFields: React.FC<Props> = ({
       </div>
     </div>
 
-    {/* Photo Upload Section */}
-    <div className="border-t border-gray-600 pt-4">
-      <PhotoUpload
-        maxPhotos={1}
-        required={true}
-        onPhotosChange={(urls) => setPhotoUrl(urls[0] || "")}
-        initialPhotos={form.photoUrl ? [form.photoUrl] : []}
-        label="Profile Photo (Required for Application)"
-      />
-      <p className="text-xs text-gray-400 mt-2">
-        Upload 1 photo now. After approval, you can add up to 4 more photos to your profile.
-      </p>
-    </div>
 
     {/* Authentication Credentials Section */}
     <div className="border-t border-gray-600 pt-4">
