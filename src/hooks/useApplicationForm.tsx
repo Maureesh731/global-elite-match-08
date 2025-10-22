@@ -85,6 +85,7 @@ export const useApplicationForm = () => {
       form.age.trim(),
       form.email.trim(),
       form.phone.trim(),
+      form.linkedin.trim(),
       form.bio.trim(),
       form.username.trim(),
       form.password.trim(),
@@ -110,12 +111,12 @@ export const useApplicationForm = () => {
     // Check if all required text fields are filled
     const allFieldsFilled = requiredFields.every(field => field !== "");
     
-    // Check if all health disclosure questions are answered (not default "no")
+    // Check if all health disclosure questions are answered
     const allHealthQuestionsAnswered = healthDisclosureFields.every(field => field !== "");
     
-    // Validate LinkedIn URL format (optional field)
-    const linkedinRegex = /^https:\/\/(www\.)?linkedin\.com\/in\/[\w-]+\/?$/;
-    const linkedinValid = form.linkedin.trim() === "" || linkedinRegex.test(form.linkedin.trim());
+    // Validate LinkedIn URL format (required for professional verification)
+    const linkedinRegex = /^https?:\/\/(www\.)?linkedin\.com\/in\/[\w-]+\/?$/i;
+    const linkedinValid = form.linkedin.trim() !== "" && linkedinRegex.test(form.linkedin.trim());
     
     // Check if age is at least 18
     const ageValid = parseInt(form.age) >= 18;
