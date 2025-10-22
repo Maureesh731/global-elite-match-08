@@ -171,14 +171,18 @@ export const useApplicationSubmission = () => {
       
       if (adminEmailError) {
         console.error('Admin notification error:', adminEmailError);
-        toast.error("Failed to send admin notification");
       } else {
         console.log("Admin notification sent:", adminEmailData);
       }
       
+      // Show success notification
+      toast.success("Application submitted successfully! Redirecting to welcome page...", {
+        duration: 2500,
+      });
+      
       onSuccess();
       
-      // Navigate to welcome page after success message
+      // Navigate to welcome page after success notification
       setTimeout(() => {
         navigate('/welcome');
       }, 2500);
