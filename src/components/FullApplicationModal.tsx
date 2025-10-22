@@ -55,21 +55,26 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    const isValid = isFormValid(agreed);
     console.log("Form submission attempt:", { 
-      isValid: isFormValid(agreed), 
+      isValid, 
       agreed, 
       isFreeProfile,
-      isProcessingFreeApp
+      isProcessingFreeApp,
+      form
     });
     
-    if (!isFormValid(agreed)) {
+    if (!isValid) {
+      console.error("Form validation failed");
       toast({
         title: "Form incomplete",
-        description: "Please fill all required fields",
+        description: "Please fill all required fields and agree to the terms",
         variant: "destructive"
       });
       return;
     }
+    
+    console.log("Form is valid, proceeding with submission...");
     
     const currentIsFreeApplication = isFreeProfile || isProcessingFreeApp;
     
