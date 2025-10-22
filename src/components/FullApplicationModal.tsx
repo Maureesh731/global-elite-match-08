@@ -56,13 +56,27 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
     e.preventDefault();
     
     const isValid = isFormValid(agreed);
-    console.log("Form submission attempt:", { 
-      isValid, 
-      agreed, 
-      isFreeProfile,
-      isProcessingFreeApp,
-      form
-    });
+    console.log("=== FORM SUBMISSION DEBUG ===");
+    console.log("Form data:", form);
+    console.log("Is valid:", isValid);
+    console.log("Agreed:", agreed);
+    console.log("isFreeProfile:", isFreeProfile);
+    console.log("isProcessingFreeApp:", isProcessingFreeApp);
+    
+    // Check individual validation criteria
+    console.log("Validation breakdown:");
+    console.log("- firstName:", form.firstName);
+    console.log("- lastName:", form.lastName);
+    console.log("- memberProfileName:", form.memberProfileName);
+    console.log("- age:", form.age, ">=18?", parseInt(form.age) >= 18);
+    console.log("- email:", form.email);
+    console.log("- phone:", form.phone);
+    console.log("- linkedin:", form.linkedin);
+    console.log("- bio:", form.bio);
+    console.log("- username:", form.username);
+    console.log("- password length:", form.password.length);
+    console.log("- passwords match:", form.password === form.confirmPassword);
+    console.log("- agreed to terms:", agreed);
     
     if (!isValid) {
       console.error("Form validation failed");
