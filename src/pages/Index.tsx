@@ -14,6 +14,7 @@ import { FullApplicationModal } from "@/components/FullApplicationModal";
 import { useUserSubscription } from "@/hooks/useUserSubscription";
 import { VisitorCounter } from "@/components/VisitorCounter";
 import { LiveMemberCount } from "@/components/LiveMemberCount";
+import { BackgroundMusic } from "@/components/BackgroundMusic";
 import { useState } from "react";
 
 const Index = () => {
@@ -76,6 +77,7 @@ const Index = () => {
         open={showAppModal}
         onOpenChange={setShowAppModal}
       />
+      <BackgroundMusic />
     </div>
   );
 };
