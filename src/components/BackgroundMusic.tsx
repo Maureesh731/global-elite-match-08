@@ -1,45 +1,31 @@
 import { useState, useRef, useEffect } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 export const BackgroundMusic = () => {
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  useEffect(() => {
-    if (audioRef.current) {
-      // Auto-play with user interaction check
-      const playAudio = async () => {
-        try {
-          await audioRef.current?.play();
-          setIsPlaying(true);
-        } catch (error) {
-          console.log('Autoplay prevented. User interaction required.');
-          setIsPlaying(false);
-        }
-      };
-      
-      // Try to play after a short delay
-      const timer = setTimeout(playAudio, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
   const toggleMute = async () => {
-    if (audioRef.current) {
+    if (!audioRef.current) return;
+
+    try {
       if (!isPlaying) {
-        try {
-          await audioRef.current.play();
-          setIsPlaying(true);
-          setIsMuted(false);
-        } catch (error) {
-          console.error('Failed to play audio:', error);
-        }
+        await audioRef.current.play();
+        setIsPlaying(true);
+        setIsMuted(false);
+        toast.success("Background music started");
       } else {
-        setIsMuted(!isMuted);
-        audioRef.current.muted = !isMuted;
+        const newMutedState = !isMuted;
+        setIsMuted(newMutedState);
+        audioRef.current.muted = newMutedState;
+        toast.success(newMutedState ? "Music muted" : "Music unmuted");
       }
+    } catch (error) {
+      console.error('Audio playback error:', error);
+      toast.error("Unable to play music. Please click the button to start.");
     }
   };
 
@@ -51,7 +37,6 @@ export const BackgroundMusic = () => {
         muted={isMuted}
         preload="auto"
       >
-        {/* Add your jazz music file to public folder and update the src */}
         <source src="/jazz-background.mp3" type="audio/mpeg" />
       </audio>
       
@@ -60,7 +45,8 @@ export const BackgroundMusic = () => {
         size="icon"
         variant="secondary"
         className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full shadow-lg hover:scale-110 transition-transform"
-        aria-label={isMuted || !isPlaying ? "Unmute music" : "Mute music"}
+        aria-label={isMuted || !isPlaying ? "Play music" : "Mute music"}
+        title={isMuted || !isPlaying ? "Click to play jazz music" : "Click to mute music"}
       >
         {isMuted || !isPlaying ? (
           <VolumeX className="h-6 w-6" />
