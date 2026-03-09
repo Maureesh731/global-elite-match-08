@@ -562,7 +562,63 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      approved_member_disclosures: {
+        Row: {
+          covid_vaccinated: string | null
+          disclosure_authorization: string | null
+          has_chronic_diseases: string | null
+          has_herpes: string | null
+          has_hiv: string | null
+          has_hpv: string | null
+          has_other_stds: string | null
+          member_profile_name: string | null
+          smokes_cigarettes: string | null
+          user_id: string | null
+          username: string | null
+          uses_alcohol: string | null
+          uses_drugs: string | null
+          uses_marijuana: string | null
+          uses_prescription_drugs: string | null
+          wants_optional_testing: string | null
+        }
+        Insert: {
+          covid_vaccinated?: string | null
+          disclosure_authorization?: string | null
+          has_chronic_diseases?: never
+          has_herpes?: never
+          has_hiv?: never
+          has_hpv?: never
+          has_other_stds?: never
+          member_profile_name?: string | null
+          smokes_cigarettes?: string | null
+          user_id?: string | null
+          username?: string | null
+          uses_alcohol?: string | null
+          uses_drugs?: string | null
+          uses_marijuana?: string | null
+          uses_prescription_drugs?: string | null
+          wants_optional_testing?: string | null
+        }
+        Update: {
+          covid_vaccinated?: string | null
+          disclosure_authorization?: string | null
+          has_chronic_diseases?: never
+          has_herpes?: never
+          has_hiv?: never
+          has_hpv?: never
+          has_other_stds?: never
+          member_profile_name?: string | null
+          smokes_cigarettes?: string | null
+          user_id?: string | null
+          username?: string | null
+          uses_alcohol?: string | null
+          uses_drugs?: string | null
+          uses_marijuana?: string | null
+          uses_prescription_drugs?: string | null
+          wants_optional_testing?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       can_user_send_messages: { Args: { _user_id: string }; Returns: boolean }
