@@ -20,17 +20,16 @@ const Login = () => {
     const startTime = Date.now();
 
     try {
-      // Query applications table to get email
-      const { data: application, error } = await supabase
-        .from('applications')
-        .select('email, status')
-        .eq('username', username)
-        .single();
+      // Use edge function to resolve username to email (bypasses RLS safely)
+      const { data: resolveData, error: resolveError } = await supabase.functions.invoke('resolve-username', {
+        body: { username }
+      });
+
+      const application = resolveData as { email: string | null; status: string | null } | null;
 
       // Always attempt authentication to prevent timing attacks
-      // Use a dummy email if username not found
       const emailToUse = application?.email || 'nonexistent@dummy.com';
-      
+
       const { error: authError } = await supabase.auth.signInWithPassword({
         email: emailToUse,
         password: password
@@ -38,14 +37,12 @@ const Login = () => {
 
       // Add artificial delay to normalize timing (prevent username enumeration)
       const elapsed = Date.now() - startTime;
-      const minDelay = 500; // 500ms minimum response time
+      const minDelay = 500;
       if (elapsed < minDelay) {
         await new Promise(resolve => setTimeout(resolve, minDelay - elapsed));
       }
 
-      // Check all conditions after authentication attempt
-      // This prevents username enumeration through timing or different error messages
-      if (error || !application || authError) {
+      if (resolveError || !application?.email || authError) {
         toast.error("Invalid username or password");
         return;
       }
@@ -53,7 +50,7 @@ const Login = () => {
       // Only check approval status after successful authentication
       if (application.status !== 'approved') {
         await supabase.auth.signOut();
-        toast.error("Your application is still pending approval");
+        toast.error("Your application is still pending approval. Please wait for admin review.");
         return;
       }
 
