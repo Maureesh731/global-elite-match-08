@@ -78,21 +78,22 @@ export default function ProfileSearch() {
 
         if (profilesError) throw profilesError;
 
-        // Also fetch applications to get health disclosures
-        const { data: appsData, error: appsError } = await supabase
-          .from('applications')
-          .select('user_id, has_herpes, has_hiv, has_hpv, has_other_stds, has_chronic_diseases, covid_vaccinated, uses_alcohol, uses_drugs, uses_marijuana, smokes_cigarettes, uses_prescription_drugs, disclosure_authorization, wants_optional_testing, member_profile_name, username')
-          .eq('status', 'approved');
+        // Use the secure view that only exposes consented health disclosures (bypasses RLS conflict)
+        const { data: disclosureData, error: disclosureError } = await supabase
+          .from('approved_member_disclosures' as any)
+          .select('*');
 
-        if (appsError) throw appsError;
+        if (disclosureError) {
+          console.error('Error fetching disclosures:', disclosureError);
+        }
 
-        // Merge profiles with application health data
-        const appMap: Record<string, any> = {};
-        (appsData || []).forEach(a => { appMap[a.user_id] = a; });
+        // Merge profiles with safe health disclosure data
+        const disclosureMap: Record<string, any> = {};
+        (disclosureData || []).forEach((d: any) => { disclosureMap[d.user_id] = d; });
 
         const merged = (profilesData || []).map(p => ({
           ...p,
-          ...(appMap[p.user_id] || {})
+          ...(disclosureMap[p.user_id] || {})
         }));
 
         setProfiles(merged);
