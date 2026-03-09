@@ -565,10 +565,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      can_user_send_messages: {
-        Args: { _user_id: string }
-        Returns: boolean
-      }
+      can_user_send_messages: { Args: { _user_id: string }; Returns: boolean }
       complete_auction_with_fees: {
         Args: { _auction_id: string; _winning_bid_id: string }
         Returns: {
