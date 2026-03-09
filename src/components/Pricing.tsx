@@ -2,19 +2,43 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Star, Crown, Coins } from "lucide-react";
+import { CheckCircle, Star, Crown, Coins, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { CryptoPaymentModal } from "@/components/CryptoPaymentModal";
 import { FullApplicationModal } from "@/components/FullApplicationModal";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export const Pricing = () => {
   const { t } = useTranslation();
   const [showCryptoModal, setShowCryptoModal] = useState(false);
   const [showAppModal, setShowAppModal] = useState(false);
+  const [stripeLoading, setStripeLoading] = useState(false);
 
   const handleApply = () => {
     setShowAppModal(true);
+  };
+
+  const handleStripeCheckout = async () => {
+    setStripeLoading(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error("Please sign in to subscribe.");
+        setStripeLoading(false);
+        return;
+      }
+      const { data, error } = await supabase.functions.invoke("create-checkout");
+      if (error) throw error;
+      if (data?.url) {
+        window.open(data.url, "_blank");
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Failed to start checkout. Please try again.");
+    } finally {
+      setStripeLoading(false);
+    }
   };
   
   const features = [
