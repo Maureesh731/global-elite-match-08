@@ -2,19 +2,43 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Star, Crown, Coins } from "lucide-react";
+import { CheckCircle, Star, Crown, Coins, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { CryptoPaymentModal } from "@/components/CryptoPaymentModal";
 import { FullApplicationModal } from "@/components/FullApplicationModal";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export const Pricing = () => {
   const { t } = useTranslation();
   const [showCryptoModal, setShowCryptoModal] = useState(false);
   const [showAppModal, setShowAppModal] = useState(false);
+  const [stripeLoading, setStripeLoading] = useState(false);
 
   const handleApply = () => {
     setShowAppModal(true);
+  };
+
+  const handleStripeCheckout = async () => {
+    setStripeLoading(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error("Please sign in to subscribe.");
+        setStripeLoading(false);
+        return;
+      }
+      const { data, error } = await supabase.functions.invoke("create-checkout");
+      if (error) throw error;
+      if (data?.url) {
+        window.open(data.url, "_blank");
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Failed to start checkout. Please try again.");
+    } finally {
+      setStripeLoading(false);
+    }
   };
   
   const features = [
@@ -111,9 +135,13 @@ export const Pricing = () => {
               </Button>
               
               <Button 
+                onClick={handleStripeCheckout}
+                disabled={stripeLoading}
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white py-6 text-lg font-bold shadow-2xl shadow-blue-500/30 border border-blue-500/50 transform hover:scale-105 transition-all duration-300"
               >
-                {t('pricing.renew_stripe')}
+                {stripeLoading ? (
+                  <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> Processing...</>
+                ) : t('pricing.renew_stripe')}
               </Button>
               
               <p className="text-center text-sm text-gray-500 mt-6">

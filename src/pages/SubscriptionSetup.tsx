@@ -134,8 +134,11 @@ const SubscriptionSetup = () => {
           
           <div className="mt-6 pt-6 border-t border-gray-700">
             <div className="flex justify-between items-center text-white">
-              <span className="text-lg font-semibold">Monthly Subscription</span>
-              <span className="text-2xl font-bold">$99/month</span>
+              <span className="text-lg font-semibold">First Month Special</span>
+              <div className="text-right">
+                <span className="text-2xl font-bold text-yellow-400">$24.50</span>
+                <div className="text-sm text-gray-400">then $49.99/month</div>
+              </div>
             </div>
           </div>
         </div>
