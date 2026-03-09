@@ -135,9 +135,13 @@ export const Pricing = () => {
               </Button>
               
               <Button 
+                onClick={handleStripeCheckout}
+                disabled={stripeLoading}
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white py-6 text-lg font-bold shadow-2xl shadow-blue-500/30 border border-blue-500/50 transform hover:scale-105 transition-all duration-300"
               >
-                {t('pricing.renew_stripe')}
+                {stripeLoading ? (
+                  <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> Processing...</>
+                ) : t('pricing.renew_stripe')}
               </Button>
               
               <p className="text-center text-sm text-gray-500 mt-6">
