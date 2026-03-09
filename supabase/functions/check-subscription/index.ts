@@ -1,13 +1,12 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import Stripe from "https://esm.sh/stripe@14.21.0";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
+import Stripe from "https://esm.sh/stripe@18.5.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.75.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-// Helper logging function for enhanced debugging
 const logStep = (step: string, details?: any) => {
   const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
   console.log(`[CHECK-SUBSCRIPTION] ${step}${detailsStr}`);
@@ -18,7 +17,6 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  // Use the service role key to perform writes (upsert) in Supabase
   const supabaseClient = createClient(
     Deno.env.get("SUPABASE_URL") ?? "",
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
@@ -30,37 +28,22 @@ serve(async (req) => {
 
     const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
     if (!stripeKey) throw new Error("STRIPE_SECRET_KEY is not set");
-    logStep("Stripe key verified");
 
     const authHeader = req.headers.get("Authorization");
     if (!authHeader) throw new Error("No authorization header provided");
-    logStep("Authorization header found");
 
     const token = authHeader.replace("Bearer ", "");
-    logStep("Authenticating user with token");
-    
     const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
     if (userError) throw new Error(`Authentication error: ${userError.message}`);
     const user = userData.user;
     if (!user?.email) throw new Error("User not authenticated or email not available");
     logStep("User authenticated", { userId: user.id, email: user.email });
 
-    const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
+    const stripe = new Stripe(stripeKey, { apiVersion: "2025-08-27.basil" });
     const customers = await stripe.customers.list({ email: user.email, limit: 1 });
-    
+
     if (customers.data.length === 0) {
-      logStep("No customer found, updating unsubscribed state");
-      await supabaseClient.from("subscribers").upsert({
-        email: user.email,
-        user_id: user.id,
-        stripe_customer_id: null,
-        subscribed: false,
-        subscription_tier: null,
-        subscription_end: null,
-        is_first_month: true,
-        referral_credits: 0,
-        updated_at: new Date().toISOString(),
-      }, { onConflict: 'email' });
+      logStep("No Stripe customer found");
       return new Response(JSON.stringify({ subscribed: false }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
@@ -75,6 +58,7 @@ serve(async (req) => {
       status: "active",
       limit: 1,
     });
+
     const hasActiveSub = subscriptions.data.length > 0;
     let subscriptionTier = "Premium";
     let subscriptionEnd = null;
@@ -83,18 +67,11 @@ serve(async (req) => {
     if (hasActiveSub) {
       const subscription = subscriptions.data[0];
       subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
-      
-      // Check if subscription has been running for more than a month (not first month anymore)
       const subscriptionStart = new Date(subscription.start_date * 1000);
       const oneMonthAgo = new Date();
       oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
       isFirstMonth = subscriptionStart > oneMonthAgo;
-      
-      logStep("Active subscription found", { 
-        subscriptionId: subscription.id, 
-        endDate: subscriptionEnd,
-        isFirstMonth 
-      });
+      logStep("Active subscription found", { subscriptionId: subscription.id, endDate: subscriptionEnd, isFirstMonth });
     } else {
       logStep("No active subscription found");
     }
@@ -102,37 +79,18 @@ serve(async (req) => {
     // Check referral credits
     const { data: referralData } = await supabaseClient
       .from("referrals")
-      .select("*")
+      .select("id")
       .eq("referrer_id", user.id)
       .eq("status", "approved");
-    
+
     const referralCredits = referralData?.length || 0;
 
-    await supabaseClient.from("subscribers").upsert({
-      email: user.email,
-      user_id: user.id,
-      stripe_customer_id: customerId,
-      subscribed: hasActiveSub,
-      subscription_tier: hasActiveSub ? subscriptionTier : null,
-      subscription_end: subscriptionEnd,
-      is_first_month: isFirstMonth,
-      referral_credits: referralCredits,
-      updated_at: new Date().toISOString(),
-    }, { onConflict: 'email' });
-
-    logStep("Updated database with subscription info", { 
-      subscribed: hasActiveSub, 
-      subscriptionTier,
-      isFirstMonth,
-      referralCredits 
-    });
-    
     return new Response(JSON.stringify({
       subscribed: hasActiveSub,
       subscription_tier: subscriptionTier,
       subscription_end: subscriptionEnd,
       is_first_month: isFirstMonth,
-      referral_credits: referralCredits
+      referral_credits: referralCredits,
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
