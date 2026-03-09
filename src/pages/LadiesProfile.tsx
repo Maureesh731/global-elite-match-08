@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { ProfileForm } from "@/components/ProfileForm";
 import { useNavigate } from "react-router-dom";
@@ -9,45 +8,91 @@ import { supabase } from "@/integrations/supabase/client";
 
 const LadiesProfilePage = () => {
   const navigate = useNavigate();
-  const [applicationData, setApplicationData] = useState<any>(null);
+  const [initialData, setInitialData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get application data from localStorage if coming from Welcome page
-    const storedData = localStorage.getItem('pendingApplication');
-    if (storedData) {
+    const loadUserData = async () => {
       try {
-        setApplicationData(JSON.parse(storedData));
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          navigate('/login');
+          return;
+        }
+
+        // Load application data to pre-fill form
+        const { data: app } = await supabase
+          .from('applications')
+          .select('first_name, last_name, age, bio, linkedin, status')
+          .eq('user_id', user.id)
+          .single();
+
+        if (app?.status !== 'approved') {
+          toast.error("Your application must be approved before creating a profile.");
+          navigate('/welcome');
+          return;
+        }
+
+        // Load existing profile if any
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('user_id', user.id)
+          .maybeSingle();
+
+        if (profile) {
+          setInitialData({
+            fullName: profile.full_name,
+            age: profile.age,
+            bio: profile.bio || '',
+            linkedin: ''
+          });
+        } else if (app) {
+          setInitialData({
+            fullName: `${app.first_name} ${app.last_name}`,
+            age: app.age,
+            bio: app.bio || '',
+            linkedin: app.linkedin || ''
+          });
+        }
       } catch (error) {
-        console.error('Error parsing application data:', error);
+        console.error('Error loading user data:', error);
+      } finally {
+        setLoading(false);
       }
-    }
-  }, []);
+    };
+
+    loadUserData();
+  }, [navigate]);
 
   async function handleSave(data: any) {
     try {
-      // For now, store profile data with the application data
-      // This will be updated once the admin approves the profile
-      const profileData = {
-        full_name: data.fullName,
-        age: parseInt(data.age),
-        bio: data.bio,
-        story: data.story,
-        linkedin: data.linkedin,
-        health_status: data.healthStatus,
-        covid_vaccinated: data.covidVaccinated === 'yes',
-        photos: data.photos,
-        photo_privacy: data.photoPrivacy,
-        gender: 'Lady',
-        status: 'pending_approval'
-      };
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast.error("You must be logged in to save your profile.");
+        navigate('/login');
+        return;
+      }
 
-      // Store profile data in localStorage for now
-      localStorage.setItem('pendingProfile', JSON.stringify(profileData));
-      
-      // Clear stored application data
-      localStorage.removeItem('pendingApplication');
-      
-      toast.success("Profile submitted for approval! You'll be notified once approved.");
+      const { error } = await supabase
+        .from('profiles')
+        .upsert({
+          user_id: user.id,
+          full_name: data.fullName,
+          age: String(data.age),
+          bio: data.bio || '',
+          gender: 'female',
+          membership_type: 'free',
+          status: 'pending'
+        }, { onConflict: 'user_id' });
+
+      if (error) {
+        console.error('Error saving profile:', error);
+        toast.error(`Failed to save profile: ${error.message}`);
+        return;
+      }
+
+      toast.success("Profile saved! It will be visible once approved.");
       setTimeout(() => navigate("/"), 2000);
     } catch (error) {
       console.error('Error saving profile:', error);
@@ -55,25 +100,26 @@ const LadiesProfilePage = () => {
     }
   }
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-xl text-gray-500">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-8">
       <div className="max-w-xl mx-auto px-2">
         <BackToHomeButton />
-        
-        {/* Live Member Counter */}
         <div className="flex justify-center mb-8">
           <MemberCounter />
         </div>
       </div>
-      <ProfileForm 
-        gender="Lady" 
-        onSave={handleSave} 
-        initialData={applicationData ? {
-          fullName: `${applicationData.firstName} ${applicationData.lastName}`,
-          age: applicationData.age,
-          bio: applicationData.bio,
-          linkedin: applicationData.linkedin
-        } : undefined}
+      <ProfileForm
+        gender="Lady"
+        onSave={handleSave}
+        initialData={initialData}
       />
     </div>
   );

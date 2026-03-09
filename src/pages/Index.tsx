@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
@@ -11,19 +10,19 @@ import { Footer } from "@/components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { FeaturedMembers } from "@/components/FeaturedMembers";
 import { FullApplicationModal } from "@/components/FullApplicationModal";
-import { useUserSubscription } from "@/hooks/useUserSubscription";
 import { VisitorCounter } from "@/components/VisitorCounter";
 import { LiveMemberCount } from "@/components/LiveMemberCount";
 import { BackgroundMusic } from "@/components/BackgroundMusic";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Index = () => {
   const [showAppModal, setShowAppModal] = useState(false);
-  const { subscribed, loading } = useUserSubscription();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
-  const handleButtonClick = (route: string) => {
-    if (subscribed) {
+  const handleMemberAction = (route: string) => {
+    if (user) {
       navigate(route);
     } else {
       setShowAppModal(true);
@@ -44,24 +43,21 @@ const Index = () => {
         <LiveMemberCount />
         <VisitorCounter />
         <div className="flex flex-wrap gap-6 justify-center">
-          <Button 
-            onClick={() => handleButtonClick("/gentlemen-profile")}
+          <Button
+            onClick={() => handleMemberAction("/gentlemen-profile")}
             className="bg-gradient-to-r from-purple-800 to-purple-600 hover:from-purple-700 hover:to-purple-500 text-white px-8 py-4 text-lg font-semibold border border-purple-500/30 shadow-lg shadow-purple-500/20"
-            disabled={loading}
           >
             Create Gentleman's Profile
           </Button>
-          <Button 
-            onClick={() => handleButtonClick("/ladies-profile")}
+          <Button
+            onClick={() => handleMemberAction("/ladies-profile")}
             className="bg-gradient-to-r from-red-800 to-red-600 hover:from-red-700 hover:to-red-500 text-white px-8 py-4 text-lg font-semibold border border-red-500/30 shadow-lg shadow-red-500/20"
-            disabled={loading}
           >
             Create Lady's Profile
           </Button>
-          <Button 
-            onClick={() => handleButtonClick("/profile-search")}
+          <Button
+            onClick={() => handleMemberAction("/profile-search")}
             className="bg-gradient-to-r from-gray-800 to-black hover:from-gray-700 hover:to-gray-900 text-white px-8 py-4 text-lg font-semibold border border-gray-600 shadow-lg"
-            disabled={loading}
           >
             Search Profiles
           </Button>
@@ -71,6 +67,11 @@ const Index = () => {
             </Button>
           </Link>
         </div>
+        {!user && (
+          <p className="text-gray-500 text-sm mt-2">
+            Sign in or apply to access member features
+          </p>
+        )}
       </div>
       <Footer />
       <FullApplicationModal
