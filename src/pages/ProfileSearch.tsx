@@ -5,82 +5,42 @@ import { MemberCounter } from "@/components/MemberCounter";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VerificationBadge } from "@/components/VerificationBadge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
-import { AlertTriangle } from "lucide-react";
-
-// Filter options
-const dietOptions = [
-  { value: "vegan", label: "Vegan" },
-  { value: "vegetarian", label: "Vegetarian" },
-  { value: "pescatarian", label: "Pescatarian" }
-];
-
-const smokingOptions = [
-  { value: "non_smoker", label: "Non Smoker" },
-  { value: "smoker", label: "Smoker" }
-];
-
-const orientationOptions = [
-  { value: "gay", label: "Gay" },
-  { value: "bisexual", label: "Bisexual" },
-  { value: "straight", label: "Straight" }
-];
-
-const relationshipOptions = [
-  { value: "monogamous", label: "Monogamous" },
-  { value: "polyamorous", label: "Polyamorous" },
-  { value: "polygamy", label: "Polygamy" }
-];
-
-const ethnicityOptions = [
-  { value: "white", label: "White" },
-  { value: "indigenous", label: "Indigenous" },
-  { value: "native_american", label: "Native American" },
-  { value: "latin", label: "Latin" },
-  { value: "latino", label: "Latino" },
-  { value: "black", label: "Black" },
-  { value: "african", label: "African" },
-  { value: "african_american", label: "African American" },
-  { value: "european", label: "European" },
-  { value: "asian", label: "Asian" },
-  { value: "jewish", label: "Jewish" }
-];
+import { AlertTriangle, UserCircle, Lock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileSearch() {
+  const navigate = useNavigate();
   const [userGender, setUserGender] = useState<"Gentleman" | "Lady" | null>(null);
-  const [subscribed, setSubscribed] = useState(false);
   const [profiles, setProfiles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [filteredProfiles, setFilteredProfiles] = useState<any[]>([]);
   const [isApproved, setIsApproved] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [checkingApproval, setCheckingApproval] = useState(true);
 
   // Filter state
-  const [ageRange, setAgeRange] = useState({ min: 18, max: 50 });
-  const [diet, setDiet] = useState<string>("any");
-  const [smoking, setSmoking] = useState<string>("any");
+  const [ageRange, setAgeRange] = useState({ min: 18, max: 80 });
   const [marijuana, setMarijuana] = useState(false);
-  const [orientation, setOrientation] = useState<string>("any");
-  const [relationship, setRelationship] = useState<string>("any");
-  const [ethnicities, setEthnicities] = useState<string[]>([]);
-  const [petOwner, setPetOwner] = useState<string>("any");
   const [unvaccinatedOnly, setUnvaccinatedOnly] = useState(false);
   const [bloodTestOnly, setBloodTestOnly] = useState(false);
 
-  // Check if current user is approved
+  // Check if current user is logged in and approved
   useEffect(() => {
     const checkUserApproval = async () => {
       try {
         const { data: { user } } = await supabase.auth.getUser();
-        
+
         if (!user) {
+          setIsLoggedIn(false);
           setIsApproved(false);
           setCheckingApproval(false);
           return;
         }
+
+        setIsLoggedIn(true);
 
         const { data, error } = await supabase
           .from('applications')
@@ -104,47 +64,41 @@ export default function ProfileSearch() {
     checkUserApproval();
   }, []);
 
-  // Fetch approved profiles from applications table
+  // Fetch approved profiles — join profiles + applications for photos + health data
   useEffect(() => {
+    if (!isApproved) return;
+
     const fetchProfiles = async () => {
       try {
-        const { data, error } = await supabase
-          .from('applications')
-          .select(`
-            id,
-            first_name,
-            last_name,
-            member_profile_name,
-            age,
-            bio,
-            linkedin,
-            has_herpes,
-            has_hiv,
-            has_hpv,
-            has_other_stds,
-            has_chronic_diseases,
-            covid_vaccinated,
-            uses_alcohol,
-            uses_drugs,
-            uses_marijuana,
-            smokes_cigarettes,
-            uses_prescription_drugs,
-            disclosure_authorization,
-            wants_optional_testing,
-            status
-          `)
+        // Fetch from profiles table (has photo_urls) joined with applications for health data
+        const { data: profilesData, error: profilesError } = await supabase
+          .from('profiles')
+          .select('*')
           .eq('status', 'approved');
 
-        if (error) {
-          console.error('Error fetching profiles:', error);
-          toast.error('Failed to load profiles');
-          return;
-        }
+        if (profilesError) throw profilesError;
 
-        setProfiles(data || []);
-        setFilteredProfiles(data || []);
+        // Also fetch applications to get health disclosures
+        const { data: appsData, error: appsError } = await supabase
+          .from('applications')
+          .select('user_id, has_herpes, has_hiv, has_hpv, has_other_stds, has_chronic_diseases, covid_vaccinated, uses_alcohol, uses_drugs, uses_marijuana, smokes_cigarettes, uses_prescription_drugs, disclosure_authorization, wants_optional_testing, member_profile_name, username')
+          .eq('status', 'approved');
+
+        if (appsError) throw appsError;
+
+        // Merge profiles with application health data
+        const appMap: Record<string, any> = {};
+        (appsData || []).forEach(a => { appMap[a.user_id] = a; });
+
+        const merged = (profilesData || []).map(p => ({
+          ...p,
+          ...(appMap[p.user_id] || {})
+        }));
+
+        setProfiles(merged);
+        setFilteredProfiles(merged);
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error fetching profiles:', error);
         toast.error('Failed to load profiles');
       } finally {
         setLoading(false);
@@ -152,35 +106,28 @@ export default function ProfileSearch() {
     };
 
     fetchProfiles();
-  }, []);
+  }, [isApproved]);
 
-  // Filter profiles based on selected criteria
+  // Filter profiles
   useEffect(() => {
     let filtered = profiles.filter(profile => {
       const age = parseInt(profile.age);
-      if (age < ageRange.min || age > ageRange.max) return false;
-      
+      if (!isNaN(age)) {
+        if (age < ageRange.min || age > ageRange.max) return false;
+      }
       if (unvaccinatedOnly && profile.covid_vaccinated !== 'no') return false;
       if (bloodTestOnly && profile.wants_optional_testing !== 'yes') return false;
       if (marijuana && profile.uses_marijuana !== 'yes') return false;
-      
+      // Gender filter: show opposite gender
+      if (userGender === 'Gentleman' && profile.gender === 'male') return false;
+      if (userGender === 'Lady' && profile.gender === 'female') return false;
       return true;
     });
-
     setFilteredProfiles(filtered);
-  }, [profiles, ageRange, unvaccinatedOnly, bloodTestOnly, marijuana]);
-
-  const handleEthnicityChange = (eth: string) => {
-    setEthnicities((current) =>
-      current.includes(eth)
-        ? current.filter((e) => e !== eth)
-        : [...current, eth]
-    );
-  };
+  }, [profiles, ageRange, unvaccinatedOnly, bloodTestOnly, marijuana, userGender]);
 
   const getHealthDisclosures = (profile: any) => {
     if (profile.disclosure_authorization !== "yes") return [];
-    
     const disclosures = [];
     if (profile.has_herpes === "yes") disclosures.push("HSV+");
     if (profile.has_hiv === "yes") disclosures.push("HIV+");
@@ -190,28 +137,30 @@ export default function ProfileSearch() {
     if (profile.uses_drugs === "yes") disclosures.push("Drugs");
     if (profile.uses_marijuana === "yes") disclosures.push("Marijuana");
     if (profile.smokes_cigarettes === "yes") disclosures.push("Smoker");
-    
     return disclosures;
-  };
-
-  // Reset filters when switching user gender
-  const handleUserGender = (g: "Gentleman" | "Lady") => {
-    setUserGender(g);
-    setDiet("any");
-    setSmoking("any");
-    setMarijuana(false);
-    setOrientation("any");
-    setRelationship("any");
-    setEthnicities([]);
-    setPetOwner("any");
   };
 
   if (checkingApproval) {
     return (
-      <div className="container max-w-3xl mx-auto py-12">
-        <BackToHomeButton />
-        <div className="text-center py-20">
-          <h2 className="text-2xl font-bold mb-4">Checking your approval status...</h2>
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center">
+        <div className="text-white text-xl">Checking your access...</div>
+      </div>
+    );
+  }
+
+  if (!isLoggedIn) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center p-4">
+        <div className="text-center space-y-4 max-w-md">
+          <Lock className="w-16 h-16 text-purple-400 mx-auto" />
+          <h2 className="text-2xl font-bold text-white">Sign In Required</h2>
+          <p className="text-gray-400">You need to sign in to browse member profiles.</p>
+          <Button onClick={() => navigate('/login')} className="bg-gradient-to-r from-purple-600 to-red-600 text-white">
+            Sign In
+          </Button>
+          <div className="pt-2">
+            <BackToHomeButton />
+          </div>
         </div>
       </div>
     );
@@ -219,187 +168,174 @@ export default function ProfileSearch() {
 
   if (!isApproved) {
     return (
-      <div className="container max-w-3xl mx-auto py-12">
-        <BackToHomeButton />
-        <div className="text-center py-20 space-y-4">
-          <h2 className="text-2xl font-bold mb-4">Application Pending Approval</h2>
-          <p className="text-gray-600">Your application is currently being reviewed by our admin team.</p>
-          <p className="text-gray-600">You'll be able to search profiles once your application is approved.</p>
-          <p className="text-sm text-gray-500 mt-4">This usually takes 24-48 hours.</p>
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center p-4">
+        <div className="text-center space-y-4 max-w-md">
+          <BackToHomeButton />
+          <h2 className="text-2xl font-bold text-white mt-6">Application Pending</h2>
+          <p className="text-gray-400">Your application is currently being reviewed. You'll be able to search profiles once approved (typically 24-48 hours).</p>
         </div>
       </div>
     );
   }
 
-  if (!userGender)
+  if (!userGender) {
     return (
-      <div className="flex flex-col items-center mx-auto py-20 gap-8">
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex flex-col items-center justify-center py-20 gap-8">
         <BackToHomeButton />
-        
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-4">
           <MemberCounter />
         </div>
-        
-        <h2 className="text-2xl font-semibold">Select Your Gender to Search</h2>
+        <h2 className="text-2xl font-semibold text-white">Who are you looking to meet?</h2>
         <div className="flex gap-8">
-          <Button onClick={() => handleUserGender("Gentleman")} className="px-8 text-lg">Gentleman</Button>
-          <Button onClick={() => handleUserGender("Lady")} className="px-8 text-lg">Lady</Button>
+          <Button
+            onClick={() => setUserGender("Gentleman")}
+            className="px-10 py-6 text-lg bg-gradient-to-r from-purple-700 to-purple-500 hover:from-purple-600 hover:to-purple-400"
+          >
+            I'm a Lady (Looking for Gentlemen)
+          </Button>
+          <Button
+            onClick={() => setUserGender("Lady")}
+            className="px-10 py-6 text-lg bg-gradient-to-r from-red-700 to-red-500 hover:from-red-600 hover:to-red-400"
+          >
+            I'm a Gentleman (Looking for Ladies)
+          </Button>
         </div>
       </div>
     );
-
-  if (!subscribed)
-    return (
-      <div className="flex flex-col items-center mx-auto py-20 gap-6">
-        <BackToHomeButton />
-        
-        <div className="flex justify-center mb-8">
-          <MemberCounter />
-        </div>
-        
-        <h2 className="text-xl font-bold">Subscription Required</h2>
-        <p className="text-gray-700 mb-2">Please purchase a monthly subscription to access the search.</p>
-        <Button
-          className="bg-blue-900 hover:bg-blue-800"
-          onClick={() => setSubscribed(true)}
-        >Simulate Payment (Demo)</Button>
-      </div>
-    );
+  }
 
   if (loading) {
     return (
-      <div className="container max-w-3xl mx-auto py-12">
-        <BackToHomeButton />
-        <div className="text-center py-20">
-          <h2 className="text-2xl font-bold mb-4">Loading Profiles...</h2>
-        </div>
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center">
+        <div className="text-white text-xl">Loading member profiles...</div>
       </div>
     );
   }
 
   return (
-    <div className="container max-w-3xl mx-auto py-12">
-      <BackToHomeButton />
-      
-      <div className="flex justify-center mb-8">
-        <MemberCounter />
-      </div>
-      
-      <h2 className="text-3xl font-extrabold mb-8 text-center">Browse Members</h2>
-      
-      <div className="bg-slate-50 border rounded-xl p-4 mb-8">
-        <h3 className="font-semibold text-lg mb-4">Search Filters</h3>
-        <div className="grid md:grid-cols-2 gap-4">
-          <div>
-            <label className="flex items-center gap-2">
-              <Checkbox 
-                checked={unvaccinatedOnly} 
-                onCheckedChange={(checked) => setUnvaccinatedOnly(!!checked)} 
-              />
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black">
+      <div className="container max-w-5xl mx-auto py-12 px-4">
+        <BackToHomeButton />
+
+        <div className="flex justify-center my-6">
+          <MemberCounter />
+        </div>
+
+        <h2 className="text-3xl font-extrabold mb-8 text-center text-white">
+          Browse {userGender === 'Gentleman' ? 'Ladies' : 'Gentlemen'}
+        </h2>
+
+        {/* Filters */}
+        <div className="bg-gray-800/60 border border-gray-700 rounded-xl p-4 mb-8">
+          <h3 className="font-semibold text-lg mb-4 text-white">Search Filters</h3>
+          <div className="grid md:grid-cols-3 gap-4">
+            <label className="flex items-center gap-2 text-gray-300 cursor-pointer">
+              <Checkbox checked={unvaccinatedOnly} onCheckedChange={(c) => setUnvaccinatedOnly(!!c)} />
               <span className="text-sm">Unvaccinated Only</span>
             </label>
-          </div>
-          <div>
-            <label className="flex items-center gap-2">
-              <Checkbox 
-                checked={bloodTestOnly} 
-                onCheckedChange={(checked) => setBloodTestOnly(!!checked)} 
-              />
+            <label className="flex items-center gap-2 text-gray-300 cursor-pointer">
+              <Checkbox checked={bloodTestOnly} onCheckedChange={(c) => setBloodTestOnly(!!c)} />
               <span className="text-sm">Lab Verified Only</span>
             </label>
-          </div>
-          <div>
-            <label className="flex items-center gap-2">
-              <Checkbox 
-                checked={marijuana} 
-                onCheckedChange={(checked) => setMarijuana(!!checked)} 
-              />
+            <label className="flex items-center gap-2 text-gray-300 cursor-pointer">
+              <Checkbox checked={marijuana} onCheckedChange={(c) => setMarijuana(!!c)} />
               <span className="text-sm">Marijuana Users</span>
             </label>
           </div>
         </div>
-      </div>
 
-      {filteredProfiles.length === 0 && (
-        <div className="text-center text-gray-400 py-12">
-          No profiles found with your selected criteria.
-        </div>
-      )}
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {filteredProfiles.map((profile) => {
-          const healthDisclosures = getHealthDisclosures(profile);
-          // Mock photo for now since photos aren't stored in applications table yet
-          const mockPhoto = "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952";
-          
-          return (
-            <div key={profile.id} className="rounded-xl border p-4 bg-white flex flex-col gap-4 shadow hover:shadow-lg transition-shadow">
-              <div className="grid grid-cols-1 gap-2">
-                <img src={mockPhoto} alt="Profile" className="object-cover aspect-square rounded-md border w-full" />
-              </div>
-              
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <button
-                    onClick={() => window.open(`/profile/${profile.id}`, '_blank')}
-                    className="font-bold text-lg text-blue-600 hover:text-blue-800 underline text-left"
-                  >
-                    {profile.first_name} {profile.last_name} ({profile.age})
-                  </button>
-                  <VerificationBadge hasBloodTest={profile.wants_optional_testing === 'yes'} showText={false} size="sm" />
+        {filteredProfiles.length === 0 && (
+          <div className="text-center text-gray-400 py-12">
+            No profiles found matching your criteria. Try adjusting your filters.
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProfiles.map((profile) => {
+            const healthDisclosures = getHealthDisclosures(profile);
+            const photos = profile.photo_urls || [];
+            const primaryPhoto = photos[0] || null;
+
+            return (
+              <div
+                key={profile.id}
+                className="rounded-xl border border-gray-700 bg-gray-800/50 flex flex-col gap-3 shadow-lg hover:shadow-purple-500/20 hover:border-purple-500/50 transition-all duration-200 overflow-hidden"
+              >
+                {/* Photo */}
+                <div className="aspect-square bg-gray-700 relative overflow-hidden">
+                  {primaryPhoto ? (
+                    <img
+                      src={primaryPhoto}
+                      alt="Profile"
+                      className="object-cover w-full h-full"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <UserCircle className="w-20 h-20 text-gray-500" />
+                    </div>
+                  )}
                 </div>
-                
-                <div className="text-gray-600 mb-3">{profile.bio}</div>
-                
-                {/* Health Disclosures */}
-                {healthDisclosures.length > 0 && (
-                  <div className="mb-3">
-                    <div className="flex items-center gap-1 mb-2">
-                      <AlertTriangle className="w-4 h-4 text-orange-500" />
-                      <span className="text-sm font-medium text-orange-700">Health Disclosures:</span>
-                    </div>
-                    <div className="flex flex-wrap gap-1">
-                      {healthDisclosures.map((disclosure, index) => (
-                        <Badge key={index} variant="outline" className="text-xs bg-orange-50 text-orange-700 border-orange-200">
-                          {disclosure}
-                        </Badge>
-                      ))}
-                    </div>
+
+                <div className="px-4 pb-4 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => navigate(`/profile/${profile.user_id}`)}
+                      className="font-bold text-lg text-purple-300 hover:text-purple-200 text-left truncate"
+                    >
+                      {profile.full_name} ({profile.age})
+                    </button>
+                    <VerificationBadge hasBloodTest={profile.wants_optional_testing === 'yes'} showText={false} size="sm" />
                   </div>
-                )}
-                
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                      <span className="text-blue-600 text-sm font-medium">LinkedIn Verified</span>
+
+                  {profile.bio && (
+                    <p className="text-gray-400 text-sm line-clamp-2">{profile.bio}</p>
+                  )}
+
+                  {healthDisclosures.length > 0 && (
+                    <div>
+                      <div className="flex items-center gap-1 mb-1">
+                        <AlertTriangle className="w-3 h-3 text-orange-400" />
+                        <span className="text-xs font-medium text-orange-400">Health Disclosures:</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {healthDisclosures.map((d, i) => (
+                          <Badge key={i} variant="outline" className="text-xs bg-orange-950/40 text-orange-300 border-orange-700/50">
+                            {d}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                    <VerificationBadge hasBloodTest={profile.wants_optional_testing === 'yes'} size="sm" />
+                  )}
+
+                  <div className="flex items-center justify-between pt-1">
+                    <div className="text-xs text-gray-500">
+                      {profile.covid_vaccinated === 'no' ? (
+                        <span className="text-green-400">✓ Unvaccinated</span>
+                      ) : (
+                        <span className="text-gray-500">Vaccinated</span>
+                      )}
+                    </div>
+                    <FavoriteButton
+                      profileId={profile.user_id}
+                      profileName={profile.full_name}
+                      size="sm"
+                      variant="ghost"
+                    />
                   </div>
-                  <FavoriteButton 
-                    profileId={profile.id}
-                    profileName={`${profile.first_name} ${profile.last_name}`}
+
+                  <Button
+                    onClick={() => navigate(`/profile/${profile.user_id}`)}
+                    variant="outline"
                     size="sm"
-                    variant="ghost"
-                  />
+                    className="w-full border-purple-500/30 text-purple-300 hover:bg-purple-500/20"
+                  >
+                    View Profile
+                  </Button>
                 </div>
               </div>
-              
-              <div className="text-xs text-gray-500 space-y-1">
-                <div>Member: @{profile.member_profile_name}</div>
-                <div>
-                  COVID-19 Vaccinated:{" "}
-                  <span className={profile.covid_vaccinated === "no" ? "text-green-600 font-bold" : "text-red-600"}>
-                    {profile.covid_vaccinated === "no" ? "Unvaccinated" : "Vaccinated"}
-                  </span>
-                </div>
-                {profile.wants_optional_testing === 'yes' && (
-                  <div className="text-blue-600 font-medium">✓ Lab Testing Completed</div>
-                )}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
