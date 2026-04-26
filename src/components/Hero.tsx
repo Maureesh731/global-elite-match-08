@@ -116,18 +116,31 @@ export const Hero = () => {
             </div>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <FullApplicationModal>
-              <Button size="lg" className="bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white px-12 py-6 text-xl font-bold shadow-2xl shadow-red-500/30 border border-red-500/50 transform hover:scale-105 transition-all duration-300">
-                {t('hero.cta_button')}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <FullApplicationModal role="gentleman">
+              <Button
+                size="lg"
+                className="w-full bg-gradient-to-br from-blue-700 to-indigo-900 hover:from-blue-600 hover:to-indigo-800 text-white px-10 py-8 text-2xl font-bold shadow-2xl shadow-blue-500/30 border border-blue-400/40 transform hover:scale-[1.03] transition-all duration-300 rounded-2xl"
+              >
+                I'm a Gentleman →
               </Button>
             </FullApplicationModal>
-            <FullApplicationModal isFreeProfile={true}>
-              <Button size="lg" className="bg-white/10 backdrop-blur-sm border-2 border-white/30 hover:bg-white/20 text-white px-12 py-6 text-xl font-semibold transform hover:scale-105 transition-all duration-300 shadow-2xl shadow-purple-500/30" variant="outline">
-                Create Free Profile
+            <FullApplicationModal role="lady" isFreeProfile={true}>
+              <Button
+                size="lg"
+                className="w-full bg-gradient-to-br from-pink-600 to-rose-700 hover:from-pink-500 hover:to-rose-600 text-white px-10 py-8 text-2xl font-bold shadow-2xl shadow-pink-500/30 border border-pink-400/40 transform hover:scale-[1.03] transition-all duration-300 rounded-2xl"
+              >
+                I'm a Lady →
               </Button>
             </FullApplicationModal>
           </div>
+
+          <p className="mt-6 text-sm text-gray-400">
+            Already a member?{" "}
+            <Link to="/login?role=gentleman" className="text-white underline hover:text-pink-400 transition-colors">
+              Sign in
+            </Link>
+          </p>
         </div>
       </div>
     </section>
