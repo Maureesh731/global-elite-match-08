@@ -5,7 +5,7 @@ import { BackToHomeButton } from "@/components/BackToHomeButton";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Clock, CreditCard, Calendar, RefreshCw, Crown, AlertCircle } from "lucide-react";
+import { CheckCircle2, Clock, CreditCard, Calendar, RefreshCw, Crown, AlertCircle, ShieldCheck } from "lucide-react";
 import { useUserSubscription } from "@/hooks/useUserSubscription";
 import { toast } from "sonner";
 
@@ -255,6 +255,21 @@ const Welcome = () => {
             </CardContent>
           </Card>
           <SubscriptionCard {...subCardProps} />
+          <Card className="bg-gradient-to-br from-blue-900/40 to-gray-900/60 border border-blue-500/20">
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center gap-2 text-white text-lg">
+                <ShieldCheck className="w-5 h-5 text-blue-400" /> Verification
+              </CardTitle>
+              <CardDescription className="text-gray-300">
+                Submit your LinkedIn (required) and optionally upload lab results for a blue check.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button onClick={() => navigate('/verification')} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500">
+                Open verification
+              </Button>
+            </CardContent>
+          </Card>
         </div>
       </div>
     );

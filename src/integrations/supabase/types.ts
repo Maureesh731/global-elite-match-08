@@ -378,11 +378,16 @@ export type Database = {
           gender: string
           health_status: string | null
           id: string
+          linkedin_url: string | null
           membership_type: string
           photo_urls: string[] | null
           status: string
           updated_at: string
           user_id: string
+          verification_documents: string[] | null
+          verification_review_notes: string | null
+          verification_status: string
+          verification_submitted_at: string | null
         }
         Insert: {
           age: string
@@ -392,11 +397,16 @@ export type Database = {
           gender: string
           health_status?: string | null
           id?: string
+          linkedin_url?: string | null
           membership_type?: string
           photo_urls?: string[] | null
           status?: string
           updated_at?: string
           user_id: string
+          verification_documents?: string[] | null
+          verification_review_notes?: string | null
+          verification_status?: string
+          verification_submitted_at?: string | null
         }
         Update: {
           age?: string
@@ -406,11 +416,16 @@ export type Database = {
           gender?: string
           health_status?: string | null
           id?: string
+          linkedin_url?: string | null
           membership_type?: string
           photo_urls?: string[] | null
           status?: string
           updated_at?: string
           user_id?: string
+          verification_documents?: string[] | null
+          verification_review_notes?: string | null
+          verification_status?: string
+          verification_submitted_at?: string | null
         }
         Relationships: []
       }

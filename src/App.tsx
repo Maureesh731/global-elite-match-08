@@ -30,6 +30,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import SubscriptionSetup from "./pages/SubscriptionSetup";
 import ProfilePhotos from "./pages/ProfilePhotos";
 import Contact from "./pages/Contact";
+import Verification from "./pages/Verification";
 import { AuthProvider } from "./contexts/AuthContext";
 
 const queryClient = new QueryClient();
@@ -64,6 +65,7 @@ const App = () => (
             <Route path="/accredited-clinics" element={<AccreditedClinics />} />
             <Route path="/profile-photos" element={<ProfilePhotos />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/verification" element={<Verification />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="/networking" element={<NetworkingPage />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />

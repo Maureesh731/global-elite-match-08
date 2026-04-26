@@ -8,8 +8,9 @@ import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
-import { LogOut, Mail, Check, X, Eye, Send } from 'lucide-react';
+import { LogOut, Mail, Check, X, Eye, Send, ShieldCheck } from 'lucide-react';
 import { toast } from 'sonner';
+import { AdminVerificationReview } from '@/components/AdminVerificationReview';
 
 interface Application {
   id: string;
@@ -254,6 +255,7 @@ const AdminDashboard = () => {
           <TabsList className="bg-gray-900 border-gray-700">
             <TabsTrigger value="applications">Applications ({applications.length})</TabsTrigger>
             <TabsTrigger value="profiles">Profiles ({profiles.length})</TabsTrigger>
+            <TabsTrigger value="verification"><ShieldCheck className="w-4 h-4 mr-1" />Verification</TabsTrigger>
             <TabsTrigger value="email">Send Email</TabsTrigger>
           </TabsList>
 
@@ -436,6 +438,10 @@ const AdminDashboard = () => {
                 </Card>
               ))}
             </div>
+          </TabsContent>
+
+          <TabsContent value="verification" className="space-y-4">
+            <AdminVerificationReview />
           </TabsContent>
 
           <TabsContent value="email" className="space-y-4">
