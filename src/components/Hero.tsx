@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, Shield, Users, Crown, Facebook, Instagram } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { FullApplicationModal } from "@/components/FullApplicationModal";
 import heroHealth1 from "@/assets/hero-health-1.jpg";
 import heroHealth2 from "@/assets/hero-health-2.jpg";
