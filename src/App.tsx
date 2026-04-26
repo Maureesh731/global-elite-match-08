@@ -22,6 +22,7 @@ import MessagesPage from "./pages/MessagesPage";
 import { ApplicationReview } from "./pages/ApplicationReview";
 import Login from "./pages/Login";
 import Welcome from "./pages/Welcome";
+import Dashboard from "./pages/Dashboard";
 import DonationAuctions from "./pages/DonationAuctions";
 import DonationProfileSetup from "./pages/DonationProfileSetup";
 import AccreditedClinics from "./pages/AccreditedClinics";
@@ -52,6 +53,7 @@ const App = () => (
             <Route path="/profile/:id" element={<ProfileDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/welcome" element={<Welcome />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/subscription-setup" element={<SubscriptionSetup />} />
             <Route path="/testimonials" element={<TestimonialsPage />} />
             <Route path="/donate-compensation" element={<DonateCompensation />} />
