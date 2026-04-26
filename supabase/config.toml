@@ -2,3 +2,5 @@ project_id = "sjfjptlnqoimfwjjfqud"
 
 [functions.stripe-webhook]
 verify_jwt = false
+[functions.seed-test-paid-user]
+verify_jwt = false
