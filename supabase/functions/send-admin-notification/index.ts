@@ -25,7 +25,21 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const { applicantName, applicantEmail, membershipType, applicationId }: AdminNotificationRequest = await req.json();
 
-    console.log("Sending admin notification for application:", applicationId);
+    const esc = (s: string) =>
+      (s ?? "")
+        .toString()
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+
+    const safeName = esc(applicantName);
+    const safeEmail = esc(applicantEmail);
+    const safeMembership = esc(membershipType);
+    const safeAppId = esc(applicationId);
+
+    console.log("Sending admin notification for application:", safeAppId);
 
     const emailResponse = await resend.emails.send({
       from: "Untouchable Dating <onboarding@resend.dev>",
@@ -37,10 +51,10 @@ const handler = async (req: Request): Promise<Response> => {
         
         <h2>Applicant Details:</h2>
         <ul>
-          <li><strong>Name:</strong> ${applicantName}</li>
-          <li><strong>Email:</strong> ${applicantEmail}</li>
-          <li><strong>Membership Type:</strong> ${membershipType}</li>
-          <li><strong>Application ID:</strong> ${applicationId}</li>
+          <li><strong>Name:</strong> ${safeName}</li>
+          <li><strong>Email:</strong> ${safeEmail}</li>
+          <li><strong>Membership Type:</strong> ${safeMembership}</li>
+          <li><strong>Application ID:</strong> ${safeAppId}</li>
         </ul>
         
         <p>Please review and approve this application in the admin dashboard.</p>
