@@ -247,10 +247,16 @@ const Welcome = () => {
                 Welcome {userName}! Your application has been approved.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-3">
               <p className="text-gray-400 text-center">
                 You now have full access to all member features.
               </p>
+              <Button
+                onClick={() => navigate('/dashboard')}
+                className="w-full bg-gradient-to-r from-purple-600 to-red-600 hover:from-purple-500 hover:to-red-500"
+              >
+                Open Member Dashboard
+              </Button>
               <BackToHomeButton className="w-full" />
             </CardContent>
           </Card>
