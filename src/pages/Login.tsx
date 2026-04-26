@@ -76,7 +76,9 @@ const Login = () => {
     <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black flex items-center justify-center">
       <Card className="w-full max-w-md mx-4">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Sign In</CardTitle>
+          <CardTitle className="text-2xl font-bold">
+            {roleLabel ? `Sign In — ${roleLabel}` : "Sign In"}
+          </CardTitle>
           <CardDescription>
             Access your Untouchable Dating account
           </CardDescription>
