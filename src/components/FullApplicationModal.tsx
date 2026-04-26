@@ -17,6 +17,7 @@ type FullApplicationModalProps = {
   onOpenChange?: (open: boolean) => void;
   onSubmit?: (data: any) => void;
   isFreeProfile?: boolean;
+  role?: "gentleman" | "lady";
 };
 
 export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
@@ -25,10 +26,22 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
   onOpenChange: controlledOnOpenChange,
   onSubmit,
   isFreeProfile = false,
+  role,
 }) => {
   const [internalOpen, setInternalOpen] = useState(false);
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
-  const onOpenChange = controlledOnOpenChange || setInternalOpen;
+  const handleOpenChange = (next: boolean) => {
+    // Reflect chosen role in the URL so the signup intent is shareable / trackable
+    if (role && typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      if (next) url.searchParams.set("role", role);
+      else url.searchParams.delete("role");
+      window.history.replaceState({}, "", url.toString());
+    }
+    if (controlledOnOpenChange) controlledOnOpenChange(next);
+    else setInternalOpen(next);
+  };
+  const onOpenChange = handleOpenChange;
 
   const { form, handleInput, isFormValid, resetForm } = useApplicationForm();
   const { submitApplication } = useApplicationSubmission();
