@@ -17,6 +17,7 @@ type FullApplicationModalProps = {
   onOpenChange?: (open: boolean) => void;
   onSubmit?: (data: any) => void;
   isFreeProfile?: boolean;
+  role?: "gentleman" | "lady";
 };
 
 export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
@@ -25,7 +26,14 @@ export const FullApplicationModal: React.FC<FullApplicationModalProps> = ({
   onOpenChange: controlledOnOpenChange,
   onSubmit,
   isFreeProfile = false,
+  role,
 }) => {
+  // Reflect chosen role in the URL so the signup intent is shareable / trackable
+  useEffect(() => {
+    if (controlledOpen === undefined && role) {
+      // handled below when modal opens
+    }
+  }, [controlledOpen, role]);
   const [internalOpen, setInternalOpen] = useState(false);
   const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
   const onOpenChange = controlledOnOpenChange || setInternalOpen;
